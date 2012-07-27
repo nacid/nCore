@@ -1,0 +1,130 @@
+package ru.nacid.base.view
+{
+	import com.junkbyte.console.Cc;
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import ru.nacid.base.data.interfaces.IData;
+	import ru.nacid.base.Model;
+	import ru.nacid.base.services.logs.interfaces.IChannelParent;
+	import ru.nacid.base.view.data.Position;
+	import ru.nacid.utils.StringUtils;
+	
+	/**
+	 * ...
+	 * @author Nikolay nacid Bondarev
+	 */
+	public class ViewObject extends SimpleViewObject implements IData, IChannelParent
+	{
+		protected const VIEW_CHANNEL:String = 'DIS';
+		
+		private var _id:String;
+		private var _numericId:Number;
+		
+		private var _inited:Boolean;
+		private var _onStage:Boolean;
+		
+		protected var showData:Object;
+		protected var model:Model;
+		
+		public function ViewObject($id:String = '')
+		{
+			_id = $id;
+			_numericId = StringUtils.toCRC(_id);
+			
+			if (stage)
+			{
+				init();
+				show();
+			}
+			else
+				addEventListener(Event.ADDED_TO_STAGE, stageOnHandler);
+		}
+		
+		private function stageOnHandler(e:Event):void
+		{
+			addEventListener(Event.REMOVED_FROM_STAGE, stageOffHandler);
+			removeEventListener(Event.ADDED_TO_STAGE, stageOnHandler);
+			
+			if (!_inited)
+				init();
+			_onStage = true;
+			show();
+		}
+		
+		private function stageOffHandler(e:Event):void
+		{
+			removeEventListener(Event.REMOVED_FROM_STAGE, stageOffHandler);
+			addEventListener(Event.ADDED_TO_STAGE, stageOnHandler);
+			
+			_onStage = false;
+			hide();
+		}
+		
+		protected function init():void
+		{
+			model = Model.instance;
+		}
+		
+		protected function show():void
+		{
+			//@override
+		}
+		
+		protected function hide():void
+		{
+			//@override
+		}
+		
+		public function isInited():Boolean
+		{
+			return _inited;
+		}
+		
+		public function get onStage():Boolean
+		{
+			return _onStage;
+		}
+		
+		
+		/* INTERFACE ru.nacid.base.data.interfaces.IData */
+		
+		public function get id():String
+		{
+			return _id;
+		}
+		
+		public function valueOf():Number
+		{
+			return _numericId;
+		}
+		
+		/* INTERFACE ru.nacid.base.services.logs.interfaces.IChannelParent */
+		
+		public function log($string:String):void
+		{
+			Cc.logch(VIEW_CHANNEL, $string);
+		}
+		
+		public function warning($string:String):void
+		{
+			Cc.warnch(VIEW_CHANNEL, $string);
+		}
+		
+		public function info($string:String):void
+		{
+			Cc.infoch(VIEW_CHANNEL, $string);
+		}
+		
+		public function error($string:String):void
+		{
+			Cc.errorch(VIEW_CHANNEL, $string);
+		}
+		
+		public function critical($string:String):void
+		{
+			Cc.fatalch(VIEW_CHANNEL, $string);
+		}
+	
+	}
+
+}
