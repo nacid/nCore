@@ -7,7 +7,6 @@ package ru.nacid.base.services.lan
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
-	import org.flintparticles.common.initializers.SharedImage;
 	import ru.nacid.base.services.Command;
 	import ru.nacid.base.services.lan.data.RequestVO;
 	

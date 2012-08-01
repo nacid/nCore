@@ -18,12 +18,15 @@ package ru.nacid.base.services.localization.commands
 		protected var lang		:String;
 		protected var activate	:Boolean;
 		
+		protected var manager:LocaleManager;
+		
 		public function LoadLocaleMap($data:Object, $activate:Boolean = false, $lang:String = null)
 		{
 			super();
 			
 			lang = $lang || Global.language;
 			activate = $activate;
+			manager = LocaleManager.instance;
 			
 			parse($data);
 			id = 'loadLocale';
@@ -42,7 +45,7 @@ package ru.nacid.base.services.localization.commands
 		
 		override protected function onResponse():void 
 		{
-			LocaleManager.instance.addMap(new LocaleMap(lang, encoder.decodeObject(responseData)), activate);
+			manager.addMap(new LocaleMap(lang, encoder.decodeObject(responseData)), activate);
 			notifyComplete();
 		}
 		

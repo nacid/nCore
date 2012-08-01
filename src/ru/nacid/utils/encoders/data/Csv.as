@@ -9,19 +9,19 @@ package ru.nacid.utils.encoders.data
 	 */
 	public class Csv implements IEncoder
 	{
-		private function get fielSeperator():String
+		protected function get fielSeperator():String
 		{
 			return ',';
 		}
 		
-		private function get screen():String
+		protected function get screen():String
 		{
 			return '"';
 		}
 		
-		private function get lineDel():String
+		protected function get lineDel():String
 		{
-			return '\n';
+			return String.fromCharCode(0x0A);
 		}
 		
 		//-------------

@@ -1,3 +1,5 @@
 /bin
 /obj
 /*.as3proj
+/assets/~fla
+/src/tests

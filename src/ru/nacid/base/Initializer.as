@@ -129,6 +129,9 @@ package ru.nacid.base
 		{
 			cls();
 			notifyComplete();
+			var loc:LocaleManager = LocaleManager.instance;
+			trace(loc.getString('t1'));
+			trace(1);
 		}
 		
 		override protected function commitProgress($progress:Number):void 
