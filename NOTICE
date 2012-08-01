@@ -1,0 +1,9 @@
+nCore library
+Copyright 2012 Nikolay nacid Bondarev
+
+As the logging module and console use "flash-console", developed by Lu Aye Oo. 
+The source code of the original library is available at http://code.google.com/p/flash-console/
+	
+The implementation of MD5, SHA-1, SHA-2 ( 224 и 256 ), Base64, CRC32 algorithms, JSON 
+encoder & decoder as well as PNG and JPEG encoders based on "blooddy_crypto" library by
+BlooDHounD. The original software is available from http://www.blooddy.by/en/crypto/
