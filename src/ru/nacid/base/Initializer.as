@@ -52,7 +52,7 @@ package ru.nacid.base
 			sysLayer = new SimpleViewObject;
 			stagePosition = new Position(main.x, main.y, main.stage.stageWidth, main.stage.stageHeight);
 			
-			Global.appName = CONFIG::APP_NAME;
+			Global.appName = data.appname;
 			Global.release = !(CONFIG::debug);
 			Global.debugger = Capabilities.isDebugger;
 			Global.language = Capabilities.language;
@@ -131,7 +131,6 @@ package ru.nacid.base
 			notifyComplete();
 			var loc:LocaleManager = LocaleManager.instance;
 			trace(loc.getString('t1'));
-			trace(1);
 		}
 		
 		override protected function commitProgress($progress:Number):void 

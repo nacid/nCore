@@ -1,4 +1,6 @@
 {
+	"preloader":"../assets/preloader.swf",
+	"appname":"nCore",
     "logging": {
         "remoting": false,
         "commandLine": true,
@@ -21,6 +23,5 @@
             "ru": 3,
             "default": 0
         }
-    },
-	"preloader":"../assets/preloader.swf"
+    }
 }
