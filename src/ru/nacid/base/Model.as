@@ -1,8 +1,10 @@
-package ru.nacid.base {
+package ru.nacid.base
+{
+	
 	/**
 	 * Model.as
 	 * Created On: 5.8 16:34
-	 * 
+	 *
 	 * @author Nikolay nacid Bondarev
 	 * @url https://github.com/nacid/nCore
 	 *
@@ -22,28 +24,31 @@ package ru.nacid.base {
 	 *	limitations under the License.
 	 *
 	 */
-	public class Model {
- 
-		private static var m_instance:Model;
- 
+	public class Model
+	{
 		
- 
+		private static var m_instance:Model;
+		
 		/* Model
 		 * Use Model.instance
 		 * @param singleton DO NOT USE THIS - Use Model.instance */
-		public function Model(singleton:Singleton) {
+		public function Model(singleton:Singleton)
+		{
 			if (singleton == null)
 				throw new Error("Model is a singleton class.  Access via ''Model.instance''.");
 		}
- 
+		
 		/* instance
 		 * Gets the Model instance */
-		public static function get instance():Model {
- 			if (Model.m_instance == null)
+		public static function get instance():Model
+		{
+			if (Model.m_instance == null)
 				Model.m_instance = new Model(new Singleton());
- 			return Model.m_instance;
- 		}
+			return Model.m_instance;
+		}
 	}
 }
- 
-class Singleton { }
+
+class Singleton
+{
+}
