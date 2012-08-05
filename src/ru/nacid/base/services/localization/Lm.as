@@ -1,30 +1,56 @@
-package ru.nacid.base.services.localization
-{
+package ru.nacid.base.services.localization {
 	import com.junkbyte.console.Cc;
-	import ru.nacid.base.data.managment.events.VOManagerEvent;
 	import ru.nacid.base.data.managment.VOManager;
 	import ru.nacid.base.data.store.VOList;
-	import ru.nacid.base.services.localization.commands.DumpLocaleMap;
-	import ru.nacid.utils.encoders.EncoderReflection;
-	import ru.nacid.utils.encoders.interfaces.IEncoder;
-	
 	/**
-	 * ...
+	 * Lm.as
+	 * Created On: 5.8 16:41
+	 * 
 	 * @author Nikolay nacid Bondarev
+	 * @url https://github.com/nacid/nCore
+	 *
+	 *
+	 *		Copyright 2012 Nikolay nacid Bondarev
+	 *
+	 *	Licensed under the Apache License, Version 2.0 (the "License");
+	 *	you may not use this file except in compliance with the License.
+	 *	You may obtain a copy of the License at
+	 *
+	 *		http://www.apache.org/licenses/LICENSE-2.0
+	 *
+	 *	Unless required by applicable law or agreed to in writing, software
+	 *	distributed under the License is distributed on an "AS IS" BASIS,
+	 *	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	 *	See the License for the specific language governing permissions and
+	 *	limitations under the License.
+	 *
 	 */
-	public class LocaleManager extends VOManager
-	{
-		protected function init():void
-		{
+	public class Lm  extends VOManager{
+ 
+		private static var m_instance:Lm;
+ 
+		/* Lm
+		 * Use Lm.instance
+		 * @param singleton DO NOT USE THIS - Use Lm.instance */
+		public function Lm(singleton:Singleton) {
+			if (singleton == null)
+				throw new Error("Lm is a singleton class.  Access via ''Lm.instance''.");
+				
 			activeList = new Vector.<String>(1, true);
 			list = new VOList();
 			dispatcherMode = true;
 			
-			_instance = this;
-			
 			Cc.addSlashCommand('localeDump', dumpStarter, 'create formated localization map dump');
 			log('locale manager created');
 		}
+ 
+		/* instance
+		 * Gets the Lm instance */
+		public static function get instance():Lm {
+ 			if (Lm.m_instance == null)
+				Lm.m_instance = new Lm(new Singleton());
+ 			return Lm.m_instance;
+ 		}
 		
 		public function addMap($map:LocaleMap, $setCurrent:Boolean = false):void
 		{
@@ -81,7 +107,6 @@ package ru.nacid.base.services.localization
 			new DumpLocaleMap(targetMap, EncoderReflection.data(rest[0])).execute();
 		}
 		
-		//------------------------------
 		override public function isActive($id:String):Boolean
 		{
 			return activeList[0] == $id;
@@ -117,3 +142,5 @@ package ru.nacid.base.services.localization
 		}
 	}
 }
+ 
+class Singleton { }

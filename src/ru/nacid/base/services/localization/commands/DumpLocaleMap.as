@@ -25,7 +25,7 @@ package ru.nacid.base.services.localization.commands
 		
 		override protected function execInternal():void 
 		{
-			var dumpData:Object = LocaleManager.instance.getMap(mapId).dump();
+			var dumpData:Object = Lm.instance.getMap(mapId).dump();
 			var formattedDump:Object = encoder.encodeObject(dumpData);
 			
 			saver.save(formattedDump, mapId.concat('_localeDump'));
