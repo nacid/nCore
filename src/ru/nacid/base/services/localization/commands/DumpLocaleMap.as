@@ -2,7 +2,7 @@ package ru.nacid.base.services.localization.commands
 {
 	import flash.net.FileReference;
 	import ru.nacid.base.services.Command;
-	import ru.nacid.base.services.localization.LocaleManager;
+	import ru.nacid.base.services.localization.Lm;
 	import ru.nacid.utils.encoders.interfaces.IEncoder;
 	
 	/**

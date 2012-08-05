@@ -12,13 +12,13 @@ package ru.nacid.base.data.factory
 	{
 		protected var cl:Class;
 		
-		private var dict:Dictionary = new Dictionary(true);
-		private var hash:Object = {};
+		protected var dict:Dictionary = new Dictionary(true);
+		protected var hash:Object = {};
 		
-		protected function write($obj:IFactoryData):IFactoryData
+		protected function write($obj:IFactoryData,$dict:Boolean = true):IFactoryData
 		{
 			hash[$obj.id] = $obj;
-			dict[$obj.valueOf()] = $obj;
+			if ($dict) dict[$obj.valueOf()] = $obj;
 			return $obj;
 		}
 		

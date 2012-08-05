@@ -1,7 +1,10 @@
 package ru.nacid.base.services.localization {
 	import com.junkbyte.console.Cc;
+	import ru.nacid.base.data.managment.events.VOManagerEvent;
 	import ru.nacid.base.data.managment.VOManager;
 	import ru.nacid.base.data.store.VOList;
+	import ru.nacid.base.services.localization.commands.DumpLocaleMap;
+	import ru.nacid.utils.encoders.EncoderReflection;
 	/**
 	 * Lm.as
 	 * Created On: 5.8 16:41
@@ -40,7 +43,7 @@ package ru.nacid.base.services.localization {
 			list = new VOList();
 			dispatcherMode = true;
 			
-			Cc.addSlashCommand('localeDump', dumpStarter, 'create formated localization map dump');
+			Cc.addSlashCommand('localeDump', dumpHandler, 'create formated localization map dump');
 			log('locale manager created');
 		}
  

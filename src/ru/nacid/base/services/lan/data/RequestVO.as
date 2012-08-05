@@ -16,6 +16,8 @@ package ru.nacid.base.services.lan.data
 		private var method:String;
 		private var _urlRequest:URLRequest;
 		
+		public var userData:Object;
+		
 		public function RequestVO($url:String, $data:Object=null,$method:String = null) 
 		{
 			super($url);

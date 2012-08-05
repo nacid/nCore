@@ -8,14 +8,13 @@ package ru.nacid.base
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.CommandEvent;
 	import ru.nacid.base.services.CommandQueue;
-	import ru.nacid.base.services.localization.commands.LoadLocaleMap;
-	import ru.nacid.base.services.localization.LocaleManager;
+	import ru.nacid.base.services.lan.LanCommand;
 	import ru.nacid.base.services.logs.CCInit;
 	import ru.nacid.base.services.skins.commands.SwfSkinLoader;
-	import ru.nacid.base.services.windows.Navigator;
+	import ru.nacid.base.services.windows.Wm;
 	import ru.nacid.base.view.data.Position;
 	import ru.nacid.base.view.SimpleViewObject;
-	import ru.nacid.utils.encoders.data.Amf;
+	import ru.nacid.utils.encoders.data.Json;
 	
 	/**
 	 * ...
@@ -52,6 +51,10 @@ package ru.nacid.base
 			sysLayer = new SimpleViewObject;
 			stagePosition = new Position(main.x, main.y, main.stage.stageWidth, main.stage.stageHeight);
 			
+			createView();
+			main.addChild(appLayer);
+			main.addChild(sysLayer);
+			
 			Global.appName = data.appname;
 			Global.release = !(CONFIG::debug);
 			Global.debugger = Capabilities.isDebugger;
@@ -59,13 +62,11 @@ package ru.nacid.base
 			Global.stageW = stagePosition.width;
 			Global.stageH = stagePosition.height;
 			
-			createView();
-			
-			if (progressIndicator)
-				appLayer.addChild(progressIndicator);
-			
-			main.addChild(appLayer);
-			main.addChild(sysLayer);
+			if (data.remote is Array) {
+				for (var i:int; i < data.remote.length; i++) {
+					LanCommand.urls.writeAlias(data.remote[i].key, data.remote[i]);
+				}
+			}
 			
 			preInit();
 			collectInitQueue();
@@ -97,8 +98,7 @@ package ru.nacid.base
 		
 		//---------------------------------------------
 		protected function readSettings($settings:*):Object {
-			$settings.position = 0;
-			return new Amf().decodeObject($settings);
+			return new Json().decodeObject($settings);
 		}
 		
 		protected function createView():void {
@@ -111,36 +111,24 @@ package ru.nacid.base
 			progressIndicator = new DefaultProgress();
 			progressIndicator.x = stagePosition.width >> 1;
 			progressIndicator.y = stagePosition.height >> 1;
+			
+			appLayer.addChild(progressIndicator);
 		}
 		
 		protected function preInit():void {
+			Wm.instance.setContainer(appLayer);
+			
 			new CCInit(sysLayer).execute(data[CCInit.DEFAULT_FIELD]);
-			new Navigator(appLayer);
-			new Model(data);
-			new LocaleManager();
 		}
 		
 		protected function collectInitQueue():void {
-			//addCommand(new LoadLocaleMap(data['static'], true, 'ru'));
-			addCommand(new LoadLocaleMap( { host:"../assets/debug/static.csv", params: { gid:'' }, langs: { ru:0 }}, true, 'ru'));
+			
 		}
 		
 		override protected function onComplete():void 
 		{
 			cls();
 			notifyComplete();
-			var loc:LocaleManager = LocaleManager.instance;
-			trace(loc.getString('t1'));
-		}
-		
-		override protected function commitProgress($progress:Number):void 
-		{
-			if (preloaderSkin) {
-				if(LocaleManager.instance.activeMap){
-					preloaderSkin.statusTF.text = LocaleManager.instance.getString('preprogress', { prsnt:Math.floor($progress * 100), cur:getCurrentID() } );
-				}
-				preloaderSkin.barMask.scaleX = $progress;
-			}
 		}
 		
 	}

@@ -49,7 +49,7 @@ package ru.nacid.base.services.logs
 		public var priorityC2			:uint = 0xFF8800;
 		
 		public var wFactor				:Number = 1;
-		public var hFactor				:Number = 1;
+		public var hFactor				:Number = .5;
 		
 		public function CCSettings($id:String=null, $data:Object=null) 
 		{
