@@ -1,0 +1,26 @@
+{
+	"appname": "nCore",
+    "preloader": "../assets/preloader.swf",
+    "logging": {
+        "remoting": false,
+        "commandLine": true,
+        "tracing": true,
+        "keystrokePassword": "`"
+    },
+    "remote": [
+        {
+			"key":"appStatic",
+            "host": "https://docs.google.com/spreadsheet/pub",
+            "params": {
+                "key": "0AiC-mq0tze4AdE9jZGdCY0dfbDZ4NVB2MlhYVEFScHc",
+                "single": "true",
+                "output": "csv",
+				"gid":3
+            },
+            "userData": {
+                "en": 0,
+                "ru": 3
+            }
+        }
+    ]
+}
