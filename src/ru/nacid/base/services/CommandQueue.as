@@ -35,7 +35,7 @@ package ru.nacid.base.services
 		
 		public function addCommand(cmd:Command):void {
 			if (list.add(cmd))
-				Cc.logch(CMD_CHANNEL, cmd.id, 'added to queue');
+				Cc.logch(CMD_CHANNEL, cmd.id, 'added to queue', id);
 			else
 				Cc.warnch(CMD_CHANNEL, 'unable to add command', cmd.id, 'to queue');
 		}

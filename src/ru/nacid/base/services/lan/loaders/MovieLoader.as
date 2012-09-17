@@ -33,7 +33,6 @@ package ru.nacid.base.services.lan.loaders
 	public class MovieLoader extends LanCommand 
 	{
 		protected var loader	:Loader;
-		protected var url		:String;
 		
 		public function MovieLoader($url:String = null, $data:Object = null)
 		{

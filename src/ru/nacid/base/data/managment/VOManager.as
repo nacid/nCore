@@ -51,7 +51,7 @@ package ru.nacid.base.data.managment
 			return activeIndex($id) >= 0;
 		}
 		
-		public function activate($id:String):void {
+		protected function activate($id:String):void {
 			if (list.containsId($id) && !isActive($id)) {
 				activeList.push($id);
 				
@@ -60,7 +60,7 @@ package ru.nacid.base.data.managment
 			}
 		}
 		
-		public function deactivate($id:String):void {
+		protected function deactivate($id:String):void {
 			var index:int = activeIndex($id);
 			if (index >= 0) {
 				activeList.splice(index, 1);

@@ -33,7 +33,6 @@ package ru.nacid.base.services.lan.loaders
 	public class DataLoader extends LanCommand 
 	{
 		protected var loader	:URLLoader;
-		protected var url		:String;
 		protected var encoder	:IEncoder;
 		
 		public function DataLoader($url:String = null, $data:Object = null, $dataFormat:String = null)

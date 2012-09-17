@@ -1,0 +1,20 @@
+{
+    "appname": "nCore",
+    "preloader": "../assets/preloader.swf",
+    "logging": {
+        "remoting": false,
+        "commandLine": true,
+        "tracing": true,
+        "keystrokePassword": "`"
+    },
+    "remote": [
+        {
+            "key": "static",
+            "host": "../assets/debug/static.csv"
+        },
+        {
+            "key": "skins",
+            "host": "../assets/debug/static.csv"
+        }
+    ]
+}
