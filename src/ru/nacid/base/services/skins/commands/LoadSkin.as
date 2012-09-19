@@ -49,7 +49,7 @@ package ru.nacid.base.services.skins.commands
 			notifyComplete();
 		}
 		
-		public function getView():DisplayObject {
+		public function getInstance():* {
 			return new Bitmap((skinData as Bitmap).bitmapData.clone());
 		}
 		

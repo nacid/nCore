@@ -33,13 +33,14 @@ package ru.nacid.base.services.skins
 		private var _loader:ISkinLoader;
 		private var _loaded:Boolean;
 		private var _loading:Boolean;
-		private var _data:DisplayObject;
+		private var _data:*;
 		private var _void:Boolean;
 		
 		public var embed:Boolean;
 		
 		public function Skin($loader:ISkinLoader) {
 			_loader = $loader;
+			
 			if (_loader == null) {
 				_void = true;
 			}
@@ -56,7 +57,9 @@ package ru.nacid.base.services.skins
 		{
 			if(_void ==false){
 				if (loaded) {
-					addChild(_data = _loader.getView());
+					_data = _loader.getInstance()
+					if(_data is DisplayObject)
+						addChild(_data);
 				}else {
 					_loader.addEventListener(CommandEvent.COMPLETE, loaderHandler);
 					if (!loading) {
@@ -68,7 +71,7 @@ package ru.nacid.base.services.skins
 		
 		private function loaderHandler(e:CommandEvent):void {
 			_loader.removeEventListener(CommandEvent.COMPLETE, loaderHandler);
-			addChild(_data = _loader.getView());
+			addChild(_data = _loader.getInstance());
 			e.preventDefault();
 		}
 		
@@ -86,7 +89,7 @@ package ru.nacid.base.services.skins
 			return _void ? null : _loader;
 		}
 		
-		public function get data():DisplayObject 
+		public function get data():* 
 		{
 			return _data;
 		}

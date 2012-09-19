@@ -37,6 +37,7 @@ package ru.nacid.base.services.windows.commands
 			msgEnabled = false;
 			
 			id = $commandId.concat('@', $windowId);
+			priority = LOW_PRIORITY;
 		}
 		
 	}

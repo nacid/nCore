@@ -11,6 +11,7 @@ package ru.nacid.base.services.skins.commands
 		public function LoadEmbed() 
 		{
 			id = 'LoadEmbedSkins';
+			priority = HIGH_PRIORITY;
 		}
 		
 		override protected function execInternal():void 

@@ -2,9 +2,12 @@ package ru.nacid.blanks.startup
 {
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
 	import flash.system.Capabilities;
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.CommandQueue;
+	import ru.nacid.base.services.lan.data.RequestVO;
 	import ru.nacid.base.services.lan.LanCommand;
 	import ru.nacid.base.services.logs.CCInit;
 	import ru.nacid.base.services.windows.Wm;
@@ -61,7 +64,11 @@ package ru.nacid.blanks.startup
 			appLayer = new SimpleViewObject;
 			sysLayer = new SimpleViewObject;
 			stagePosition = new Position(main.x, main.y, main.stage.stageWidth, main.stage.stageHeight);
-
+			
+			
+			main.stage.scaleMode = StageScaleMode.NO_SCALE;
+			main.stage.align = StageAlign.TOP_LEFT;
+			
 			main.addChild(appLayer);
 			main.addChild(sysLayer);
 			
@@ -71,6 +78,7 @@ package ru.nacid.blanks.startup
 			Global.language = Capabilities.language;
 			Global.stageW = stagePosition.width;
 			Global.stageH = stagePosition.height;
+			Global.domain = new RequestVO(main.loaderInfo.url);
 			
 			if (data.remote is Array) {
 				for (var i:int; i < data.remote.length; i++) {

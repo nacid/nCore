@@ -47,7 +47,7 @@ package ru.nacid.base.services.skins.commands
 		public function LoadSkinsMap($skinsDir:String,$mapFile:String,$autoLoad:Boolean = false) 
 		{
 			manager = Sm.instance;
-			priority = Command.HIGH_PRIORITY;
+			priority = Command.HIGHER_PRIORITY;
 			autoLoad = $autoLoad;
 			
 			id = 'LoadSkinsMap';

@@ -9,7 +9,7 @@ package ru.nacid.base.services.skins.interfaces
 	 */
 	public interface ISkinLoader extends ICommand
 	{
-		function getView():DisplayObject;
+		function getInstance():*;
 		function fromData($id:String, $url:String, $embed:Boolean):ISkinLoader
 		function get embed():Boolean;
 	}
