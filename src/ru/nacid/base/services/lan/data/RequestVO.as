@@ -31,7 +31,17 @@ package ru.nacid.base.services.lan.data
 	 */
 	public class RequestVO extends SimpleValueObject implements IFactoryData
 	{
+		public static const HTTP	:String = 'http';
+		public static const HTTPS	:String = 'https';
+		public static const UNKNOWN	:String = 'unknown';
+		
+		private const PROTOCOL_SEPARATE:String = '://';
+		private const DIR_SEPARATE:String = '/';
+		
 		private var method:String;
+		private var protocol:String;
+		private var body:String;
+		
 		private var _urlRequest:URLRequest;
 		
 		public var userData:Object;
@@ -42,7 +52,12 @@ package ru.nacid.base.services.lan.data
 			
 			_urlRequest = new URLRequest(id);
 			_urlRequest.method = $method || URLRequestMethod.GET;
-			setData($data);
+			
+			var prEnd:int = $url.indexOf(PROTOCOL_SEPARATE);
+			var bEnd:int = $url.lastIndexOf(DIR_SEPARATE);
+			
+			protocol = prEnd > 0 ? $url.substr(0, prEnd) : UNKNOWN;
+			body = bEnd > 0 ? $url.substring(prEnd + PROTOCOL_SEPARATE.length, bEnd) : UNKNOWN;
 		}
 		
 		public function setData($data:Object):void {
@@ -58,6 +73,11 @@ package ru.nacid.base.services.lan.data
 		{
 			return _urlRequest;
 		}
+		
+		public function get domain():String {
+			return protocol.concat(PROTOCOL_SEPARATE, body, DIR_SEPARATE);
+		}
+		
 	}
 
 }
