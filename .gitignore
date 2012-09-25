@@ -3,7 +3,7 @@
 /*.as3proj
 /assets/~fla
 /src/tests
-/.settings
+/.settings/*
 /.actionScriptProperties
 /.flexLibProperties
 /.project
