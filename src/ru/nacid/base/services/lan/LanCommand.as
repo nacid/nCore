@@ -41,6 +41,8 @@ package ru.nacid.base.services.lan
 		
 		protected var bytesForUnknown:uint = 512000;
 		
+		protected var url		:String;
+		
 		protected function progressHandler(e:ProgressEvent):void
 		{
 			if (e.bytesTotal == 0)
@@ -72,12 +74,12 @@ package ru.nacid.base.services.lan
 		
 		override protected function msgExecute():void
 		{
-			Cc.infoch(CMD_CHANNEL, '>>', id);
+			Cc.infoch(CMD_CHANNEL, '>>', id, url);
 		}
 		
 		override protected function msgComplete():void
 		{
-			Cc.logch(CMD_CHANNEL, '<<', id);
+			Cc.logch(CMD_CHANNEL, '<<', id, url);
 		}
 		
 		public function get response():Object

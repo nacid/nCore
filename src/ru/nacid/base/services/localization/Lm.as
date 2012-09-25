@@ -120,7 +120,7 @@ package ru.nacid.base.services.localization {
 			return 0;
 		}
 		
-		override public function activate($id:String):void
+		override protected function activate($id:String):void
 		{
 			if (list.containsId($id) && !isActive($id))
 			{
@@ -132,7 +132,7 @@ package ru.nacid.base.services.localization {
 			}
 		}
 		
-		override public function deactivate($id:String):void
+		override protected function deactivate($id:String):void
 		{
 			var index:int = activeIndex($id);
 			if (index >= 0)

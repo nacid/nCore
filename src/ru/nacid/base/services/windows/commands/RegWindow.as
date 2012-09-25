@@ -41,7 +41,7 @@ package ru.nacid.base.services.windows.commands
 									$modal:Boolean		= false,
 									$skinName:String 	= null)
 		{
-			super('registrateWindow', $id);
+			super('regWindow', $id);
 			
 			render = $render;
 			policy = $policy;

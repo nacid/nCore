@@ -42,7 +42,6 @@ package ru.nacid.base.view
 		private var _onStage:Boolean;
 		
 		protected var showData:Object;
-		protected var model:Model;
 		
 		public function ViewObject($id:String = '')
 		{
@@ -66,6 +65,8 @@ package ru.nacid.base.view
 			if (!_inited)
 				init();
 			_onStage = true;
+			
+			arrange();
 			show();
 		}
 		
@@ -80,7 +81,7 @@ package ru.nacid.base.view
 		
 		protected function init():void
 		{
-			model = Model.instance;
+			//@override
 		}
 		
 		protected function show():void
@@ -93,6 +94,10 @@ package ru.nacid.base.view
 			//@override
 		}
 		
+		public function arrange():void {
+			//@override
+		}
+		
 		public function isInited():Boolean
 		{
 			return _inited;
@@ -102,7 +107,6 @@ package ru.nacid.base.view
 		{
 			return _onStage;
 		}
-		
 		
 		/* INTERFACE ru.nacid.base.data.interfaces.IData */
 		

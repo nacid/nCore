@@ -1,5 +1,9 @@
 package ru.nacid.base.services.windows
 {
+	import flash.events.Event;
+	import ru.nacid.base.services.CommandEvent;
+	import ru.nacid.base.services.skins.Skin;
+	import ru.nacid.base.services.skins.Sm;
 	import ru.nacid.base.services.windows.interfaces.IWindowStorage;
 	import ru.nacid.base.services.windows.policy.WindowPolicy;
 	import ru.nacid.base.view.ViewObject;
@@ -30,14 +34,35 @@ package ru.nacid.base.services.windows
 	{
 		private var windowParam:WindowParam;
 		
+		protected var skin:Skin;
+		protected var skinManager:Sm;
+		
+		protected function get param():WindowParam {
+			return windowParam;
+		}
+		
 		public function Window($param:WindowParam)
 		{
 			windowParam = $param;
 			tabEnabled = true;
 			focusRect = false;
+			skinManager = Sm.instance;
+			
+			skin = skinManager.getSkin(windowParam.skinName);
+			if (skin.loader && !skin.loaded) {
+				skin.loader.addEventListener(CommandEvent.COMPLETE, skinLoadedHandler);
+			}
 			
 			super(windowParam.id);
 			info(id.concat(' created'));
+		}
+		
+		private function skinLoadedHandler(e:Event):void {
+			skin.loader.removeEventListener(CommandEvent.COMPLETE, skinLoadedHandler);
+			
+			if (onStage) {
+				arrange();
+			}
 		}
 		
 		public function get policy():WindowPolicy

@@ -4,6 +4,8 @@ package ru.nacid.base.services.windows {
 	import flash.events.Event;
 	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
+	import ru.nacid.base.data.Global;
+	import ru.nacid.base.data.managment.VOIterator;
 	import ru.nacid.base.data.managment.VOManager;
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.services.windows.events.WindowPolicyEvent;
@@ -167,8 +169,19 @@ package ru.nacid.base.services.windows {
 		public function setContainer($container:DisplayObjectContainer):void {
 			if (container == null) {
 				container = $container;
+				container.stage.addEventListener(Event.RESIZE, resizeHandler);
 			}else {
 				error('container already created');
+			}
+		}
+		
+		private function resizeHandler(e:Event):void {
+			Global.stageW = container.stage.stageWidth;
+			Global.stageH = container.stage.stageHeight;
+			
+			var it:VOIterator = windows.createIterator();
+			while (it.hasNext()) {
+				Window(it.next()).arrange();
 			}
 		}
 	}

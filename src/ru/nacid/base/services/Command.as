@@ -7,6 +7,7 @@ package ru.nacid.base.services
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import ru.nacid.base.data.interfaces.IData;
+	import ru.nacid.base.services.interfaces.ICommand;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
 	import ru.nacid.utils.StringUtils;
 	/**
@@ -32,11 +33,13 @@ package ru.nacid.base.services
 	 *	limitations under the License.
 	 *
 	 */
-	public class Command extends EventDispatcher implements IChannelParent,IData
+	public class Command extends EventDispatcher implements ICommand
 	{
 		public static const LOW_PRIORITY	:Number = Number.MIN_VALUE;
+		public static const LOWER_PRIORITY	:Number = Number.NEGATIVE_INFINITY;
 		public static const DEFAULT_PRIORITY:Number = 1;
 		public static const HIGH_PRIORITY	:Number = Number.MAX_VALUE;
+		public static const HIGHER_PRIORITY	:Number = Number.POSITIVE_INFINITY;
 		
 		public static const NO_TIMEOUT		:uint = 0;
 		public static const DEFAULT_TIMEOUT	:uint = 5000;
