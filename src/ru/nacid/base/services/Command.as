@@ -235,7 +235,7 @@ package ru.nacid.base.services
 			return _id;
 		}
 		
-		public function set id(value:String):void 
+		public function set symbol(value:String):void 
 		{
 			_id = value;
 			_numericId = StringUtils.toCRC(_id);

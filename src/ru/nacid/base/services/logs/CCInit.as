@@ -37,7 +37,7 @@ package ru.nacid.base.services.logs
 		
 		public function CCInit($container:ViewObject)
 		{
-			id = 'consoleInit';
+			symbol = 'consoleInit';
 			data = new CCSettings(DEFAULT_FIELD);
 			cont = $container;
 		}

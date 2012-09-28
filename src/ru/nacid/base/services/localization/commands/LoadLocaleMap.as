@@ -48,7 +48,7 @@ package ru.nacid.base.services.localization.commands
 			manager = Lm.instance;
 			
 			makeRequest(urls.readAlias($host))
-			id = 'loadLocale';
+			symbol = 'loadLocale';
 		}
 		
 		protected function makeRequest($alias:UrlStorage):void {

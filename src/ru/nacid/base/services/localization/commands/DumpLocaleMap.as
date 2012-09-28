@@ -35,7 +35,7 @@ package ru.nacid.base.services.localization.commands
 		
 		public function DumpLocaleMap($mapId:String,$encoder:IEncoder) 
 		{
-			id = 'dumpLocaleMap';
+			symbol = 'dumpLocaleMap';
 			mapId = $mapId;
 			encoder = $encoder;
 			saver = new FileReference();

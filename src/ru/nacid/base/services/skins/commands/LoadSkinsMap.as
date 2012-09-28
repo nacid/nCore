@@ -50,7 +50,7 @@ package ru.nacid.base.services.skins.commands
 			priority = Command.HIGHER_PRIORITY;
 			autoLoad = $autoLoad;
 			
-			id = 'LoadSkinsMap';
+			symbol = 'LoadSkinsMap';
 			makeRequest(urls.readAlias($skinsDir), $mapFile);
 		}
 		

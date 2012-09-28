@@ -58,6 +58,9 @@ package ru.nacid.base.services.lan.data
 			
 			protocol = prEnd > 0 ? $url.substr(0, prEnd) : UNKNOWN;
 			body = bEnd > 0 ? $url.substring(prEnd + PROTOCOL_SEPARATE.length, bEnd) : UNKNOWN;
+			
+			if($data)
+				setData($data);
 		}
 		
 		public function setData($data:Object):void {

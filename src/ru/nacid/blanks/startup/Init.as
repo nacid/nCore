@@ -53,7 +53,7 @@ package ru.nacid.blanks.startup
 		
 		public function Init($mainObject:SkinnableContainer, $settings:*) 
 		{
-			id = "initialization";
+			symbol = "initialization";
 			
 			data = readSettings($settings);
 			

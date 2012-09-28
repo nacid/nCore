@@ -67,6 +67,7 @@ package ru.nacid.base.services.lan
 			}
 		}
 		
+		
 		protected function onResponse():void
 		{
 			//virtual
@@ -74,12 +75,12 @@ package ru.nacid.base.services.lan
 		
 		override protected function msgExecute():void
 		{
-			Cc.infoch(CMD_CHANNEL, '>>', symbol, url);
+			Cc.infoch(CMD_CHANNEL, '>>', symbol,url);
 		}
 		
 		override protected function msgComplete():void
 		{
-			Cc.logch(CMD_CHANNEL, '<<', symbol, url);
+			Cc.logch(CMD_CHANNEL, '<<', symbol,url);
 		}
 		
 		public function get response():Object

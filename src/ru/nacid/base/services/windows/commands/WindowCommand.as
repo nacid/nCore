@@ -36,7 +36,7 @@ package ru.nacid.base.services.windows.commands
 			windowId = $windowId;
 			msgEnabled = false;
 			
-			id = $commandId.concat('@', $windowId);
+			symbol = $commandId.concat('@', $windowId);
 			priority = LOW_PRIORITY;
 		}
 		

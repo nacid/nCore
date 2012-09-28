@@ -10,7 +10,7 @@ package ru.nacid.base.services.skins.commands
 		
 		public function LoadEmbed() 
 		{
-			id = 'LoadEmbedSkins';
+			symbol = 'LoadEmbedSkins';
 			priority = HIGH_PRIORITY;
 		}
 		

@@ -39,7 +39,7 @@ package ru.nacid.base.services.skins.commands
 		public function LoadSkin($id:String = null, $url:String = null,$embed:Boolean = false) 
 		{
 			super($url);
-			id = $id;
+			symbol = $id;
 			_embed = $embed;
 		}
 		
