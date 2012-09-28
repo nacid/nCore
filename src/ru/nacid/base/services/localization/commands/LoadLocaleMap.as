@@ -1,4 +1,4 @@
-package ru.nacid.base.services.localization.commands 
+package ru.nacid.base.services.localization.commands
 {
 	import flash.system.Capabilities;
 	import ru.nacid.base.data.Global;
@@ -9,6 +9,7 @@ package ru.nacid.base.services.localization.commands
 	import ru.nacid.base.services.localization.LocaleMap;
 	import ru.nacid.utils.encoders.data.Csv;
 	import ru.nacid.utils.encoders.interfaces.IEncoder;
+
 	/**
 	 * LoadLocaleMap.as
 	 * Created On: 5.8 20:22
@@ -32,44 +33,46 @@ package ru.nacid.base.services.localization.commands
 	 *	limitations under the License.
 	 *
 	 */
-	public class LoadLocaleMap extends DataLoader 
+	public class LoadLocaleMap extends DataLoader
 	{
-		protected var lang		:String;
-		protected var activate	:Boolean;
-		
+		protected var lang:String;
+		protected var activate:Boolean;
+
 		protected var manager:Lm;
-		
-		public function LoadLocaleMap($host:String, $activate:Boolean = true, $lang:String = null)
+
+		public function LoadLocaleMap($host:String, $activate:Boolean=true, $lang:String=null)
 		{
 			super();
-			
-			lang = $lang || Global.language;
-			activate = $activate;
-			manager = Lm.instance;
-			
+
+			lang=$lang || Global.language;
+			activate=$activate;
+			manager=Lm.instance;
+
 			makeRequest(urls.readAlias($host))
-			symbol = 'loadLocale';
+			symbol='loadLocale';
 		}
-		
-		protected function makeRequest($alias:UrlStorage):void {
-			url = $alias.host;
-			data = $alias.data;
-			if($alias.userData.hasOwnProperty(lang)){
-				data.gid = $alias.userData[lang];
+
+		protected function makeRequest($alias:UrlStorage):void
+		{
+			url=$alias.host;
+			data=$alias.data;
+			if ($alias.userData.hasOwnProperty(lang))
+			{
+				data.gid=$alias.userData[lang];
 			}
 		}
-		
-		override protected function createEncoder():IEncoder 
+
+		override protected function createEncoder():IEncoder
 		{
 			return new Csv;
 		}
-		
-		override protected function onResponse():void 
+
+		override protected function onResponse():void
 		{
 			manager.addMap(new LocaleMap(lang, encoder.decodeObject(responseData)), activate);
 			notifyComplete();
 		}
-		
+
 	}
 
 }

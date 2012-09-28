@@ -1,6 +1,7 @@
-package ru.nacid.base.services 
+package ru.nacid.base.services
 {
 	import flash.events.Event;
+
 	/**
 	 * CommandEvent.as
 	 * Created On: 5.8 20:22
@@ -24,27 +25,27 @@ package ru.nacid.base.services
 	 *	limitations under the License.
 	 *
 	 */
-	public class CommandEvent extends Event 
+	public class CommandEvent extends Event
 	{
-		public static const START		:String = 'start';
-		public static const PROGRESS	:String = 'progress';
-		public static const COMPLETE	:String = 'complete';
-		public static const ERROR		:String = 'error';
-		
+		public static const START:String='start';
+		public static const PROGRESS:String='progress';
+		public static const COMPLETE:String='complete';
+		public static const ERROR:String='error';
+
 		public var progress:Number;
-		
-		public function CommandEvent(type:String, progress:Number, bubbles:Boolean=false, cancelable:Boolean=false) 
+
+		public function CommandEvent(type:String, progress:Number, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
 			super(type, bubbles, cancelable);
-			
-			this.progress = progress;
+
+			this.progress=progress;
 		}
-		
-		override public function clone():flash.events.Event 
+
+		override public function clone():flash.events.Event
 		{
 			return new CommandEvent(type, progress, bubbles, cancelable);
 		}
-		
+
 	}
 
 }

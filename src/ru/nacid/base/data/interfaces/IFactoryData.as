@@ -1,6 +1,6 @@
-package ru.nacid.base.data.interfaces 
+package ru.nacid.base.data.interfaces
 {
-	
+
 	/**
 	 * IFactoryData.as
 	 * Created On: 5.8 20:22
@@ -28,5 +28,5 @@ package ru.nacid.base.data.interfaces
 	{
 		function setData($data:Object):void;
 	}
-	
+
 }

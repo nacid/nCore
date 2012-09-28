@@ -1,4 +1,4 @@
-package ru.nacid.base.services.skins.commands 
+package ru.nacid.base.services.skins.commands
 {
 	import ru.nacid.base.services.Command;
 	import ru.nacid.base.services.CommandQueue;
@@ -7,11 +7,11 @@ package ru.nacid.base.services.skins.commands
 	import ru.nacid.base.services.skins.Sm;
 	import ru.nacid.utils.encoders.data.Csv;
 	import ru.nacid.utils.encoders.interfaces.IEncoder;
-	
+
 	/**
 	 * LoadSkinsMap.as
 	 * Created On: 21.8 14:45
-	 * 
+	 *
 	 * @author Nikolay nacid Bondarev
 	 * @url https://github.com/nacid/Sand
 	 *
@@ -31,51 +31,56 @@ package ru.nacid.base.services.skins.commands
 	 *	limitations under the License.
 	 *
 	 */
-	public class LoadSkinsMap extends DataLoader 
+	public class LoadSkinsMap extends DataLoader
 	{
-		protected function get trueString():String {
+		protected function get trueString():String
+		{
 			return 'TRUE';
 		}
-		protected function get falseString():String {
+
+		protected function get falseString():String
+		{
 			return 'FALSE';
 		}
-		
+
 		private var autoLoad:Boolean;
 		private var mapDir:String;
 		private var manager:Sm;
-		
-		public function LoadSkinsMap($skinsDir:String,$mapFile:String,$autoLoad:Boolean = false) 
+
+		public function LoadSkinsMap($skinsDir:String, $mapFile:String, $autoLoad:Boolean=false)
 		{
-			manager = Sm.instance;
-			priority = Command.HIGHER_PRIORITY;
-			autoLoad = $autoLoad;
-			
-			symbol = 'LoadSkinsMap';
+			manager=Sm.instance;
+			priority=Command.HIGHER_PRIORITY;
+			autoLoad=$autoLoad;
+
+			symbol='LoadSkinsMap';
 			makeRequest(urls.readAlias($skinsDir), $mapFile);
 		}
-		
-		protected function makeRequest($alias:UrlStorage,$mapFile:String):void {
-			url = $alias.host.concat($mapFile);
-			mapDir = $alias.host;
-			data = $alias.data;
+
+		protected function makeRequest($alias:UrlStorage, $mapFile:String):void
+		{
+			url=$alias.host.concat($mapFile);
+			mapDir=$alias.host;
+			data=$alias.data;
 		}
-		
-		override protected function createEncoder():IEncoder 
+
+		override protected function createEncoder():IEncoder
 		{
 			return new Csv;
 		}
-		
-		override protected function onResponse():void 
+
+		override protected function onResponse():void
 		{
-			var skins:Object = encoder.decodeObject(responseData);
-			
-			for each(var skinDesc:Object in skins) {
+			var skins:Object=encoder.decodeObject(responseData);
+
+			for each (var skinDesc:Object in skins)
+			{
 				manager.addSkin(skinDesc.type, skinDesc.id, mapDir.concat(skinDesc.url), skinDesc.embed == trueString ? true : false);
 			}
-			
+
 			notifyComplete();
 		}
-		
+
 	}
 
 }

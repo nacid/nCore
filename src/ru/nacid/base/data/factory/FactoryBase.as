@@ -3,7 +3,7 @@ package ru.nacid.base.data.factory
 	import flash.utils.Dictionary;
 	import ru.nacid.base.data.interfaces.IFactoryData;
 	import ru.nacid.utils.HashUtils;
-	
+
 	/**
 	 * FactoryBase.as
 	 * Created On: 5.8 20:22
@@ -30,29 +30,30 @@ package ru.nacid.base.data.factory
 	public class FactoryBase
 	{
 		protected var cl:Class;
-		
-		protected var dict:Dictionary = new Dictionary(true);
-		protected var hash:Object = {};
-		
-		protected function write($obj:IFactoryData,$dict:Boolean = true):IFactoryData
+
+		protected var dict:Dictionary=new Dictionary(true);
+		protected var hash:Object={};
+
+		protected function write($obj:IFactoryData, $dict:Boolean=true):IFactoryData
 		{
-			hash[$obj.symbol] = $obj;
-			if ($dict) dict[$obj.valueOf()] = $obj;
+			hash[$obj.symbol]=$obj;
+			if ($dict)
+				dict[$obj.valueOf()]=$obj;
 			return $obj;
 		}
-		
-		protected function read($key:String, $data:Object = null):IFactoryData
+
+		protected function read($key:String, $data:Object=null):IFactoryData
 		{
 			if (hash[$key])
 			{
-				var dictKey:Number = HashUtils.CRC($data);
+				var dictKey:Number=HashUtils.CRC($data);
 				if (dict[dictKey])
 				{
 					return dict[dictKey];
 				}
 				else
 				{
-					return dict[dictKey] = create($key, $data);
+					return dict[dictKey]=create($key, $data);
 				}
 			}
 			else
@@ -60,14 +61,14 @@ package ru.nacid.base.data.factory
 				return write(create($key, $data));
 			}
 		}
-		
+
 		protected function create($key:String, $data:Object):IFactoryData
 		{
-			var newOne:IFactoryData = new cl;
+			var newOne:IFactoryData=new cl;
 			newOne.setData($data);
 			return newOne;
 		}
-	
+
 	}
 
 }

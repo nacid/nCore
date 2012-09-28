@@ -1,6 +1,6 @@
-package ru.nacid.base.data.interfaces 
+package ru.nacid.base.data.interfaces
 {
-	
+
 	/**
 	 * IData.as
 	 * Created On: 5.8 20:22
@@ -24,10 +24,10 @@ package ru.nacid.base.data.interfaces
 	 *	limitations under the License.
 	 *
 	 */
-	public interface IData 
+	public interface IData
 	{
 		function get symbol():String;
 		function valueOf():Number;
 	}
-	
+
 }

@@ -1,4 +1,4 @@
-package ru.nacid.base.services.skins.commands 
+package ru.nacid.base.services.skins.commands
 {
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
@@ -7,11 +7,11 @@ package ru.nacid.base.services.skins.commands
 	import ru.nacid.base.services.lan.loaders.MovieLoader;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
 	import ru.nacid.utils.encoders.interfaces.IEncoder;
-	
+
 	/**
 	 * LoadBitmap.as
 	 * Created On: 21.8 17:27
-	 * 
+	 *
 	 * @author Nikolay nacid Bondarev
 	 * @url https://github.com/nacid/Sand
 	 *
@@ -35,29 +35,31 @@ package ru.nacid.base.services.skins.commands
 	{
 		private var skinData:Object
 		private var _embed:Boolean;
-		
-		public function LoadSkin($id:String = null, $url:String = null,$embed:Boolean = false) 
+
+		public function LoadSkin($id:String=null, $url:String=null, $embed:Boolean=false)
 		{
 			super($url);
-			symbol = $id;
-			_embed = $embed;
+			symbol=$id;
+			_embed=$embed;
 		}
-		
-		override protected function onResponse():void 
+
+		override protected function onResponse():void
 		{
-			skinData = responseData;
+			skinData=responseData;
 			notifyComplete();
 		}
-		
-		public function getInstance():* {
+
+		public function getInstance():*
+		{
 			return new Bitmap((skinData as Bitmap).bitmapData.clone());
 		}
-		
-		public function fromData($id:String, $url:String, $embed:Boolean):ISkinLoader {
+
+		public function fromData($id:String, $url:String, $embed:Boolean):ISkinLoader
+		{
 			return new LoadSkin($id, $url, $embed);
 		}
-		
-		public function get embed():Boolean 
+
+		public function get embed():Boolean
 		{
 			return _embed;
 		}

@@ -1,6 +1,6 @@
 package ru.nacid.base.services.lan.data
 {
-	
+
 	/**
 	 * UrlStorage.as
 	 * Created On: 5.8 20:22
@@ -29,25 +29,25 @@ package ru.nacid.base.services.lan.data
 		private var _host:String;
 		private var _data:Object;
 		private var _userData:Object;
-		
-		public function UrlStorage($host:String, $data:Object = null, $userData:Object = null)
+
+		public function UrlStorage($host:String, $data:Object=null, $userData:Object=null)
 		{
-			_host = $host;
-			_data = $data || {};
-			_userData = $userData || {};
+			_host=$host;
+			_data=$data || {};
+			_userData=$userData || {};
 		}
-		
-		public function get host():String 
+
+		public function get host():String
 		{
 			return _host;
 		}
-		
-		public function get data():Object 
+
+		public function get data():Object
 		{
 			return _data;
 		}
-		
-		public function get userData():Object 
+
+		public function get userData():Object
 		{
 			return _userData;
 		}

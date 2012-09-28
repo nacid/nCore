@@ -1,9 +1,10 @@
-package ru.nacid.base.services.localization.commands 
+package ru.nacid.base.services.localization.commands
 {
 	import flash.net.FileReference;
 	import ru.nacid.base.services.Command;
 	import ru.nacid.base.services.localization.Lm;
 	import ru.nacid.utils.encoders.interfaces.IEncoder;
+
 	/**
 	 * DumpLocaleMap.as
 	 * Created On: 5.8 20:22
@@ -27,29 +28,29 @@ package ru.nacid.base.services.localization.commands
 	 *	limitations under the License.
 	 *
 	 */
-	public class DumpLocaleMap extends Command 
+	public class DumpLocaleMap extends Command
 	{
 		private var mapId:String;
 		private var encoder:IEncoder;
 		private var saver:FileReference;
-		
-		public function DumpLocaleMap($mapId:String,$encoder:IEncoder) 
+
+		public function DumpLocaleMap($mapId:String, $encoder:IEncoder)
 		{
-			symbol = 'dumpLocaleMap';
-			mapId = $mapId;
-			encoder = $encoder;
-			saver = new FileReference();
+			symbol='dumpLocaleMap';
+			mapId=$mapId;
+			encoder=$encoder;
+			saver=new FileReference();
 		}
-		
-		override protected function execInternal():void 
+
+		override protected function execInternal():void
 		{
-			var dumpData:Object = Lm.instance.getMap(mapId).dump();
-			var formattedDump:Object = encoder.encodeObject(dumpData);
-			
+			var dumpData:Object=Lm.instance.getMap(mapId).dump();
+			var formattedDump:Object=encoder.encodeObject(dumpData);
+
 			saver.save(formattedDump, mapId.concat('_localeDump'));
 			notifyComplete();
 		}
-		
+
 	}
 
 }

@@ -1,7 +1,8 @@
-package ru.nacid.base.services.windows.interfaces 
+package ru.nacid.base.services.windows.interfaces
 {
 	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.services.windows.policy.WindowPolicy;
+
 	/**
 	 * IWindowStorage.as
 	 * Created On: 5.8 20:22
@@ -32,5 +33,5 @@ package ru.nacid.base.services.windows.interfaces
 		function get cached():Boolean;
 		function get modal():Boolean;
 	}
-	
+
 }

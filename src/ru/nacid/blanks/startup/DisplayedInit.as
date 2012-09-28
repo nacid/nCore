@@ -1,4 +1,4 @@
-package ru.nacid.blanks.startup 
+package ru.nacid.blanks.startup
 {
 	import flash.display.Sprite;
 	import ru.nacid.base.services.Command;
@@ -9,11 +9,11 @@ package ru.nacid.blanks.startup
 	import ru.nacid.blanks.startup.Init;
 	import ru.nacid.blanks.startup.simpleInit.SimpleInit;
 	import spark.components.SkinnableContainer;
-	
+
 	/**
 	 * SimpleInit.as
 	 * Created On: 9.8 17:23
-	 * 
+	 *
 	 * @author Nikolay nacid Bondarev
 	 * @url https://github.com/nacid/nCore
 	 *
@@ -33,35 +33,37 @@ package ru.nacid.blanks.startup
 	 *	limitations under the License.
 	 *
 	 */
-	public class DisplayedInit extends Init 
+	public class DisplayedInit extends Init
 	{
 		private var wp:WindowParam;
 		private var winCmd:Command;
-		
-		public function DisplayedInit($mainObject:SkinnableContainer, $settings:*) {
+
+		public function DisplayedInit($mainObject:SkinnableContainer, $settings:*)
+		{
 			super($mainObject, $settings);
-			
-			wp = determineWindow();
+
+			wp=determineWindow();
 		}
-		
-		override protected function execInternal():void 
+
+		override protected function execInternal():void
 		{
 			Wm.instance.regWindow(wp);
-			
-			winCmd = new ShowWindow(wp.symbol);
-			winCmd.priority = Command.HIGHER_PRIORITY;
+
+			winCmd=new ShowWindow(wp.symbol);
+			winCmd.priority=Command.HIGHER_PRIORITY;
 			addCommand(winCmd);
-			
+
 			super.execInternal();
 		}
-		
-		override protected function onComplete():void 
+
+		override protected function onComplete():void
 		{
 			Wm.instance.closeWindow(wp.symbol);
 			super.onComplete();
 		}
-		
-		protected function determineWindow():WindowParam {
+
+		protected function determineWindow():WindowParam
+		{
 			return new WindowParam(SimpleInit.ID, SimpleInit, new SinglePolicy);
 		}
 	}

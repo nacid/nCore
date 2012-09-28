@@ -1,6 +1,6 @@
 package ru.nacid.base
 {
-	
+
 	/**
 	 * Model.as
 	 * Created On: 5.8 16:34
@@ -26,9 +26,9 @@ package ru.nacid.base
 	 */
 	public class Model
 	{
-		
+
 		private static var m_instance:Model;
-		
+
 		/* Model
 		 * Use Model.instance
 		 * @param singleton DO NOT USE THIS - Use Model.instance */
@@ -37,13 +37,13 @@ package ru.nacid.base
 			if (singleton == null)
 				throw new Error("Model is a singleton class.  Access via ''Model.instance''.");
 		}
-		
+
 		/* instance
 		 * Gets the Model instance */
 		public static function get instance():Model
 		{
 			if (Model.m_instance == null)
-				Model.m_instance = new Model(new Singleton());
+				Model.m_instance=new Model(new Singleton());
 			return Model.m_instance;
 		}
 	}

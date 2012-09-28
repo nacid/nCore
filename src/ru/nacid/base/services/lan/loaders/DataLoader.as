@@ -1,4 +1,4 @@
-package ru.nacid.base.services.lan.loaders 
+package ru.nacid.base.services.lan.loaders
 {
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -6,7 +6,8 @@ package ru.nacid.base.services.lan.loaders
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import ru.nacid.base.services.lan.LanCommand;
-	import ru.nacid.utils.encoders.interfaces.IEncoder;	
+	import ru.nacid.utils.encoders.interfaces.IEncoder;
+
 	/**
 	 * DataLoader.as
 	 * Created On: 5.8 20:22
@@ -30,48 +31,52 @@ package ru.nacid.base.services.lan.loaders
 	 *	limitations under the License.
 	 *
 	 */
-	public class DataLoader extends LanCommand 
+	public class DataLoader extends LanCommand
 	{
-		protected var loader	:URLLoader;
-		protected var encoder	:IEncoder;
-		
-		public function DataLoader($url:String = null, $data:Object = null, $dataFormat:String = null)
+		protected var loader:URLLoader;
+		protected var encoder:IEncoder;
+
+		public function DataLoader($url:String=null, $data:Object=null, $dataFormat:String=null)
 		{
-			timeOut = DEFAULT_TIMEOUT;
-			data = $data;
-			url = $url;
-			encoder = createEncoder();
-			
-			loader = new URLLoader();
-			loader.dataFormat = $dataFormat || URLLoaderDataFormat.TEXT;
-			
+			timeOut=DEFAULT_TIMEOUT;
+			data=$data;
+			url=$url;
+			encoder=createEncoder();
+
+			loader=new URLLoader();
+			loader.dataFormat=$dataFormat || URLLoaderDataFormat.TEXT;
+
 			loader.addEventListener(Event.COMPLETE, responseHandler);
 			loader.addEventListener(IOErrorEvent.IO_ERROR, onError);
 			loader.addEventListener(ProgressEvent.PROGRESS, progressHandler);
 		}
-		
-		protected function createEncoder():IEncoder {
+
+		protected function createEncoder():IEncoder
+		{
 			return null;
 		}
-		
-		override protected function execInternal():void 
+
+		override protected function execInternal():void
 		{
-			if (exeData) {
-				for (var field:String in exeData) {
-					data[field] = exeData[field];
+			if (exeData)
+			{
+				for (var field:String in exeData)
+				{
+					data[field]=exeData[field];
 				}
 			}
-			
+
 			loader.load(urls.getUrl(url, data).urlRequest);
 		}
-		override protected function responseHandler(e:Event):void 
+
+		override protected function responseHandler(e:Event):void
 		{
 			loader.removeEventListener(Event.COMPLETE, responseHandler);
 			loader.removeEventListener(IOErrorEvent.IO_ERROR, onError);
 			loader.removeEventListener(ProgressEvent.PROGRESS, progressHandler);
-			
-			responseData = loader.data;
-			
+
+			responseData=loader.data;
+
 			super.responseHandler(e);
 		}
 	}

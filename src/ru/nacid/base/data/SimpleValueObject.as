@@ -1,6 +1,7 @@
-package ru.nacid.base.data 
+package ru.nacid.base.data
 {
 	import ru.nacid.base.data.interfaces.IData;
+
 	/**
 	 * SimpleValueObject.as
 	 * Created On: 5.8 20:22
@@ -24,29 +25,29 @@ package ru.nacid.base.data
 	 *	limitations under the License.
 	 *
 	 */
-	public class SimpleValueObject implements IData 
+	public class SimpleValueObject implements IData
 	{
 		protected var _id:String;
 		protected var _numericId:uint;
-		
-		public function SimpleValueObject($key:String) 
+
+		public function SimpleValueObject($key:String)
 		{
-			_id = $key;
-			_numericId = 0;
+			_id=$key;
+			_numericId=0;
 		}
-		
+
 		/* INTERFACE ru.nacid.base.data.interfaces.IData */
-		
-		public function get symbol():String 
+
+		public function get symbol():String
 		{
 			return _id;
 		}
-		
-		public function valueOf():Number 
+
+		public function valueOf():Number
 		{
 			return _numericId;
 		}
-		
+
 	}
-	
+
 }

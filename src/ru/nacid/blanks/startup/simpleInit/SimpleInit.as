@@ -1,15 +1,15 @@
-package ru.nacid.blanks.startup.simpleInit 
+package ru.nacid.blanks.startup.simpleInit
 {
 	import flash.display.GradientType;
 	import flash.geom.Matrix;
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.windows.Window;
 	import ru.nacid.base.services.windows.WindowParam;
-	
+
 	/**
 	 * PreloadWindow.as
 	 * Created On: 9.8 16:50
-	 * 
+	 *
 	 * @author Nikolay nacid Bondarev
 	 * @url https://github.com/nacid/nCore
 	 *
@@ -29,34 +29,34 @@ package ru.nacid.blanks.startup.simpleInit
 	 *	limitations under the License.
 	 *
 	 */
-	public class SimpleInit extends Window 
+	public class SimpleInit extends Window
 	{
-		public static const ID:String = 'simpleInitWindow';
-		
+		public static const ID:String='simpleInitWindow';
+
 		private var progressIndicator:RotatePreloader;
 		private var matrix:Matrix
-		
-		override protected function init():void 
+
+		override protected function init():void
 		{
 			super.init();
-			progressIndicator = new RotatePreloader();
-			matrix = new Matrix();
-			
+			progressIndicator=new RotatePreloader();
+			matrix=new Matrix();
+
 			addElement(progressIndicator);
 		}
-		
-		override public function arrange():void 
+
+		override public function arrange():void
 		{
 			matrix.createGradientBox(stage.stageWidth, stage.stageHeight);
-			
+
 			graphics.clear();
 			graphics.beginGradientFill(GradientType.RADIAL, [0x505050, 0x333333], [1, 1], [0, 255], matrix);
 			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
-			
-			progressIndicator.x = stage.stageWidth >> 1;
-			progressIndicator.y = stage.stageHeight >> 1;
+
+			progressIndicator.x=stage.stageWidth >> 1;
+			progressIndicator.y=stage.stageHeight >> 1;
 		}
-		
+
 	}
 
 }

@@ -1,6 +1,6 @@
 package ru.nacid.base.view.data
 {
-	
+
 	/**
 	 * Position.as
 	 * Created On: 5.8 20:22
@@ -34,20 +34,20 @@ package ru.nacid.base.view.data
 		public var y:Number;
 		public var width:Number;
 		public var height:Number;
-		
-		public function Position(x:Number = 0, y:Number = 0, w:Number = 0, h:Number = 0)
+
+		public function Position(x:Number=0, y:Number=0, w:Number=0, h:Number=0)
 		{
-			this.x = x;
-			this.y = y;
-			this.width = w;
-			this.height = h;
+			this.x=x;
+			this.y=y;
+			this.width=w;
+			this.height=h;
 		}
-		
+
 		public function clone():Position
 		{
 			return new Position(x, y, width, height);
 		}
-	
+
 	}
 
 }

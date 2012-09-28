@@ -1,5 +1,6 @@
-package ru.nacid.base.view.interfaces 
+package ru.nacid.base.view.interfaces
 {
+
 	/**
 	 * IProgressRender.as
 	 * Created On: 5.8 20:22
@@ -23,8 +24,8 @@ package ru.nacid.base.view.interfaces
 	 *	limitations under the License.
 	 *
 	 */
-	public interface IProgressRender 
+	public interface IProgressRender
 	{
 		function setProgress($value:Number):void;
-	}	
+	}
 }

@@ -1,6 +1,7 @@
-package ru.nacid.utils.encoders.interfaces 
+package ru.nacid.utils.encoders.interfaces
 {
 	import flash.utils.ByteArray;
+
 	/**
 	 * IByteEncoder.as
 	 * Created On: 5.8 20:22
@@ -29,5 +30,5 @@ package ru.nacid.utils.encoders.interfaces
 		function encodeBytes($data:ByteArray):ByteArray;
 		function decodeBytes($data:ByteArray):ByteArray;
 	}
-	
+
 }

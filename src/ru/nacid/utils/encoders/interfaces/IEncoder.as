@@ -1,5 +1,6 @@
-package ru.nacid.utils.encoders.interfaces 
+package ru.nacid.utils.encoders.interfaces
 {
+
 	/**
 	 * IEncoder.as
 	 * Created On: 5.8 20:22
@@ -23,15 +24,15 @@ package ru.nacid.utils.encoders.interfaces
 	 *	limitations under the License.
 	 *
 	 */
-	public interface IEncoder 
+	public interface IEncoder
 	{
 		function encodeObject($data:Object):Object;
 		function encodeString($data:String):Object;
 		function encodeFloat($data:Number):Object;
-		
+
 		function decodeObject($data:Object):Object;
 		function decodeString($data:Object):String;
 		function decodeFloat($data:Object):Number;
 	}
-	
+
 }

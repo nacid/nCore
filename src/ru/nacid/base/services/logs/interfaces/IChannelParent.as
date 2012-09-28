@@ -1,5 +1,6 @@
 package ru.nacid.base.services.logs.interfaces
 {
+
 	/**
 	 * IChannelParent.as
 	 * Created On: 5.8 20:22

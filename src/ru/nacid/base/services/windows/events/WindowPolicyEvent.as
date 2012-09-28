@@ -1,6 +1,7 @@
-package ru.nacid.base.services.windows.events 
+package ru.nacid.base.services.windows.events
 {
 	import flash.events.Event;
+
 	/**
 	 * WindowPolicyEvent.as
 	 * Created On: 5.8 20:22
@@ -24,44 +25,44 @@ package ru.nacid.base.services.windows.events
 	 *	limitations under the License.
 	 *
 	 */
-	public class WindowPolicyEvent extends Event 
+	public class WindowPolicyEvent extends Event
 	{
-		public static const CLOSE_WINDOW	:String = 'closeWindow';
-		public static const OPEN_WINDOW		:String = 'openWindow';
-		
+		public static const CLOSE_WINDOW:String='closeWindow';
+		public static const OPEN_WINDOW:String='openWindow';
+
 		private var _targetWindow:String;
 		private var _displayIndex:int;
 		private var _openData:Object;
-		
-		public function WindowPolicyEvent(type:String,targetWindow:String,openData:Object = null,displayIndex:int = -1, bubbles:Boolean=false, cancelable:Boolean=false) 
+
+		public function WindowPolicyEvent(type:String, targetWindow:String, openData:Object=null, displayIndex:int=-1, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
 			super(type, bubbles, cancelable);
-			
-			_targetWindow = targetWindow;
-			_displayIndex = displayIndex;
-			_openData = openData;
+
+			_targetWindow=targetWindow;
+			_displayIndex=displayIndex;
+			_openData=openData;
 		}
-		
-		override public function clone():flash.events.Event 
+
+		override public function clone():flash.events.Event
 		{
-			return new WindowPolicyEvent(type, _targetWindow, _openData,_displayIndex, bubbles, cancelable);
+			return new WindowPolicyEvent(type, _targetWindow, _openData, _displayIndex, bubbles, cancelable);
 		}
-		
-		public function get targetWindow():String 
+
+		public function get targetWindow():String
 		{
 			return _targetWindow;
 		}
-		
-		public function get displayIndex():int 
+
+		public function get displayIndex():int
 		{
 			return _displayIndex;
 		}
-		
-		public function get openData():Object 
+
+		public function get openData():Object
 		{
 			return _openData;
 		}
-		
+
 	}
 
 }

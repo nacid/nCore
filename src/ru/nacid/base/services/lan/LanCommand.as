@@ -9,6 +9,7 @@ package ru.nacid.base.services.lan
 	import flash.net.URLRequest;
 	import ru.nacid.base.services.Command;
 	import ru.nacid.base.services.lan.data.RequestVO;
+
 	/**
 	 * LanCommand.as
 	 * Created On: 5.8 20:22
@@ -34,29 +35,29 @@ package ru.nacid.base.services.lan
 	 */
 	public class LanCommand extends Command
 	{
-		public static const urls:URLFactory = new URLFactory;
-		
+		public static const urls:URLFactory=new URLFactory;
+
 		protected var data:Object;
 		protected var responseData:Object;
-		
-		protected var bytesForUnknown:uint = 512000;
-		
-		protected var url		:String;
-		
+
+		protected var bytesForUnknown:uint=512000;
+
+		protected var url:String;
+
 		protected function progressHandler(e:ProgressEvent):void
 		{
 			if (e.bytesTotal == 0)
 			{
-				e.bytesTotal = Math.max(e.bytesLoaded, bytesForUnknown);
+				e.bytesTotal=Math.max(e.bytesLoaded, bytesForUnknown);
 			}
 			commitProgress(e.bytesLoaded / e.bytesTotal);
 		}
-		
+
 		protected function responseHandler(e:Event):void
 		{
 			commitProgress(1);
 			Cc.infoch(CMD_CHANNEL, symbol, 'received: \n', responseData);
-			
+
 			try
 			{
 				onResponse();
@@ -66,23 +67,23 @@ package ru.nacid.base.services.lan
 				onError(error);
 			}
 		}
-		
-		
+
+
 		protected function onResponse():void
 		{
 			//virtual
 		}
-		
+
 		override protected function msgExecute():void
 		{
-			Cc.infoch(CMD_CHANNEL, '>>', symbol,url);
+			Cc.infoch(CMD_CHANNEL, '>>', symbol, url);
 		}
-		
+
 		override protected function msgComplete():void
 		{
-			Cc.logch(CMD_CHANNEL, '<<', symbol,url);
+			Cc.logch(CMD_CHANNEL, '<<', symbol, url);
 		}
-		
+
 		public function get response():Object
 		{
 			return responseData;

@@ -1,4 +1,4 @@
-package ru.nacid.base.services.lan.data 
+package ru.nacid.base.services.lan.data
 {
 	import flash.net.URLRequest;
 	import flash.net.URLRequestMethod;
@@ -6,6 +6,7 @@ package ru.nacid.base.services.lan.data
 	import ru.nacid.base.data.interfaces.IFactoryData;
 	import ru.nacid.base.data.SimpleValueObject;
 	import ru.nacid.utils.HashUtils;
+
 	/**
 	 * RequestVO.as
 	 * Created On: 5.8 20:22
@@ -31,56 +32,59 @@ package ru.nacid.base.services.lan.data
 	 */
 	public class RequestVO extends SimpleValueObject implements IFactoryData
 	{
-		public static const HTTP	:String = 'http';
-		public static const HTTPS	:String = 'https';
-		public static const UNKNOWN	:String = 'unknown';
-		
-		private const PROTOCOL_SEPARATE:String = '://';
-		private const DIR_SEPARATE:String = '/';
-		
+		public static const HTTP:String='http';
+		public static const HTTPS:String='https';
+		public static const UNKNOWN:String='unknown';
+
+		private const PROTOCOL_SEPARATE:String='://';
+		private const DIR_SEPARATE:String='/';
+
 		private var method:String;
 		private var protocol:String;
 		private var body:String;
-		
+
 		private var _urlRequest:URLRequest;
-		
+
 		public var userData:Object;
-		
-		public function RequestVO($url:String, $data:Object=null,$method:String = null) 
+
+		public function RequestVO($url:String, $data:Object=null, $method:String=null)
 		{
 			super($url);
-			
-			_urlRequest = new URLRequest(symbol);
-			_urlRequest.method = $method || URLRequestMethod.GET;
-			
-			var prEnd:int = $url.indexOf(PROTOCOL_SEPARATE);
-			var bEnd:int = $url.lastIndexOf(DIR_SEPARATE);
-			
-			protocol = prEnd > 0 ? $url.substr(0, prEnd) : UNKNOWN;
-			body = bEnd > 0 ? $url.substring(prEnd + PROTOCOL_SEPARATE.length, bEnd) : UNKNOWN;
-			
-			if($data)
+
+			_urlRequest=new URLRequest(symbol);
+			_urlRequest.method=$method || URLRequestMethod.GET;
+
+			var prEnd:int=$url.indexOf(PROTOCOL_SEPARATE);
+			var bEnd:int=$url.lastIndexOf(DIR_SEPARATE);
+
+			protocol=prEnd > 0 ? $url.substr(0, prEnd) : UNKNOWN;
+			body=bEnd > 0 ? $url.substring(prEnd + PROTOCOL_SEPARATE.length, bEnd) : UNKNOWN;
+
+			if ($data)
 				setData($data);
 		}
-		
-		public function setData($data:Object):void {
-			_urlRequest.data = new URLVariables();
-			for (var field:String in $data) {
-				_urlRequest.data[field] = $data[field];
+
+		public function setData($data:Object):void
+		{
+			_urlRequest.data=new URLVariables();
+			for (var field:String in $data)
+			{
+				_urlRequest.data[field]=$data[field];
 			}
-			
-			_numericId = HashUtils.CRC($data);
+
+			_numericId=HashUtils.CRC($data);
 		}
-		
-		public function get urlRequest():URLRequest 
+
+		public function get urlRequest():URLRequest
 		{
 			return _urlRequest;
 		}
-		
-		public function get domain():String {
+
+		public function get domain():String
+		{
 			return protocol.concat(PROTOCOL_SEPARATE, body, DIR_SEPARATE);
 		}
-		
+
 	}
 
 }

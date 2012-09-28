@@ -1,24 +1,27 @@
-package ru.nacid.blanks.startup 
+package ru.nacid.blanks.startup
 {
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.system.Capabilities;
+
 	import mx.core.IVisualElement;
 	import mx.core.UIComponent;
+
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.CommandQueue;
-	import ru.nacid.base.services.lan.data.RequestVO;
 	import ru.nacid.base.services.lan.LanCommand;
+	import ru.nacid.base.services.lan.data.RequestVO;
 	import ru.nacid.base.services.logs.CCInit;
 	import ru.nacid.base.services.windows.Wm;
-	import ru.nacid.base.view.data.Position;
 	import ru.nacid.base.view.ViewObject;
+	import ru.nacid.base.view.data.Position;
 	import ru.nacid.utils.encoders.data.Json;
+
 	import spark.components.Application;
 	import spark.components.SkinnableContainer;
-	
+
 	/**
 	 * Initializer.as
 	 * Created On: 5.8 20:22
@@ -42,74 +45,79 @@ package ru.nacid.blanks.startup
 	 *	limitations under the License.
 	 *
 	 */
-	public class Init extends CommandQueue 
+	public class Init extends CommandQueue
 	{
 		protected var appLayer:ViewObject;
 		protected var sysLayer:ViewObject;
-		
+
 		protected var progressIndicator:DisplayObject;
 		protected var stagePosition:Position;
 		protected var data:Object;
-		
-		public function Init($mainObject:SkinnableContainer, $settings:*) 
+
+		public function Init($mainObject:SkinnableContainer, $settings:*)
 		{
-			symbol = "initialization";
-			
-			data = readSettings($settings);
-			
-			$mainObject.addElement(appLayer = new ViewObject);
-			$mainObject.addElement(sysLayer = new ViewObject);
+			symbol="initialization";
+
+			data=readSettings($settings);
+
+			$mainObject.addElement(appLayer=new ViewObject);
+			$mainObject.addElement(sysLayer=new ViewObject);
 		}
-		
-		override protected function execInternal():void 
+
+		override protected function execInternal():void
 		{
-			
-			if (appLayer.stage == null) {
+
+			if (appLayer.stage == null)
+			{
 				error('main object must have stage!');
 				return onError();
 			}
-			stagePosition = new Position(
-				appLayer.stage.x,
-				appLayer.stage.y,
-				appLayer.stage.stageWidth,
-				appLayer.stage.stageHeight
-			)
-			
-			appLayer.stage.scaleMode = StageScaleMode.NO_SCALE;
-			appLayer.stage.align = StageAlign.TOP_LEFT;
-			
-			Global.appName = data.appname;
-			Global.release = !(CONFIG::debug);
-			Global.debugger = Capabilities.isDebugger;
-			Global.language = Capabilities.language;
-			Global.stageW = stagePosition.width;
-			Global.stageH = stagePosition.height;
-			Global.domain = new RequestVO(appLayer.stage.loaderInfo.url);
-			
-			if (data.remote is Array) {
-				for (var i:int; i < data.remote.length; i++) {
+			stagePosition=new Position(appLayer.stage.x, appLayer.stage.y, appLayer.stage.stageWidth, appLayer.stage.stageHeight)
+
+			appLayer.stage.scaleMode=StageScaleMode.NO_SCALE;
+			appLayer.stage.align=StageAlign.TOP_LEFT;
+
+			Global.appName=data.appname;
+			Global.debugger=Capabilities.isDebugger;
+			Global.language=Capabilities.language;
+			Global.stageW=stagePosition.width;
+			Global.stageH=stagePosition.height;
+			Global.domain=new RequestVO(appLayer.stage.loaderInfo.url);
+
+			if (data.remote is Array)
+			{
+				for (var i:int; i < data.remote.length; i++)
+				{
 					LanCommand.urls.writeAlias(data.remote[i].key, data.remote[i]);
 				}
 			}
-			
-			if (data.hasOwnProperty(CCInit.DEFAULT_FIELD)) {
+
+			if (data.hasOwnProperty(CCInit.DEFAULT_FIELD))
+			{
 				new CCInit(sysLayer).execute(data[CCInit.DEFAULT_FIELD]);
 			}
-			
+
 			Wm.instance.setContainer(appLayer);
-			
+
 			collectQueue();
 			super.execInternal();
 		}
-		
-		protected function readSettings($settings:*):Object {
+
+		protected function readSettings($settings:*):Object
+		{
 			return new Json().decodeObject($settings);
 		}
-		
-		protected function collectQueue():void {
+
+		protected function collectQueue():void
+		{
 			//virtual
 		}
-		
+
+		protected function setDebug($value:Boolean):void
+		{
+			Global.release=!$value;
+		}
+
 	}
 
 }

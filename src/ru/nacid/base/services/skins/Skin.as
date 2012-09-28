@@ -1,14 +1,14 @@
-package ru.nacid.base.services.skins 
+package ru.nacid.base.services.skins
 {
 	import flash.display.DisplayObject;
 	import ru.nacid.base.services.CommandEvent;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
 	import ru.nacid.base.view.ViewObject;
-	
+
 	/**
 	 * Skin.as
 	 * Created On: 21.8 15:18
-	 * 
+	 *
 	 * @author Nikolay nacid Bondarev
 	 * @url https://github.com/nacid/Sand
 	 *
@@ -35,67 +35,78 @@ package ru.nacid.base.services.skins
 		private var _loading:Boolean;
 		private var _data:*;
 		private var _void:Boolean;
-		
+
 		public var embed:Boolean;
-		
+
 		private var cont:*
-		
-		public function Skin($loader:ISkinLoader) {
-			_loader = $loader;
-			
-			if (_loader == null) {
-				_void = true;
+
+		public function Skin($loader:ISkinLoader)
+		{
+			_loader=$loader;
+
+			if (_loader == null)
+			{
+				_void=true;
 			}
 			applyId(_void ? 'voidSkin' : $loader.symbol);
 		}
-		
-		public function load():void {
-			if (loader && !loaded && !loading) {
+
+		public function load():void
+		{
+			if (loader && !loaded && !loading)
+			{
 				loader.execute();
 			}
 		}
-		
-		override protected function show():void 
+
+		override protected function show():void
 		{
-			if(_void ==false){
-				if (loaded) {
-					_data = _loader.getInstance()
-					if(_data is DisplayObject)
+			if (_void == false)
+			{
+				if (loaded)
+				{
+					_data=_loader.getInstance()
+					if (_data is DisplayObject)
 						addChild(_data);
-				}else {
+				}
+				else
+				{
 					_loader.addEventListener(CommandEvent.COMPLETE, loaderHandler);
-					if (!loading) {
+					if (!loading)
+					{
 						_loader.execute();
 					}
 				}
 			}
 		}
-		
-		private function loaderHandler(e:CommandEvent):void {
+
+		private function loaderHandler(e:CommandEvent):void
+		{
 			_loader.removeEventListener(CommandEvent.COMPLETE, loaderHandler);
-			addChild(_data = _loader.getInstance());
+			addChild(_data=_loader.getInstance());
 			e.preventDefault();
 		}
-		
-		public function get loaded():Boolean {
+
+		public function get loaded():Boolean
+		{
 			return _void ? false : _loader.completed;
 		}
-		
-		public function get loading():Boolean 
+
+		public function get loading():Boolean
 		{
 			return _void ? false : _loader.executing;
 		}
-		
-		public function get loader():ISkinLoader 
+
+		public function get loader():ISkinLoader
 		{
 			return _void ? null : _loader;
 		}
-		
-		public function get data():* 
+
+		public function get data():*
 		{
 			return _data;
 		}
-		
+
 	}
 
 }

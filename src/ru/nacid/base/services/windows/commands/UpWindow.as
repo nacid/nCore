@@ -1,5 +1,6 @@
-package ru.nacid.base.services.windows.commands 
+package ru.nacid.base.services.windows.commands
 {
+
 	/**
 	 * UpWindow.as
 	 * Created On: 5.8 20:22
@@ -23,20 +24,20 @@ package ru.nacid.base.services.windows.commands
 	 *	limitations under the License.
 	 *
 	 */
-	public class UpWindow extends WindowCommand 
+	public class UpWindow extends WindowCommand
 	{
-		
-		public function UpWindow($id:String) 
+
+		public function UpWindow($id:String)
 		{
 			super('upWindow', $id);
 		}
-		
-		override protected function execInternal():void 
+
+		override protected function execInternal():void
 		{
 			navigator.makeTop(windowId);
 			notifyComplete();
 		}
-		
+
 	}
 
 }

@@ -1,7 +1,8 @@
-package ru.nacid.base.services.windows.commands 
+package ru.nacid.base.services.windows.commands
 {
 	import ru.nacid.base.services.Command;
 	import ru.nacid.base.services.windows.Wm;
+
 	/**
 	 * CloseWindow.as
 	 * Created On: 5.8 20:22
@@ -25,23 +26,23 @@ package ru.nacid.base.services.windows.commands
 	 *	limitations under the License.
 	 *
 	 */
-	public class CloseWindow extends WindowCommand 
+	public class CloseWindow extends WindowCommand
 	{
 		private var force:Boolean;
-		
-		public function CloseWindow($id:String,$force:Boolean = false) 
+
+		public function CloseWindow($id:String, $force:Boolean=false)
 		{
 			super('closeWindow', $id);
-			
-			force = $force;
+
+			force=$force;
 		}
-		
-		override protected function execInternal():void 
+
+		override protected function execInternal():void
 		{
 			navigator.closeWindow(windowId, force);
 			notifyComplete();
 		}
-		
+
 	}
 
 }

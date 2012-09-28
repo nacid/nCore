@@ -1,8 +1,9 @@
-package ru.nacid.base.services 
+package ru.nacid.base.services
 {
 	import com.junkbyte.console.Cc;
 	import flash.events.EventDispatcher;
 	import ru.nacid.base.data.store.VOList;
+
 	/**
 	 * CommandQueue.as
 	 * Created On: 5.8 20:22
@@ -26,70 +27,85 @@ package ru.nacid.base.services
 	 *	limitations under the License.
 	 *
 	 */
-	public class CommandQueue extends Command 
+	public class CommandQueue extends Command
 	{
-		private var list:VOList = new VOList();
-		private var step:uint = 0;
-		
+		private var list:VOList=new VOList();
+		private var step:uint=0;
+
 		private var stepProgress:Number;
-		
-		public function addCommand(cmd:Command):void {
+
+		public function addCommand(cmd:Command):void
+		{
 			if (list.add(cmd))
 				Cc.logch(CMD_CHANNEL, cmd.symbol, 'added to queue', symbol);
 			else
 				Cc.warnch(CMD_CHANNEL, 'unable to add command', cmd.symbol, 'to queue');
 		}
-		
-		override protected function execInternal():void 
+
+		override protected function execInternal():void
 		{
-			stepProgress = 1 / list.size;
+			stepProgress=1 / list.size;
 			list.sort(prioritySorter);
 			makeStep();
 		}
-		
-		private function makeStep(e:CommandEvent = null):void {
-			if (e){
+
+		private function makeStep(e:CommandEvent=null):void
+		{
+			if (e)
+			{
 				processListeners(currentCommand, false);
 				++step;
 			}
-			
-			if (step < list.size) {
+
+			if (step < list.size)
+			{
 				processListeners(currentCommand, true);
 				currentCommand.execute();
-			}else {
+			}
+			else
+			{
 				onComplete();
 			}
 		}
-		
-		protected function onComplete():void {
+
+		protected function onComplete():void
+		{
 			notifyComplete();
 		}
-		
-		protected function progressHandler(e:CommandEvent):void {
+
+		protected function progressHandler(e:CommandEvent):void
+		{
 			commitProgress((step + e.progress) * stepProgress);
 		}
-		
-		private function prioritySorter(x:Command, y:Command):Number {
+
+		private function prioritySorter(x:Command, y:Command):Number
+		{
 			return x.priority > y.priority ? -1 : 1;
 		}
-		
-		private function processListeners($target:Command, $add:Boolean):void {
-			if ($add) {
+
+		private function processListeners($target:Command, $add:Boolean):void
+		{
+			if ($add)
+			{
 				$target.addEventListener(CommandEvent.PROGRESS, progressHandler);
 				$target.addEventListener(CommandEvent.COMPLETE, makeStep);
 				$target.addEventListener(CommandEvent.ERROR, onError);
-			}else {
+			}
+			else
+			{
 				$target.removeEventListener(CommandEvent.PROGRESS, progressHandler);
 				$target.removeEventListener(CommandEvent.COMPLETE, makeStep);
 				$target.removeEventListener(CommandEvent.ERROR, onError);
 			}
 		}
-		
-		private function get currentCommand():Command {
+
+		private function get currentCommand():Command
+		{
 			return list.at(step) as Command;
 		}
-		
-		public function getCurrentID():String {
+
+		public function getCurrentID():String
+		{
 			return currentCommand.symbol;
 		}
 	}

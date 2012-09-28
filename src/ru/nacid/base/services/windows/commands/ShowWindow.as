@@ -1,5 +1,6 @@
-package ru.nacid.base.services.windows.commands 
+package ru.nacid.base.services.windows.commands
 {
+
 	/**
 	 * ShowWindow.as
 	 * Created On: 5.8 20:22
@@ -23,20 +24,20 @@ package ru.nacid.base.services.windows.commands
 	 *	limitations under the License.
 	 *
 	 */
-	public class ShowWindow extends WindowCommand 
+	public class ShowWindow extends WindowCommand
 	{
-		
-		public function ShowWindow($id:String) 
+
+		public function ShowWindow($id:String)
 		{
 			super('openWindow', $id);
 		}
-		
-		override protected function execInternal():void 
+
+		override protected function execInternal():void
 		{
 			navigator.showWindow(windowId, exeData);
 			notifyComplete();
 		}
-		
+
 	}
 
 }

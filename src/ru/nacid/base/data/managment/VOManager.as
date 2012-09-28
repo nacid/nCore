@@ -1,10 +1,11 @@
-package ru.nacid.base.data.managment 
+package ru.nacid.base.data.managment
 {
 	import com.junkbyte.console.Cc;
 	import flash.events.EventDispatcher;
 	import ru.nacid.base.data.managment.events.VOManagerEvent;
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
+
 	/**
 	 * VOManager.as
 	 * Created On: 5.8 20:22
@@ -30,69 +31,75 @@ package ru.nacid.base.data.managment
 	 */
 	public class VOManager extends EventDispatcher implements IChannelParent
 	{
-		protected const MANAGER_CHANNEL:String = 'MAN';
-		
+		protected const MANAGER_CHANNEL:String='MAN';
+
 		protected var activeList:Vector.<String>;
 		protected var list:VOList;
-		
+
 		protected var dispatcherMode:Boolean;
-		
-		public function VOManager() 
+
+		public function VOManager()
 		{
-			activeList = Vector.<String>([]);
-			list = new VOList();
+			activeList=Vector.<String>([]);
+			list=new VOList();
 		}
-		
-		protected function activeIndex($id:String):int {
+
+		protected function activeIndex($id:String):int
+		{
 			return activeList.indexOf($id);
 		}
-		
-		public function isActive($id:String):Boolean {
+
+		public function isActive($id:String):Boolean
+		{
 			return activeIndex($id) >= 0;
 		}
-		
-		protected function activate($id:String):void {
-			if (list.containsId($id) && !isActive($id)) {
+
+		protected function activate($id:String):void
+		{
+			if (list.containsId($id) && !isActive($id))
+			{
 				activeList.push($id);
-				
+
 				if (dispatcherMode)
 					dispatchEvent(new VOManagerEvent(VOManagerEvent.ITEM_ACTIVATED, $id));
 			}
 		}
-		
-		protected function deactivate($id:String):void {
-			var index:int = activeIndex($id);
-			if (index >= 0) {
+
+		protected function deactivate($id:String):void
+		{
+			var index:int=activeIndex($id);
+			if (index >= 0)
+			{
 				activeList.splice(index, 1);
-				
+
 				if (dispatcherMode)
 					dispatchEvent(new VOManagerEvent(VOManagerEvent.ITEM_DEACTIVATED, $id));
 			}
 		}
-		
+
 		/* INTERFACE ru.nacid.base.services.logs.interfaces.IChannelParent */
-		
-		public function log($string:String):void 
+
+		public function log($string:String):void
 		{
 			Cc.logch(MANAGER_CHANNEL, $string);
 		}
-		
-		public function warning($string:String):void 
+
+		public function warning($string:String):void
 		{
 			Cc.warnch(MANAGER_CHANNEL, $string);
 		}
-		
-		public function info($string:String):void 
+
+		public function info($string:String):void
 		{
 			Cc.infoch(MANAGER_CHANNEL, $string);
 		}
-		
-		public function error($string:String):void 
+
+		public function error($string:String):void
 		{
 			Cc.errorch(MANAGER_CHANNEL, $string);
 		}
-		
-		public function critical($string:String):void 
+
+		public function critical($string:String):void
 		{
 			Cc.fatalch(MANAGER_CHANNEL, $string);
 		}

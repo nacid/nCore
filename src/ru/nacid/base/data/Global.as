@@ -1,7 +1,7 @@
 package ru.nacid.base.data
 {
 	import ru.nacid.base.services.lan.data.RequestVO;
-	
+
 	/**
 	 * Global.as
 	 * Created On: 5.8 20:22
@@ -32,7 +32,7 @@ package ru.nacid.base.data
 		public static var release:Boolean;
 		public static var appName:String;
 		public static var domain:RequestVO;
-		
+
 		public static var stageW:Number;
 		public static var stageH:Number;
 	}
