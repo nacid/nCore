@@ -68,7 +68,6 @@ package ru.nacid.base.services.lan
 			}
 		}
 
-
 		protected function onResponse():void
 		{
 			//virtual

@@ -40,7 +40,7 @@ package ru.nacid.base.services.lan
 
 		override protected function create($key:String, $data:Object):IFactoryData
 		{
-			return new RequestVO($key, $data);
+			return new RequestVO($key, $data,$data['method'] ? $data.method : null);
 		}
 
 		public function getUrl($url:String, $data:Object=null):RequestVO

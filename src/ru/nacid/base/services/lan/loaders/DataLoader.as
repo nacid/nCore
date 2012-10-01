@@ -5,6 +5,8 @@ package ru.nacid.base.services.lan.loaders
 	import flash.events.ProgressEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
+	import flash.net.URLRequest;
+	
 	import ru.nacid.base.services.lan.LanCommand;
 	import ru.nacid.utils.encoders.interfaces.IEncoder;
 
@@ -65,8 +67,8 @@ package ru.nacid.base.services.lan.loaders
 					data[field]=exeData[field];
 				}
 			}
-
-			loader.load(urls.getUrl(url, data).urlRequest);
+			var req:URLRequest = urls.getUrl(url, data).urlRequest;
+			loader.load(req);
 		}
 
 		override protected function responseHandler(e:Event):void
