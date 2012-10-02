@@ -33,7 +33,7 @@ package ru.nacid.base.services
 		private var step:uint=0;
 
 		private var stepProgress:Number;
-
+		
 		public function addCommand(cmd:Command):void
 		{
 			if (list.add(cmd))
