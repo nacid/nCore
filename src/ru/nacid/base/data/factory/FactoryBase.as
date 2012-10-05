@@ -46,7 +46,7 @@ package ru.nacid.base.data.factory
 		{
 			if (hash[$key])
 			{
-				var dictKey:Number=HashUtils.CRC($data);
+				var dictKey:Number=HashUtils.CRC([$key,$data]);
 				if (dict[dictKey])
 				{
 					return dict[dictKey];

@@ -41,7 +41,7 @@ package ru.nacid.base.services.lan.loaders
 		public function DataLoader($url:String=null, $data:Object=null, $dataFormat:String=null)
 		{
 			timeOut=DEFAULT_TIMEOUT;
-			data=$data;
+			data=$data || {};
 			url=$url;
 			encoder=createEncoder();
 
@@ -67,7 +67,8 @@ package ru.nacid.base.services.lan.loaders
 					data[field]=exeData[field];
 				}
 			}
-			var req:URLRequest = urls.getUrl(url, data).urlRequest;
+			req = urls.getUrl(url, data).urlRequest;
+			
 			loader.load(req);
 		}
 

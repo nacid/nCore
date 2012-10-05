@@ -1,7 +1,9 @@
 package ru.nacid.base.services
 {
 	import com.junkbyte.console.Cc;
+
 	import flash.events.EventDispatcher;
+
 	import ru.nacid.base.data.store.VOList;
 
 	/**
@@ -33,11 +35,17 @@ package ru.nacid.base.services
 		private var step:uint=0;
 
 		private var stepProgress:Number;
-		
-		public function addCommand(cmd:Command):void
+
+		public function addCommand(cmd:Command, autoPriority:Boolean=true):void
 		{
 			if (list.add(cmd))
+			{
+				if (autoPriority)
+				{
+					cmd.priority=-list.size;
+				}
 				Cc.logch(CMD_CHANNEL, cmd.symbol, 'added to queue', symbol);
+			}
 			else
 				Cc.warnch(CMD_CHANNEL, 'unable to add command', cmd.symbol, 'to queue');
 		}

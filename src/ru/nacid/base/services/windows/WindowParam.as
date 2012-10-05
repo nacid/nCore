@@ -38,7 +38,7 @@ package ru.nacid.base.services.windows
 
 		public function WindowParam($id:String, $render:Class, $policy:WindowPolicy, $cached:Boolean=false, $modal:Boolean=false, $skinName:String=null)
 		{
-			id=$id;
+			symbol=$id;
 			skinName=$skinName;
 
 			_policy=$policy;
@@ -49,9 +49,8 @@ package ru.nacid.base.services.windows
 
 		public function get useSkin():Boolean
 		{
-			return skinName is String
+			return skinName is String;
 		}
-		;
 
 		public function get policy():WindowPolicy
 		{

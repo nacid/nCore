@@ -43,7 +43,7 @@ package ru.nacid.base.data
 			init();
 			apply($data);
 			if ($id)
-				id=$id;
+				symbol=$id;
 		}
 
 		protected function init():void
@@ -101,7 +101,7 @@ package ru.nacid.base.data
 			return _id;
 		}
 
-		public function set id(value:String):void
+		public function set symbol(value:String):void
 		{
 			_id=value;
 			_numericId=StringUtils.toCRC(value);
