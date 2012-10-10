@@ -1,11 +1,13 @@
 package ru.nacid.base.services
 {
 	import com.junkbyte.console.Cc;
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+
 	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.services.interfaces.ICommand;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
@@ -238,6 +240,7 @@ package ru.nacid.base.services
 		public function error($string:String):void
 		{
 			Cc.errorch(CMD_CHANNEL, $string);
+			Cc.stackch(CMD_CHANNEL, 'getStack(-1):',15);
 		}
 
 		public function critical($string:String):void

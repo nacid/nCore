@@ -29,7 +29,7 @@ package ru.nacid.base.data.store
 	 *	limitations under the License.
 	 *
 	 */
-	public class VOList extends EventDispatcher
+	dynamic public class VOList extends EventDispatcher
 	{
 		protected var _list:Vector.<IData>
 		protected var _hash:Object;
