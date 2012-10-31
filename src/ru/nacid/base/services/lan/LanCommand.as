@@ -74,6 +74,7 @@ package ru.nacid.base.services.lan
 		protected function onResponse():void
 		{
 			//virtual
+			notifyComplete();
 		}
 
 		override protected function msgExecute():void

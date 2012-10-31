@@ -1,14 +1,15 @@
 package ru.nacid.blanks.startup
 {
 	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.system.Capabilities;
-
+	
 	import mx.core.IVisualElement;
 	import mx.core.UIComponent;
-
+	
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.CommandQueue;
 	import ru.nacid.base.services.lan.LanCommand;
@@ -18,9 +19,10 @@ package ru.nacid.blanks.startup
 	import ru.nacid.base.view.ViewObject;
 	import ru.nacid.base.view.data.Position;
 	import ru.nacid.utils.encoders.data.Json;
-
+	
 	import spark.components.Application;
 	import spark.components.SkinnableContainer;
+	import spark.components.supportClasses.SkinnableComponent;
 
 	/**
 	 * Initializer.as
@@ -54,14 +56,18 @@ package ru.nacid.blanks.startup
 		protected var stagePosition:Position;
 		protected var data:Object;
 
-		public function Init($mainObject:SkinnableContainer, $settings:*)
+		public function Init($mainObject:DisplayObject, $settings:*)
 		{
 			symbol="initialization";
 
 			data=readSettings($settings);
-
-			$mainObject.addElement(appLayer=new ViewObject);
-			$mainObject.addElement(sysLayer=new ViewObject);
+			
+			if($mainObject is SkinnableComponent){
+				($mainObject as SkinnableContainer).addElement(appLayer=new ViewObject);
+				($mainObject as SkinnableContainer).addElement(sysLayer=new ViewObject);
+			}else{
+				throw new TypeError('main object must be SkinnableContainer');
+			}
 		}
 
 		override protected function execInternal():void

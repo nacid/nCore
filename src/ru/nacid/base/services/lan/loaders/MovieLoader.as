@@ -58,7 +58,7 @@ package ru.nacid.base.services.lan.loaders
 				}
 			}
 
-			loader.load(urls.getUrl(url, data).urlRequest);
+			loader.load(urls.getUrl(url, data || { } ).urlRequest);
 		}
 
 		override protected function responseHandler(e:Event):void

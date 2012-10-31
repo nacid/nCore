@@ -91,7 +91,7 @@ package ru.nacid.base.services
 			Cc.warnch('timeOut for "', symbol, '"');
 		}
 
-		final public function execute($data:Object=null):void
+		public function execute($data:Object=null):void
 		{
 			if (_executing || _completed)
 				return;

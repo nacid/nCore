@@ -2,6 +2,7 @@ package ru.nacid.blanks.startup.simpleInit
 {
 	import flash.display.GradientType;
 	import flash.geom.Matrix;
+	
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.windows.Window;
 	import ru.nacid.base.services.windows.WindowParam;

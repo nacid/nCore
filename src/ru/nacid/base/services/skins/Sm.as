@@ -34,7 +34,8 @@ package ru.nacid.base.services.skins
 	 */
 	public class Sm implements IChannelParent
 	{
-		public const BITMAP:String='BITMAP';
+		public static const BITMAP:String='BITMAP';
+		
 		private const MAN_CHANNEL:String='MAN';
 
 		private static var m_instance:Sm;

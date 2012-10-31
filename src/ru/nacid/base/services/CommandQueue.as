@@ -1,9 +1,9 @@
 package ru.nacid.base.services
 {
 	import com.junkbyte.console.Cc;
-
+	
 	import flash.events.EventDispatcher;
-
+	
 	import ru.nacid.base.data.store.VOList;
 
 	/**
@@ -31,8 +31,8 @@ package ru.nacid.base.services
 	 */
 	public class CommandQueue extends Command
 	{
-		private var list:VOList=new VOList();
-		private var step:uint=0;
+		protected var list:VOList=new VOList();
+		protected var step:uint=0;
 
 		private var stepProgress:Number;
 
@@ -115,6 +115,10 @@ package ru.nacid.base.services
 		public function getCurrentID():String
 		{
 			return currentCommand.symbol;
+		}
+		
+		public function get size():int{
+			return list.size;
 		}
 	}
 

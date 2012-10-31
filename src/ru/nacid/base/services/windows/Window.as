@@ -42,7 +42,7 @@ package ru.nacid.base.services.windows
 		{
 			return windowParam;
 		}
-
+		
 		final public function applyParam($param:WindowParam):void
 		{
 			windowParam=$param;

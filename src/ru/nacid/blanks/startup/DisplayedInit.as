@@ -1,13 +1,16 @@
 package ru.nacid.blanks.startup
 {
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
+	
 	import ru.nacid.base.services.Command;
-	import ru.nacid.base.services.windows.commands.ShowWindow;
-	import ru.nacid.base.services.windows.policy.SinglePolicy;
 	import ru.nacid.base.services.windows.WindowParam;
 	import ru.nacid.base.services.windows.Wm;
+	import ru.nacid.base.services.windows.commands.ShowWindow;
+	import ru.nacid.base.services.windows.policy.SinglePolicy;
 	import ru.nacid.blanks.startup.Init;
 	import ru.nacid.blanks.startup.simpleInit.SimpleInit;
+	
 	import spark.components.SkinnableContainer;
 
 	/**
@@ -38,7 +41,7 @@ package ru.nacid.blanks.startup
 		private var wp:WindowParam;
 		private var winCmd:Command;
 
-		public function DisplayedInit($mainObject:SkinnableContainer, $settings:*)
+		public function DisplayedInit($mainObject:DisplayObject, $settings:*)
 		{
 			super($mainObject, $settings);
 

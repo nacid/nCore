@@ -1,9 +1,8 @@
-package ru.nacid.base.view
+package ru.nacid.base.view 
 {
 	import ru.nacid.base.view.data.Position;
 	import spark.components.SkinnableContainer;
 	import spark.core.SpriteVisualElement;
-
 	/**
 	 * SimpleViewObject.as
 	 * Created On: 5.8 20:22
@@ -27,18 +26,16 @@ package ru.nacid.base.view
 	 *	limitations under the License.
 	 *
 	 */
-	public class BaseViewObject extends SkinnableContainer
+	public class BaseViewObject extends SkinnableContainer   
 	{
-		public function writePosition($position:Position):void
-		{
-			x=$position.x;
-			y=$position.y;
-			width=$position.width;
-			height=$position.height;
+		public function writePosition($position:Position):void {
+			x = $position.x;
+			y = $position.y;
+			width = $position.width;
+			height = $position.height;
 		}
-
-		public function readPosition($from:Position=null):Position
-		{
+		
+		public function readPosition($from:Position = null):Position {
 			return Position.FROM_OBJECT(this);
 		}
 	}
