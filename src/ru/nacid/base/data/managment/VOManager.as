@@ -1,7 +1,9 @@
 package ru.nacid.base.data.managment
 {
 	import com.junkbyte.console.Cc;
+	
 	import flash.events.EventDispatcher;
+	
 	import ru.nacid.base.data.managment.events.VOManagerEvent;
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
@@ -75,6 +77,15 @@ package ru.nacid.base.data.managment
 				if (dispatcherMode)
 					dispatchEvent(new VOManagerEvent(VOManagerEvent.ITEM_DEACTIVATED, $id));
 			}
+		}
+		
+		public function iterate($callback:Function,$startIndex:int = 0):void{
+			var iterator:VOIterator = list.createIteratorAt($startIndex);
+			
+			while(iterator.hasNext()){
+				$callback.call(null,iterator.next());
+			}
+			
 		}
 
 		/* INTERFACE ru.nacid.base.services.logs.interfaces.IChannelParent */

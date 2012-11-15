@@ -1,7 +1,9 @@
 package ru.nacid.base.data
 {
 	import com.junkbyte.console.Cc;
+	
 	import flash.utils.ByteArray;
+	
 	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
 	import ru.nacid.utils.StringUtils;
@@ -34,6 +36,7 @@ package ru.nacid.base.data
 		protected const VO_CHANNEL:String='DTO';
 
 		protected var parsers:Object={};
+		
 		private var _inited:Boolean;
 
 		public function ValueObject($id:String=null, $data:Object=null)
@@ -63,7 +66,7 @@ package ru.nacid.base.data
 			{
 				if (parsers.hasOwnProperty(field))
 				{
-					parsers[field].call(null, $data[field]);
+					parsers[field].call($data[field]);
 				}
 				else if (hasOwnProperty(field))
 				{
@@ -81,9 +84,9 @@ package ru.nacid.base.data
 			return copier.readObject();
 		}
 
-		protected function addParser($field:String, $callback:Function):void
+		protected function addParser($field:String, $callback:Function,$data:Object = null):void
 		{
-			parsers[$field]=$callback;
+			parsers[$field] = new ParserData($callback,$data);
 		}
 
 		protected function removeParser($filed:String):void
@@ -150,4 +153,23 @@ package ru.nacid.base.data
 		}
 	}
 
+}
+
+class ParserData{
+	
+	private var _call:Function;
+	private var _data:Object;
+	
+	public function ParserData($call:Function,$data:Object = null){
+		_call = $call;
+		_data = $data;
+	}
+	
+	public function call($exeData:*):void{
+		if(_data == null){
+			_call.call(null,$exeData);
+		}else{
+			_call.call(null,$exeData,_data);
+		}
+	}
 }
