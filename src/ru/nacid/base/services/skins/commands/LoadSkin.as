@@ -1,8 +1,10 @@
 package ru.nacid.base.services.skins.commands
 {
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.net.URLLoaderDataFormat;
+	
 	import ru.nacid.base.services.lan.loaders.DataLoader;
 	import ru.nacid.base.services.lan.loaders.MovieLoader;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
@@ -51,7 +53,7 @@ package ru.nacid.base.services.skins.commands
 
 		public function getInstance():*
 		{
-			return new Bitmap((skinData as Bitmap).bitmapData.clone());
+			return new Bitmap((skinData as Bitmap).bitmapData.clone(),'auto',true);
 		}
 
 		public function fromData($id:String, $url:String, $embed:Boolean):ISkinLoader
