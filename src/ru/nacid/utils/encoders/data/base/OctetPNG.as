@@ -47,7 +47,7 @@ package ru.nacid.utils.encoders.data.base
 		}
 		
 		private function decodePixel($color:uint):Vector.<int> {
-			$color = 0xFFFFFF & $color;
+			$color &= 0xFFFFFF;
 			return Vector.<int>( $color == background ? [] : [$color >> 16, $color >> 8 & 0xFF, $color & 0xFF] ).reverse();
 		}
 		
