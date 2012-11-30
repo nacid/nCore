@@ -27,6 +27,12 @@ package ru.nacid.base.data
 	 */
 	public class Global
 	{
+		private static var _flashVars:Object = {};
+		
+		public static function attachFlashVars($data:Object):void{
+			_flashVars = $data || {};
+		}
+		
 		public static var language:String;
 		public static var debugger:Boolean;
 		public static var release:Boolean;
@@ -35,6 +41,14 @@ package ru.nacid.base.data
 
 		public static var stageW:Number;
 		public static var stageH:Number;
+		
+		public static function isDebug():Boolean{
+			return _flashVars.debug;
+		}
+		
+		public static function isRelease():Boolean{
+			return !isDebug;
+		}
 	}
 
 }

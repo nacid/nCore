@@ -1,6 +1,7 @@
 package ru.nacid.utils
 {
 	import by.blooddy.crypto.CRC32;
+	
 	import flash.utils.ByteArray;
 
 	/**
@@ -50,6 +51,10 @@ package ru.nacid.utils
 			var r:String=by.blooddy.crypto.MD5.hashBytes(tempBA);
 			tempBA.clear();
 			return r;
+		}
+		
+		public static function MD5String($str:String):String{
+			return by.blooddy.crypto.MD5.hash($str);
 		}
 
 	}

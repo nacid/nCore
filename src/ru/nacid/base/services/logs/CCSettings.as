@@ -27,7 +27,7 @@ package ru.nacid.base.services.logs
 	 */
 	public class CCSettings extends ValueObject
 	{
-		public var keystrokePassword:String='';
+		public var keystrokePassword:String='`';
 		public var remoting:Boolean=false;
 		public var commandLine:Boolean=false;
 		public var allowedRemoteDomain:String="*";

@@ -1,7 +1,10 @@
 package ru.nacid.base.services.logs
 {
 	import com.junkbyte.console.Cc;
+	
 	import mx.core.UIComponent;
+	
+	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.Command;
 	import ru.nacid.base.view.ViewObject;
 
@@ -97,7 +100,9 @@ package ru.nacid.base.services.logs
 
 		override protected function msgComplete():void
 		{
-			Cc.logch(CMD_CHANNEL, 'console created');
+			Cc.info(new Date);
+			Cc.info('this is ', Global.isDebug() ? 'DEBUG' : 'RELEASE', ' build of ', Global.appName, ' (domain:', Global.domain.domain, ' lang: ', Global.language, ' )');
+			Cc.info('-----------------------------------');
 		}
 
 	}

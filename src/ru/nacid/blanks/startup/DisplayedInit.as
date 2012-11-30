@@ -2,7 +2,7 @@ package ru.nacid.blanks.startup
 {
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
-	
+
 	import ru.nacid.base.services.Command;
 	import ru.nacid.base.services.windows.WindowParam;
 	import ru.nacid.base.services.windows.Wm;
@@ -10,7 +10,7 @@ package ru.nacid.blanks.startup
 	import ru.nacid.base.services.windows.policy.SinglePolicy;
 	import ru.nacid.blanks.startup.Init;
 	import ru.nacid.blanks.startup.simpleInit.SimpleInit;
-	
+
 	import spark.components.SkinnableContainer;
 
 	/**

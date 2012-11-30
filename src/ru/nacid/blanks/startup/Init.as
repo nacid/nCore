@@ -61,11 +61,14 @@ package ru.nacid.blanks.startup
 			symbol="initialization";
 
 			data=readSettings($settings);
-			
-			if($mainObject is SkinnableComponent){
+
+			if ($mainObject is SkinnableComponent)
+			{
 				($mainObject as SkinnableContainer).addElement(appLayer=new ViewObject);
 				($mainObject as SkinnableContainer).addElement(sysLayer=new ViewObject);
-			}else{
+			}
+			else
+			{
 				throw new TypeError('main object must be SkinnableContainer');
 			}
 		}
@@ -83,6 +86,7 @@ package ru.nacid.blanks.startup
 			appLayer.stage.scaleMode=StageScaleMode.NO_SCALE;
 			appLayer.stage.align=StageAlign.TOP_LEFT;
 
+			Global.attachFlashVars(exeData);
 			Global.appName=data.appname;
 			Global.debugger=Capabilities.isDebugger;
 			Global.language=Capabilities.language;
@@ -98,9 +102,9 @@ package ru.nacid.blanks.startup
 				}
 			}
 
-			if (data.hasOwnProperty(CCInit.DEFAULT_FIELD))
+			if ((exeData && exeData.debug) || data[CCInit.DEFAULT_FIELD])
 			{
-				new CCInit(sysLayer).execute(data[CCInit.DEFAULT_FIELD]);
+				new CCInit(sysLayer).execute(data[CCInit.DEFAULT_FIELD] as Object);
 			}
 
 			Wm.instance.setContainer(appLayer);

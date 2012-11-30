@@ -3,8 +3,9 @@ package ru.nacid.base.services.lan.data
 	import flash.net.URLRequest;
 	import flash.net.URLRequestMethod;
 	import flash.net.URLVariables;
-	import ru.nacid.base.data.interfaces.IFactoryData;
+
 	import ru.nacid.base.data.SimpleValueObject;
+	import ru.nacid.base.data.interfaces.IFactoryData;
 	import ru.nacid.utils.HashUtils;
 
 	/**
@@ -34,7 +35,7 @@ package ru.nacid.base.services.lan.data
 	{
 		public static const HTTP:String='http';
 		public static const HTTPS:String='https';
-		public static const UNKNOWN:String='unknown';
+		public static const RELATIVE:String='';
 
 		private const PROTOCOL_SEPARATE:String='://';
 		private const DIR_SEPARATE:String='/';
@@ -57,8 +58,8 @@ package ru.nacid.base.services.lan.data
 			var prEnd:int=$url.indexOf(PROTOCOL_SEPARATE);
 			var bEnd:int=$url.lastIndexOf(DIR_SEPARATE);
 
-			protocol=prEnd > 0 ? $url.substr(0, prEnd) : UNKNOWN;
-			body=bEnd > 0 ? $url.substring(prEnd + PROTOCOL_SEPARATE.length, bEnd) : UNKNOWN;
+			protocol=prEnd > 0 ? $url.substr(0, prEnd) : RELATIVE;
+			body=protocol == RELATIVE ? $url.substring(0, bEnd) : bEnd > 0 ? $url.substring(prEnd + PROTOCOL_SEPARATE.length, bEnd) : RELATIVE;
 
 			if ($data)
 				setData($data);
@@ -82,7 +83,7 @@ package ru.nacid.base.services.lan.data
 
 		public function get domain():String
 		{
-			return protocol.concat(PROTOCOL_SEPARATE, body, DIR_SEPARATE);
+			return protocol.concat(protocol == RELATIVE ? '' : PROTOCOL_SEPARATE, body, DIR_SEPARATE);
 		}
 
 	}
