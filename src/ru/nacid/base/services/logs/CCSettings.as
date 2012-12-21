@@ -32,7 +32,7 @@ package ru.nacid.base.services.logs
 		public var commandLine:Boolean=false;
 		public var allowedRemoteDomain:String="*";
 		public var showTimestamp:Boolean=true;
-		public var tracing:Boolean=false;
+		public var tracing:Boolean=true;
 		public var alwaysOnTop:Boolean=false;
 		public var useObjectLinking:Boolean=false;
 

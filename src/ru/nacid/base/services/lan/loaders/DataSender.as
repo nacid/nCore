@@ -26,7 +26,6 @@ package ru.nacid.base.services.lan.loaders
 		
 		override protected function execInternal():void{
 			request = urls.getUrl(url).urlRequest;
-			//reference.
 		}
 	}
 }
