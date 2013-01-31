@@ -56,7 +56,7 @@ package ru.nacid.utils.encoders.data
 		{
 			var response:ByteArray=createBytes();
 			response.writeBytes($data, 0, $data.length);
-
+			response.position = 0;
 			return response;
 		}
 
@@ -76,7 +76,7 @@ package ru.nacid.utils.encoders.data
 		{
 			var response:ByteArray=createBytes();
 			response.writeObject($data);
-
+			response.position = 0;
 			return response;
 		}
 
@@ -84,7 +84,7 @@ package ru.nacid.utils.encoders.data
 		{
 			var response:ByteArray=createBytes();
 			response.writeUTF($data);
-
+			response.position = 0;
 			return response;
 		}
 
@@ -92,7 +92,7 @@ package ru.nacid.utils.encoders.data
 		{
 			var response:ByteArray=createBytes();
 			response.writeFloat($data);
-
+			response.position = 0;
 			return response;
 		}
 
