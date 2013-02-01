@@ -19,7 +19,7 @@ package ru.nacid.utils.encoders.data
 
 		public function Xml($mode:String=null)
 		{
-			_mode=$mode ? $mode : MX_MODE;
+			_mode=$mode ? $mode : LINE_MODE;
 
 			if (isMX)
 			{

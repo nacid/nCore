@@ -1,9 +1,14 @@
 package ru.nacid.utils.encoders
 {
 	import com.junkbyte.console.Cc;
+
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
+
+	import ru.nacid.utils.encoders.data.Amf;
+	import ru.nacid.utils.encoders.data.Csv;
 	import ru.nacid.utils.encoders.data.Json;
+	import ru.nacid.utils.encoders.data.Xml;
 	import ru.nacid.utils.encoders.interfaces.IEncoder;
 
 	/**
@@ -32,6 +37,8 @@ package ru.nacid.utils.encoders
 	public class EncoderReflection
 	{
 		private static const DEFAULT_DATA:Class=Json;
+
+		private static var __cache:Vector.<IEncoder>=new Vector.<IEncoder>([new Json, new Xml, new Amf, new Csv]);
 
 		public static function data($format:String):IEncoder
 		{
