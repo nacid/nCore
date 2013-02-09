@@ -1,9 +1,9 @@
-package ru.nacid.base.view
+package ru.nacid.base.view.mxml
 {
-	import flash.display.Sprite;
-
 	import ru.nacid.base.view.data.Position;
 	import ru.nacid.base.view.interfaces.IDisplayObject;
+
+	import spark.components.SkinnableContainer;
 
 	/**
 	 * SimpleViewObject.as
@@ -28,7 +28,7 @@ package ru.nacid.base.view
 	 *	limitations under the License.
 	 *
 	 */
-	public class BaseViewObject extends Sprite implements IDisplayObject
+	public class BaseViewObject extends SkinnableContainer implements IDisplayObject
 	{
 		public function writePosition($position:Position):void
 		{

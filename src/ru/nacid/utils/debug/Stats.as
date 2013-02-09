@@ -12,7 +12,9 @@ package ru.nacid.utils.debug
 	import flash.text.TextField;
 	import flash.utils.getTimer;
 	
-	public class Stats extends Sprite
+	import ru.nacid.base.view.interfaces.IDisplayObject;
+	
+	public class Stats extends Sprite implements IDisplayObject
 	{
 		
 		protected const WIDTH:uint = 70;

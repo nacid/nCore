@@ -1,17 +1,21 @@
 package ru.nacid.base.services.windows
 {
 	import com.junkbyte.console.Cc;
+
 	import flash.display.DisplayObjectContainer;
+	import flash.display.InteractiveObject;
 	import flash.events.Event;
 	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
+
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.data.managment.VOIterator;
 	import ru.nacid.base.data.managment.VOManager;
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.services.windows.events.WindowPolicyEvent;
+	import ru.nacid.base.services.windows.interfaces.IWindow;
 	import ru.nacid.base.services.windows.interfaces.IWindowStorage;
-	import spark.components.SkinnableContainer;
+	import ru.nacid.base.view.interfaces.IDisplayContainerProxy;
 
 	/**
 	 * Wm.as
@@ -41,7 +45,7 @@ package ru.nacid.base.services.windows
 
 		private static var m_instance:Wm;
 
-		private var container:SkinnableContainer;
+		private var container:IDisplayContainerProxy;
 		private var windows:VOList=new VOList();
 
 		public var topOnFocus:Boolean;
@@ -85,27 +89,27 @@ package ru.nacid.base.services.windows
 			if (e.displayIndex < 0)
 				return Cc.warnch(MANAGER_CHANNEL, 'window', e.targetWindow, 'is not open');
 
-			var window:Window=createWindow(list.atId(e.targetWindow) as IWindowStorage);
+			var window:IWindow=createWindow(list.atId(e.targetWindow) as IWindowStorage);
 			window.setData(e.openData);
 			windows.add(window);
 
 			activeList.push(e.targetWindow);
-			container.addElementAt(window, e.displayIndex);
+			container.addAt(window, e.displayIndex);
 
 			window.addEventListener(FocusEvent.FOCUS_IN, focusHandler);
 			window.addEventListener(MouseEvent.MOUSE_DOWN, focusHandler);
 
 			if (focusOnTop)
-				container.stage.focus=window;
+				container.main.stage.focus=InteractiveObject(window);
 
 			Cc.logch(MANAGER_CHANNEL, 'window', e.targetWindow, 'opened');
 		}
 
 		private function policyCloseHandler(e:WindowPolicyEvent):void
 		{
-			var target:Window=windows.removeAtId(e.targetWindow) as Window;
+			var target:IWindow=windows.removeAtId(e.targetWindow) as IWindow;
 			deactivate(e.targetWindow);
-			container.removeElement(target);
+			container.rem(target);
 
 			target.removeEventListener(FocusEvent.FOCUS_IN, focusHandler);
 			target.removeEventListener(MouseEvent.MOUSE_DOWN, focusHandler);
@@ -159,7 +163,7 @@ package ru.nacid.base.services.windows
 			if (isActive($id))
 			{
 				deactivate($id);
-				container.setElementIndex(windows.atId($id) as Window, activeList.length);
+				container.move(windows.atId($id) as IWindow, activeList.length);
 				activate($id);
 
 				Cc.infoch(MANAGER_CHANNEL, 'move window', $id, 'on top');
@@ -181,19 +185,16 @@ package ru.nacid.base.services.windows
 
 		public function get inited():Boolean
 		{
-			return container is DisplayObjectContainer;
+			return container != null;
 		}
 
-		private function createWindow($params:IWindowStorage):Window
+		private function createWindow($params:IWindowStorage):IWindow
 		{
-			if ($params is Window)
-				return $params as Window;
+			if ($params is IWindow)
+				return $params as IWindow;
 
-			var response:Window=new $params.render;
+			var response:IWindow=new $params.render;
 			response.applyParam($params as WindowParam);
-
-			response.percentWidth=100;
-			response.percentHeight=100;
 
 			if (response.cached)
 				list.setAtId($params.symbol, response);
@@ -201,14 +202,12 @@ package ru.nacid.base.services.windows
 			return response;
 		}
 
-		public function setContainer($container:SkinnableContainer):void
+		public function setContainer($container:IDisplayContainerProxy):void
 		{
 			if (container == null)
 			{
 				container=$container;
-				container.percentWidth=100;
-				container.percentHeight=100;
-				container.stage.addEventListener(Event.RESIZE, resizeHandler);
+				container.main.stage.addEventListener(Event.RESIZE, resizeHandler);
 			}
 			else
 			{
@@ -218,13 +217,13 @@ package ru.nacid.base.services.windows
 
 		private function resizeHandler(e:Event):void
 		{
-			Global.stageW=container.stage.stageWidth;
-			Global.stageH=container.stage.stageHeight;
+			Global.stageW=container.main.stage.stageWidth;
+			Global.stageH=container.main.stage.stageHeight;
 
 			var it:VOIterator=windows.createIterator();
 			while (it.hasNext())
 			{
-				Window(it.next()).arrange();
+				IWindow(it.next()).arrange();
 			}
 		}
 	}

@@ -1,8 +1,9 @@
 package ru.nacid.base.services.localization
 {
 	import com.junkbyte.console.Cc;
-	import ru.nacid.base.data.managment.events.VOManagerEvent;
+	
 	import ru.nacid.base.data.managment.VOManager;
+	import ru.nacid.base.data.managment.events.VOManagerEvent;
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.services.localization.commands.DumpLocaleMap;
 	import ru.nacid.utils.encoders.EncoderReflection;

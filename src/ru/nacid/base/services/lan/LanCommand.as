@@ -3,14 +3,10 @@ package ru.nacid.base.services.lan
 	import com.junkbyte.console.Cc;
 	
 	import flash.events.Event;
-	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
-	import flash.net.URLLoader;
-	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
 	
 	import ru.nacid.base.services.Command;
-	import ru.nacid.base.services.lan.data.RequestVO;
 
 	/**
 	 * LanCommand.as

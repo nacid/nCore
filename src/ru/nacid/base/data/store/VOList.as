@@ -1,8 +1,7 @@
 package ru.nacid.base.data.store
 {
-	import flash.events.DataEvent;
-	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	
 	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.data.managment.VOIterator;
 

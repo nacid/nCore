@@ -3,7 +3,7 @@ package ru.nacid.base.services.lan.data
 	import flash.net.URLRequest;
 	import flash.net.URLRequestMethod;
 	import flash.net.URLVariables;
-
+	
 	import ru.nacid.base.data.SimpleValueObject;
 	import ru.nacid.base.data.interfaces.IFactoryData;
 	import ru.nacid.utils.HashUtils;

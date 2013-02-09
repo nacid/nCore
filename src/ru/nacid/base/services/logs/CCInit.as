@@ -2,11 +2,10 @@ package ru.nacid.base.services.logs
 {
 	import com.junkbyte.console.Cc;
 	
-	import mx.core.UIComponent;
-	
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.Command;
-	import ru.nacid.base.view.ViewObject;
+	import ru.nacid.base.view.interfaces.IDisplayContainerProxy;
+	import ru.nacid.base.view.interfaces.IDisplayObject;
 
 	/**
 	 * CCInit.as
@@ -36,10 +35,10 @@ package ru.nacid.base.services.logs
 		public static const DEFAULT_FIELD:String='logging';
 
 		private var data:CCSettings;
-		private var cont:ViewObject;
-		private var screen:UIComponent;
+		private var cont:IDisplayContainerProxy;
+		private var screen:IDisplayContainerProxy;
 
-		public function CCInit($container:ViewObject)
+		public function CCInit($container:IDisplayContainerProxy)
 		{
 			symbol='consoleInit';
 			data=new CCSettings(DEFAULT_FIELD);
@@ -87,13 +86,14 @@ package ru.nacid.base.services.logs
 			Cc.config.showTimestamp=data.showTimestamp;
 			Cc.config.tracing=data.tracing;
 			Cc.config.useObjectLinking=data.useObjectLinking;
-
-			cont.addElement(screen=new UIComponent);
-			Cc.start(screen, data.keystrokePassword);
+			
+			screen = cont.empty(true);
+			cont.add(screen);
+			Cc.start(screen.main, data.keystrokePassword);
 
 			Cc.commandLine=data.commandLine
-			Cc.width=cont.stage.stageWidth * data.wFactor;
-			Cc.height=cont.stage.stageHeight * data.hFactor;
+			Cc.width=cont.main.stage.stageWidth * data.wFactor;
+			Cc.height=cont.main.stage.stageHeight * data.hFactor;
 
 			notifyComplete();
 		}
@@ -103,6 +103,10 @@ package ru.nacid.base.services.logs
 			Cc.info(new Date);
 			Cc.info('this is ', Global.isDebug() ? 'DEBUG' : 'RELEASE', ' build of ', Global.appName, ' (domain:', Global.domain.domain, ' lang: ', Global.language, ' )');
 			Cc.info('-----------------------------------');
+		}
+		
+		override protected function onError(err:*=null):void{
+			trace(err);
 		}
 
 	}

@@ -1,8 +1,6 @@
 package ru.nacid.base.services.localization.commands
 {
-	import flash.system.Capabilities;
 	import ru.nacid.base.data.Global;
-	import ru.nacid.base.services.lan.data.RequestVO;
 	import ru.nacid.base.services.lan.data.UrlStorage;
 	import ru.nacid.base.services.lan.loaders.DataLoader;
 	import ru.nacid.base.services.localization.Lm;

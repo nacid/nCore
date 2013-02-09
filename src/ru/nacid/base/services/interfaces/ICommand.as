@@ -1,6 +1,7 @@
 package ru.nacid.base.services.interfaces
 {
 	import flash.events.IEventDispatcher;
+	
 	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
 

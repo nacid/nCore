@@ -1,15 +1,16 @@
-package ru.nacid.base.services.windows
+package ru.nacid.base.services.windows.mxml
 {
 	import flash.events.Event;
 	
 	import ru.nacid.base.services.CommandEvent;
 	import ru.nacid.base.services.skins.Skin;
 	import ru.nacid.base.services.skins.Sm;
+	import ru.nacid.base.services.windows.WindowParam;
 	import ru.nacid.base.services.windows.interfaces.IWindow;
 	import ru.nacid.base.services.windows.interfaces.IWindowStorage;
 	import ru.nacid.base.services.windows.policy.WindowPolicy;
-	import ru.nacid.base.view.ViewObject;
-
+	import ru.nacid.base.view.mxml.ViewObject;
+	
 	/**
 	 * Window.as
 	 * Created On: 5.8 20:22
@@ -36,10 +37,10 @@ package ru.nacid.base.services.windows
 	public class Window extends ViewObject implements IWindow
 	{
 		private var windowParam:WindowParam;
-
+		
 		protected var border:Skin;
 		protected var skinManager:Sm;
-
+		
 		protected function get param():WindowParam
 		{
 			return windowParam;
@@ -51,57 +52,57 @@ package ru.nacid.base.services.windows
 			tabEnabled=true;
 			focusRect=false;
 			skinManager=Sm.instance;
-
+			
 			border=skinManager.getSkin(windowParam.skinName);
 			if (border.loader && !border.loaded)
 			{
 				border.loader.addEventListener(CommandEvent.COMPLETE, skinLoadedHandler);
 			}
-
+			
 			applyId($param.symbol);
-
+			
 			info(symbol.concat(' created'));
 		}
-
+		
 		private function skinLoadedHandler(e:Event):void
 		{
 			border.loader.removeEventListener(CommandEvent.COMPLETE, skinLoadedHandler);
-
+			
 			if (onStage)
 			{
 				arrange();
 			}
 		}
-
+		
 		public function get policy():WindowPolicy
 		{
 			return windowParam.policy;
 		}
-
+		
 		public function get render():Class
 		{
 			return windowParam.render;
 		}
-
+		
 		public function get cached():Boolean
 		{
 			return windowParam.cached;
 		}
-
+		
 		public function get modal():Boolean
 		{
 			return windowParam.modal;
 		}
-
+		
 		public function setData($data:Object):void
 		{
 			showData=$data;
 		}
-
+		
 		public function onFocus():void
 		{
-
+			
 		}
 	}
-
+	
 }

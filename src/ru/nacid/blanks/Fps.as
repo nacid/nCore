@@ -1,24 +1,19 @@
 package ru.nacid.blanks
 {
-	import flash.display.DisplayObjectContainer;
-
-	import mx.core.UIComponent;
-
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.Command;
+	import ru.nacid.base.view.interfaces.IDisplayContainerProxy;
 	import ru.nacid.utils.debug.Stats;
-
-	import spark.components.SkinnableContainer;
 
 	public class Fps extends Command
 	{
 		public static const COMMAND_LINE:String='fps';
 
 		private static var _enabled:Boolean;
-		private static var _stats:UIComponent;
-		private static var _container:SkinnableContainer;
+		private static var _stats:IDisplayContainerProxy;
+		private static var _container:IDisplayContainerProxy;
 
-		public function Fps($container:SkinnableContainer)
+		public function Fps($container:IDisplayContainerProxy)
 		{
 			if (_container == null)
 			{
@@ -33,19 +28,19 @@ package ru.nacid.blanks
 
 			if (_stats == null)
 			{
-				_stats=new UIComponent;
-				_stats.addChild(new Stats);
+				_stats=_container.empty();
+				_stats.add(new Stats);
 			}
 
 
 			if (!_enabled)
 			{
-				_container.addElement(_stats);
+				_container.add(_stats);
 				_enabled=true;
 			}
 			else
 			{
-				_container.removeElement(_stats);
+				_container.rem(_stats);
 				_enabled=false;
 			}
 

@@ -1,7 +1,6 @@
 package ru.nacid.base.services.skins.commands
 {
 	import ru.nacid.base.services.Command;
-	import ru.nacid.base.services.CommandQueue;
 	import ru.nacid.base.services.lan.data.UrlStorage;
 	import ru.nacid.base.services.lan.loaders.DataLoader;
 	import ru.nacid.base.services.skins.Sm;

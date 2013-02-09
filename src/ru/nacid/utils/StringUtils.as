@@ -2,7 +2,6 @@ package ru.nacid.utils
 {
 	import by.blooddy.crypto.CRC32;
 	import flash.utils.ByteArray;
-	import mx.utils.StringUtil;
 	import ru.nacid.base.data.interfaces.IData;
 
 	/**
@@ -45,7 +44,24 @@ package ru.nacid.utils
 
 		public static function replace($input:String, ... rest):String
 		{
-			return StringUtil.substitute($input, rest);
+				var len:uint = rest.length;
+				var args:Array;
+				if (len == 1 && rest[0] is Array)
+				{
+					args = rest[0] as Array;
+					len = args.length;
+				}
+				else
+				{
+					args = rest;
+				}
+				
+				for (var i:int = 0; i < len; i++)
+				{
+					$input = $input.replace(new RegExp("\\{"+i+"\\}", "g"), args[i]);
+				}
+				
+				return $input;
 		}
 
 		public static function numOfSubstr($input:String, $sub:*):int

@@ -1,32 +1,25 @@
 package ru.nacid.blanks.startup
 {
 	import com.junkbyte.console.Cc;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.system.Capabilities;
-
-	import mx.core.IVisualElement;
-	import mx.core.UIComponent;
-
+	
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.CommandQueue;
 	import ru.nacid.base.services.lan.LanCommand;
 	import ru.nacid.base.services.lan.data.RequestVO;
 	import ru.nacid.base.services.logs.CCInit;
 	import ru.nacid.base.services.windows.Wm;
-	import ru.nacid.base.view.ViewObject;
 	import ru.nacid.base.view.data.Position;
+	import ru.nacid.base.view.interfaces.IDisplayContainerProxy;
 	import ru.nacid.blanks.Fps;
 	import ru.nacid.utils.encoders.data.Json;
-
-	import spark.components.Application;
-	import spark.components.SkinnableContainer;
-	import spark.components.supportClasses.SkinnableComponent;
-
+	
 	/**
 	 * Initializer.as
 	 * Created On: 5.8 20:22
@@ -52,42 +45,34 @@ package ru.nacid.blanks.startup
 	 */
 	public class Init extends CommandQueue
 	{
-		protected var appLayer:ViewObject;
-		protected var sysLayer:ViewObject;
+		protected var appLayer:IDisplayContainerProxy;
+		protected var sysLayer:IDisplayContainerProxy;
 
 		protected var progressIndicator:DisplayObject;
 		protected var stagePosition:Position;
 		protected var data:Object;
 
-		public function Init($mainObject:DisplayObject, $settings:*)
+		public function Init($mainObject:IDisplayContainerProxy, $settings:*)
 		{
 			symbol="initialization";
 
 			data=readSettings($settings);
-
-			if ($mainObject is SkinnableComponent)
-			{
-				($mainObject as SkinnableContainer).addElement(appLayer=new ViewObject);
-				($mainObject as SkinnableContainer).addElement(sysLayer=new ViewObject);
-			}
-			else
-			{
-				throw new TypeError('main object must be SkinnableContainer');
-			}
+			
+			$mainObject.add(appLayer = $mainObject.empty());
+			$mainObject.add(sysLayer = $mainObject.empty());
 		}
 
 		override protected function execInternal():void
 		{
-
-			if (appLayer.stage == null)
+			if (appLayer.main.stage == null)
 			{
 				error('main object must have stage!');
 				return onError();
 			}
-			stagePosition=new Position(appLayer.stage.x, appLayer.stage.y, appLayer.stage.stageWidth, appLayer.stage.stageHeight)
+			stagePosition=new Position(appLayer.main.stage.x, appLayer.main.stage.y, appLayer.main.stage.stageWidth, appLayer.main.stage.stageHeight)
 
-			appLayer.stage.scaleMode=StageScaleMode.NO_SCALE;
-			appLayer.stage.align=StageAlign.TOP_LEFT;
+			appLayer.main.stage.scaleMode=StageScaleMode.NO_SCALE;
+			appLayer.main.stage.align=StageAlign.TOP_LEFT;
 
 			Global.attachFlashVars(exeData);
 			Global.appName=data.appname;
@@ -95,7 +80,7 @@ package ru.nacid.blanks.startup
 			Global.language=Capabilities.language;
 			Global.stageW=stagePosition.width;
 			Global.stageH=stagePosition.height;
-			Global.domain=new RequestVO(appLayer.stage.loaderInfo.url);
+			Global.domain=new RequestVO(appLayer.main.stage.loaderInfo.url);
 
 			if (data.remote is Array)
 			{

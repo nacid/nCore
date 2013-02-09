@@ -1,6 +1,5 @@
 package ru.nacid.base.services.skins.interfaces
 {
-	import flash.display.DisplayObject;
 	import ru.nacid.base.services.interfaces.ICommand;
 
 	public interface ISkinLoader extends ICommand

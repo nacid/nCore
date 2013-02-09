@@ -1,4 +1,4 @@
-package ru.nacid.base.view
+package ru.nacid.base.view.mxml
 {
 	import com.junkbyte.console.Cc;
 	import flash.events.Event;

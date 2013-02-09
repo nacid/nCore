@@ -1,9 +1,10 @@
 package ru.nacid.base.services.localization
 {
 	import com.junkbyte.console.Cc;
+	
+	import ru.nacid.base.data.ValueObject;
 	import ru.nacid.base.data.managment.VOIterator;
 	import ru.nacid.base.data.store.VOList;
-	import ru.nacid.base.data.ValueObject;
 
 	/**
 	 * LocaleMap.as

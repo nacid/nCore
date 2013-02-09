@@ -1,14 +1,9 @@
 package ru.nacid.base.services.skins.commands
 {
 	import flash.display.Bitmap;
-	import flash.display.BitmapData;
-	import flash.display.DisplayObject;
-	import flash.net.URLLoaderDataFormat;
 	
-	import ru.nacid.base.services.lan.loaders.DataLoader;
 	import ru.nacid.base.services.lan.loaders.MovieLoader;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
-	import ru.nacid.utils.encoders.interfaces.IEncoder;
 
 	/**
 	 * LoadBitmap.as

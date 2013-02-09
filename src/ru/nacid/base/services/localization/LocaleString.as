@@ -1,7 +1,7 @@
 package ru.nacid.base.services.localization
 {
 	import com.junkbyte.console.Cc;
-	import mx.utils.StringUtil;
+
 	import ru.nacid.base.data.ValueObject;
 	import ru.nacid.utils.StringUtils;
 
@@ -90,7 +90,7 @@ package ru.nacid.base.services.localization
 					params[i]=$data.hasOwnProperty(vars[i]) ? $data[vars[i]] : settings.undefinedValue;
 				}
 
-				return StringUtil.substitute(string, params);
+				return StringUtils.replace(string, params);
 			}
 			return string;
 		}
@@ -105,7 +105,7 @@ package ru.nacid.base.services.localization
 			{
 				params[i]=settings.varBegin.concat(vars[i], settings.varEnd);
 			}
-			response[settings.valueField]=StringUtil.substitute(r, params);
+			response[settings.valueField]=StringUtils.replace(r, params);
 
 			return response;
 		}

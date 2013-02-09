@@ -1,10 +1,9 @@
 package ru.nacid.base.services.skins
 {
 	import com.junkbyte.console.Cc;
-	import mx.core.UIComponent;
+	
 	import ru.nacid.base.data.managment.VOIterator;
 	import ru.nacid.base.data.store.VOList;
-	import ru.nacid.base.services.Command;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
 	import ru.nacid.base.services.skins.commands.LoadSkin;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
@@ -42,8 +41,6 @@ package ru.nacid.base.services.skins
 
 		private var types:Object;
 		private var list:VOList
-
-		public var fxSkin:UIComponent;
 
 		/* Sm
 		 * Use Sm.instance

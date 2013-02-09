@@ -4,8 +4,7 @@ package ru.nacid.base.services.lan.loaders
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
-	import flash.net.URLLoader;
-	import flash.net.URLLoaderDataFormat;
+	
 	import ru.nacid.base.services.lan.LanCommand;
 
 	/**

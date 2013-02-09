@@ -1,6 +1,7 @@
 package ru.nacid.base.data.factory
 {
 	import flash.utils.Dictionary;
+	
 	import ru.nacid.base.data.interfaces.IFactoryData;
 	import ru.nacid.utils.HashUtils;
 
