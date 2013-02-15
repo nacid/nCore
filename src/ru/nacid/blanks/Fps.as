@@ -13,7 +13,7 @@ package ru.nacid.blanks
 		private static var _stats:IDisplayContainerProxy;
 		private static var _container:IDisplayContainerProxy;
 
-		public function Fps($container:IDisplayContainerProxy)
+		public function Fps($container:IDisplayContainerProxy = null)
 		{
 			if (_container == null)
 			{
@@ -45,6 +45,7 @@ package ru.nacid.blanks
 			}
 
 			notifyComplete();
+			reset();
 		}
 	}
 }

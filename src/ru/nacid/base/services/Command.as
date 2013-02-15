@@ -142,10 +142,11 @@ package ru.nacid.base.services
 			timer.reset();
 		}
 
-		internal function reset():void
+		protected function reset():void
 		{
 			resetTimout();
 			_completed=false;
+			_executing=false;
 			exeData=null;
 		}
 
@@ -240,7 +241,7 @@ package ru.nacid.base.services
 		public function error($string:String):void
 		{
 			Cc.errorch(CMD_CHANNEL, $string);
-			Cc.stackch(CMD_CHANNEL, 'getStack(-1):',15);
+			Cc.stackch(CMD_CHANNEL, 'getStack(-1):', 15);
 		}
 
 		public function critical($string:String):void

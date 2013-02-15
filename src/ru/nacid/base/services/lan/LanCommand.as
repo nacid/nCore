@@ -1,12 +1,13 @@
 package ru.nacid.base.services.lan
 {
 	import com.junkbyte.console.Cc;
-	
+
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
 	import flash.net.URLRequest;
-	
+
 	import ru.nacid.base.services.Command;
+	import ru.nacid.utils.HashUtils;
 
 	/**
 	 * LanCommand.as
@@ -35,6 +36,8 @@ package ru.nacid.base.services.lan
 	{
 		public static const urls:URLFactory=new URLFactory;
 
+		private const STRING_MAX_LEN:uint=15;
+
 		protected var data:Object;
 		protected var responseData:Object;
 
@@ -42,6 +45,9 @@ package ru.nacid.base.services.lan
 
 		protected var url:String;
 		protected var req:URLRequest;
+
+		protected var responseLen:Number;
+		protected var responseCheckSum:String;
 
 		protected function progressHandler(e:ProgressEvent):void
 		{
@@ -55,7 +61,17 @@ package ru.nacid.base.services.lan
 		protected function responseHandler(e:Event):void
 		{
 			commitProgress(1);
-			Cc.infoch(CMD_CHANNEL, symbol, 'received: \n', responseData);
+
+			if (responseData is String)
+			{
+				var len:uint=Math.min(STRING_MAX_LEN, responseData.length - 1);
+				var small:String=String(responseData).substr(0, len).concat(len == STRING_MAX_LEN ? '...' : '');
+				Cc.infoch(CMD_CHANNEL, symbol, 'received: \n', small, ' (', responseLen, ' bytes. MD5:', HashUtils.MD5String(String(responseData)), ' )');
+			}
+			else
+			{
+				Cc.infoch(CMD_CHANNEL, symbol, 'received: \n', responseData, ' (', responseLen, ' bytes. MD5:', HashUtils.MD5(responseData), ' )');
+			}
 
 			try
 			{

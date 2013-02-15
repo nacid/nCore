@@ -1,14 +1,14 @@
 package ru.nacid.blanks.startup
 {
 	import com.junkbyte.console.Cc;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.system.Capabilities;
-	
+
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.CommandQueue;
 	import ru.nacid.base.services.lan.LanCommand;
@@ -19,7 +19,7 @@ package ru.nacid.blanks.startup
 	import ru.nacid.base.view.interfaces.IDisplayContainerProxy;
 	import ru.nacid.blanks.Fps;
 	import ru.nacid.utils.encoders.data.Json;
-	
+
 	/**
 	 * Initializer.as
 	 * Created On: 5.8 20:22
@@ -57,9 +57,9 @@ package ru.nacid.blanks.startup
 			symbol="initialization";
 
 			data=readSettings($settings);
-			
-			$mainObject.add(appLayer = $mainObject.empty());
-			$mainObject.add(sysLayer = $mainObject.empty());
+
+			$mainObject.add(appLayer=$mainObject.empty());
+			$mainObject.add(sysLayer=$mainObject.empty());
 		}
 
 		override protected function execInternal():void
@@ -96,11 +96,8 @@ package ru.nacid.blanks.startup
 			}
 
 			Wm.instance.setContainer(appLayer);
-			
-			Cc.addSlashCommand(Fps.COMMAND_LINE, function():void
-			{
-				(new Fps(sysLayer)).execute();
-			}, 'show/hide stats frame');
+
+			Cc.addSlashCommand(Fps.COMMAND_LINE, (new Fps(sysLayer)).execute, 'show/hide stats frame');
 
 			collectQueue();
 			super.execInternal();

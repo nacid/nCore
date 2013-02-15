@@ -67,6 +67,7 @@ package ru.nacid.base.services.lan.loaders
 			loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, progressHandler);
 
 			responseData=loader.content;
+			responseLen=loader.contentLoaderInfo.bytesTotal;
 
 			super.responseHandler(e);
 		}
