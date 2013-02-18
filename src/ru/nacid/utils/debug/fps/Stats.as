@@ -1,4 +1,4 @@
-package ru.nacid.utils.debug
+package ru.nacid.utils.debug.fps
 {
 	
 	import flash.display.BitmapData;

@@ -1,9 +1,9 @@
-package ru.nacid.blanks
+package ru.nacid.utils.debug.fps
 {
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.Command;
 	import ru.nacid.base.view.interfaces.IDisplayContainerProxy;
-	import ru.nacid.utils.debug.Stats;
+	import ru.nacid.base.view.interfaces.IDisplayObject;
 
 	public class Fps extends Command
 	{
@@ -22,6 +22,10 @@ package ru.nacid.blanks
 
 			symbol='statsBlock';
 		}
+		
+		protected function createStats():IDisplayObject{
+			return new Stats
+		}
 
 		override protected function execInternal():void
 		{
@@ -29,7 +33,7 @@ package ru.nacid.blanks
 			if (_stats == null)
 			{
 				_stats=_container.empty();
-				_stats.add(new Stats);
+				_stats.add(createStats());
 			}
 
 

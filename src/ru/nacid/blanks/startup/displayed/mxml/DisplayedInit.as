@@ -1,5 +1,7 @@
 package ru.nacid.blanks.startup.displayed.mxml
 {
+	import com.junkbyte.console.Cc;
+	
 	import ru.nacid.base.services.Command;
 	import ru.nacid.base.services.windows.WindowParam;
 	import ru.nacid.base.services.windows.Wm;
@@ -8,6 +10,7 @@ package ru.nacid.blanks.startup.displayed.mxml
 	import ru.nacid.base.view.interfaces.IDisplayContainerProxy;
 	import ru.nacid.blanks.startup.Init;
 	import ru.nacid.blanks.startup.displayed.mxml.simpleInit.SimpleInit;
+	import ru.nacid.utils.debug.fps.mxml.Fps;
 
 	/**
 	 * SimpleInit.as
@@ -59,6 +62,10 @@ package ru.nacid.blanks.startup.displayed.mxml
 		{
 			Wm.instance.closeWindow(wp.symbol);
 			super.onComplete();
+		}
+		
+		override protected function addFpsSlash():void{
+			Cc.addSlashCommand(Fps.COMMAND_LINE, (new Fps(sysLayer)).execute, 'show/hide stats frame');
 		}
 
 		protected function determineWindow():WindowParam

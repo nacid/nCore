@@ -1,6 +1,6 @@
 package ru.nacid.utils
 {
-	import by.blooddy.crypto.CRC32;
+	import by.blooddy.crypto.MD5;
 	
 	import flash.utils.ByteArray;
 
@@ -30,6 +30,34 @@ package ru.nacid.utils
 	public class HashUtils
 	{
 		private static const tempBA:ByteArray=new ByteArray();
+		
+		private static function fillBA($len:uint):void
+		{
+			for( var i:int = 0;i<$len;i++){
+				tempBA.writeByte(Math.floor(Math.random()*0xFF));
+			}
+		}
+		
+		public static function getRandomSigCRC($strong:uint = 128):String{
+			fillBA(Math.max(1,$strong));
+			var r:uint = by.blooddy.crypto.CRC32.hash(tempBA);
+			tempBA.clear();
+			return r.toString();
+		}
+		
+		public static function getRandomSigMD5($strong:uint = 128):String{
+			fillBA(Math.max(1,$strong));
+			var r:String = by.blooddy.crypto.MD5.hashBytes(tempBA);
+			tempBA.clear();
+			return r;
+		}
+		
+		public static function getRandomSigSHA($strong:uint = 128):String{
+			fillBA(Math.max(1,$strong));
+			var r:String = by.blooddy.crypto.SHA256.hashBytes(tempBA);
+			tempBA.clear();
+			return r;
+		}
 
 		public static function CRC($obj:Object):uint
 		{
@@ -37,7 +65,7 @@ package ru.nacid.utils
 				return 0;
 
 			tempBA.writeObject($obj);
-			var r:uint=CRC32.hash(tempBA);
+			var r:uint=by.blooddy.crypto.CRC32.hash(tempBA);
 			tempBA.clear();
 			return r;
 		}
@@ -52,9 +80,26 @@ package ru.nacid.utils
 			tempBA.clear();
 			return r;
 		}
-		
-		public static function MD5String($str:String):String{
+
+		public static function SHA($obj:Object):String
+		{
+			if ($obj == null)
+				return null;
+
+			tempBA.writeObject($obj);
+			var r:String=by.blooddy.crypto.SHA256.hashBytes(tempBA);
+			tempBA.clear();
+			return r
+		}
+
+		public static function MD5String($str:String):String
+		{
 			return by.blooddy.crypto.MD5.hash($str);
+		}
+
+		public static function SHAString($str:String):String
+		{
+			return by.blooddy.crypto.SHA256.hash($str);
 		}
 
 	}

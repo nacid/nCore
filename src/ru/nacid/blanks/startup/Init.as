@@ -17,7 +17,7 @@ package ru.nacid.blanks.startup
 	import ru.nacid.base.services.windows.Wm;
 	import ru.nacid.base.view.data.Position;
 	import ru.nacid.base.view.interfaces.IDisplayContainerProxy;
-	import ru.nacid.blanks.Fps;
+	import ru.nacid.utils.debug.fps.Fps;
 	import ru.nacid.utils.encoders.data.Json;
 
 	/**
@@ -96,11 +96,14 @@ package ru.nacid.blanks.startup
 			}
 
 			Wm.instance.setContainer(appLayer);
-
-			Cc.addSlashCommand(Fps.COMMAND_LINE, (new Fps(sysLayer)).execute, 'show/hide stats frame');
+			addFpsSlash()
 
 			collectQueue();
 			super.execInternal();
+		}
+		
+		protected function addFpsSlash():void{
+			Cc.addSlashCommand(Fps.COMMAND_LINE, (new Fps(sysLayer)).execute, 'show/hide stats frame');
 		}
 
 		protected function readSettings($settings:*):Object

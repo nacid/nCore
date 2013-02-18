@@ -107,7 +107,10 @@ package ru.nacid.base.services.skins
 		{
 			return _data;
 		}
-
+		
+		public function get isVoid():Boolean{
+			return _void;
+		}
 	}
 
 }
