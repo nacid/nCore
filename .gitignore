@@ -1,3 +1,10 @@
-/nCore.as3proj
 /bin
 /obj
+/bin/ncore.swc
+/html-template
+/bin-debug
+/.settings
+/.actionScriptProperties
+/.flexLibProperties
+/.project
+/*.as3proj
