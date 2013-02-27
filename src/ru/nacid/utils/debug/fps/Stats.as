@@ -70,7 +70,7 @@ package ru.nacid.utils.debug.fps
 			
 			addEventListener(Event.ADDED_TO_STAGE, init, false, 0, true);
 			addEventListener(Event.REMOVED_FROM_STAGE, destroy, false, 0, true);
-		
+			
 		}
 		
 		private function init(e:Event):void
@@ -88,7 +88,7 @@ package ru.nacid.utils.debug.fps
 			
 			addEventListener(MouseEvent.CLICK, onClick);
 			addEventListener(Event.ENTER_FRAME, update);
-		
+			
 		}
 		
 		private function destroy(e:Event):void
@@ -103,7 +103,7 @@ package ru.nacid.utils.debug.fps
 			
 			removeEventListener(MouseEvent.CLICK, onClick);
 			removeEventListener(Event.ENTER_FRAME, update);
-		
+			
 		}
 		
 		private function update(e:Event):void
@@ -151,7 +151,7 @@ package ru.nacid.utils.debug.fps
 			mouseY / height > .5 ? stage.frameRate-- : stage.frameRate++;
 			xml.fps = "FPS: " + fps + " / " + stage.frameRate;
 			text.htmlText = xml;
-		
+			
 		}
 		
 		// .. Utils
@@ -160,11 +160,11 @@ package ru.nacid.utils.debug.fps
 		{
 			
 			return "#" + color.toString(16);
-		
+			
 		}
-	
+		
 	}
-
+	
 }
 
 class Colors
@@ -175,5 +175,5 @@ class Colors
 	public var ms:uint = 0x00ff00;
 	public var mem:uint = 0x00ffff;
 	public var memmax:uint = 0xff0070;
-
+	
 }
