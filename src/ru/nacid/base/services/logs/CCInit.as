@@ -104,10 +104,6 @@ package ru.nacid.base.services.logs
 			Cc.info('this is ', Global.isDebug() ? 'DEBUG' : 'RELEASE', ' build of ', Global.appName, ' (domain:', Global.domain.domain, ' lang: ', Global.language, ' )');
 			Cc.info('-----------------------------------');
 		}
-		
-		override protected function onError(err:*=null):void{
-			trace(err);
-		}
 
 	}
 

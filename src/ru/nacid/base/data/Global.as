@@ -1,5 +1,8 @@
 package ru.nacid.base.data
 {
+	import flash.display.Stage;
+	import flash.events.IEventDispatcher;
+	
 	import ru.nacid.base.services.lan.data.RequestVO;
 
 	/**
@@ -41,6 +44,7 @@ package ru.nacid.base.data
 
 		public static var stageW:Number;
 		public static var stageH:Number;
+		public static var stage:IEventDispatcher;
 		
 		public static function isDebug():Boolean{
 			return _flashVars.debug;

@@ -1,14 +1,15 @@
 package ru.nacid.blanks.startup
 {
 	import com.junkbyte.console.Cc;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
+	import flash.display.Stage;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.system.Capabilities;
-
+	
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.CommandQueue;
 	import ru.nacid.base.services.lan.LanCommand;
@@ -49,7 +50,6 @@ package ru.nacid.blanks.startup
 		protected var sysLayer:IDisplayContainerProxy;
 
 		protected var progressIndicator:DisplayObject;
-		protected var stagePosition:Position;
 		protected var data:Object;
 
 		public function Init($mainObject:IDisplayContainerProxy, $settings:*)
@@ -69,18 +69,12 @@ package ru.nacid.blanks.startup
 				error('main object must have stage!');
 				return onError();
 			}
-			stagePosition=new Position(appLayer.main.stage.x, appLayer.main.stage.y, appLayer.main.stage.stageWidth, appLayer.main.stage.stageHeight)
+			if(appLayer.main.stage is Stage){
+				appLayer.main.stage.scaleMode=StageScaleMode.NO_SCALE;
+				appLayer.main.stage.align=StageAlign.TOP_LEFT;
+			}
 
-			appLayer.main.stage.scaleMode=StageScaleMode.NO_SCALE;
-			appLayer.main.stage.align=StageAlign.TOP_LEFT;
-
-			Global.attachFlashVars(exeData);
-			Global.appName=data.appname;
-			Global.debugger=Capabilities.isDebugger;
-			Global.language=Capabilities.language;
-			Global.stageW=stagePosition.width;
-			Global.stageH=stagePosition.height;
-			Global.domain=new RequestVO(appLayer.main.stage.loaderInfo.url);
+			fillGlobal();
 
 			if (data.remote is Array)
 			{
@@ -92,7 +86,7 @@ package ru.nacid.blanks.startup
 
 			if ((exeData && exeData.debug) || data[CCInit.DEFAULT_FIELD])
 			{
-				new CCInit(sysLayer).execute(data[CCInit.DEFAULT_FIELD] as Object);
+				ccInit(data[CCInit.DEFAULT_FIELD] as Object);
 			}
 
 			Wm.instance.setContainer(appLayer);
@@ -119,6 +113,19 @@ package ru.nacid.blanks.startup
 		protected function setDebug($value:Boolean):void
 		{
 			Global.release=!$value;
+		}
+		
+		protected function fillGlobal():void{
+			Global.attachFlashVars(exeData);
+			Global.appName=data.appname;
+			Global.debugger=Capabilities.isDebugger;
+			Global.language=Capabilities.language;
+			Global.stage = appLayer.main.stage;
+			Global.domain=new RequestVO(appLayer.main.stage.loaderInfo.url);
+		}
+		
+		protected function ccInit($data:Object):void{
+			new CCInit(sysLayer).execute($data);
 		}
 
 	}

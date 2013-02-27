@@ -6,6 +6,7 @@ package ru.nacid.base.services.windows
 	import flash.display.InteractiveObject;
 	import flash.events.Event;
 	import flash.events.FocusEvent;
+	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
 
 	import ru.nacid.base.data.Global;
@@ -96,11 +97,14 @@ package ru.nacid.base.services.windows
 			activeList.push(e.targetWindow);
 			container.addAt(window, e.displayIndex);
 
-			window.addEventListener(FocusEvent.FOCUS_IN, focusHandler);
-			window.addEventListener(MouseEvent.MOUSE_DOWN, focusHandler);
+			if (window is IEventDispatcher)
+			{
+				IEventDispatcher(window).addEventListener(FocusEvent.FOCUS_IN, focusHandler);
+				IEventDispatcher(window).addEventListener(MouseEvent.MOUSE_DOWN, focusHandler);
+			}
 
 			if (focusOnTop)
-				container.main.stage.focus=InteractiveObject(window);
+				container.setFocus(window);
 
 			Cc.logch(MANAGER_CHANNEL, 'window', e.targetWindow, 'opened');
 		}
@@ -111,8 +115,11 @@ package ru.nacid.base.services.windows
 			deactivate(e.targetWindow);
 			container.rem(target);
 
-			target.removeEventListener(FocusEvent.FOCUS_IN, focusHandler);
-			target.removeEventListener(MouseEvent.MOUSE_DOWN, focusHandler);
+			if (target is IEventDispatcher)
+			{
+				IEventDispatcher(target).removeEventListener(FocusEvent.FOCUS_IN, focusHandler);
+				IEventDispatcher(target).removeEventListener(MouseEvent.MOUSE_DOWN, focusHandler);
+			}
 
 			Cc.logch(MANAGER_CHANNEL, 'window', e.targetWindow, 'closed');
 		}
@@ -193,7 +200,7 @@ package ru.nacid.base.services.windows
 			if ($params is IWindow)
 				return $params as IWindow;
 
-			var response:IWindow=new $params.render;
+			var response:IWindow=new $params.renderer;
 			response.applyParam($params as WindowParam);
 
 			if (response.cached)
@@ -215,12 +222,12 @@ package ru.nacid.base.services.windows
 			}
 		}
 
-		private function resizeHandler(e:Event):void
+		private function resizeHandler(e:*):void
 		{
-			Global.stageW=container.main.stage.stageWidth;
-			Global.stageH=container.main.stage.stageHeight;
-
 			var it:VOIterator=windows.createIterator();
+
+			Global.stageW=e.target.stageWidth;
+			Global.stageH=e.target.stageHeight;
 			while (it.hasNext())
 			{
 				IWindow(it.next()).arrange();

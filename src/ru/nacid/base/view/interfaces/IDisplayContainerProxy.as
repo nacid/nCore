@@ -1,12 +1,12 @@
 package ru.nacid.base.view.interfaces
 {
-	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 
 	public interface IDisplayContainerProxy extends IDisplayObject
 	{
-		function get main():DisplayObjectContainer;
+		function get main():*;
 		function empty($safe:Boolean=false):IDisplayContainerProxy;
+		function setFocus($value:IDisplayObject = null):void;
 
 		function add($display:IDisplayObject):IDisplayObject;
 		function addAt($display:IDisplayObject, $depth:int):IDisplayObject;

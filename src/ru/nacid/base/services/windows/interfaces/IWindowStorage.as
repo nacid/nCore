@@ -29,7 +29,7 @@ package ru.nacid.base.services.windows.interfaces
 	public interface IWindowStorage extends IData
 	{
 		function get policy():WindowPolicy;
-		function get render():Class;
+		function get renderer():Class;
 		function get cached():Boolean;
 		function get modal():Boolean;
 	}

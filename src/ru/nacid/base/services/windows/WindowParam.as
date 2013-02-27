@@ -54,27 +54,23 @@ package ru.nacid.base.services.windows
 
 		public function get policy():WindowPolicy
 		{
-			return _policy
+			return _policy;
 		}
-		;
 
-		public function get render():Class
+		public function get renderer():Class
 		{
-			return _render
+			return _render;
 		}
-		;
 
 		public function get cached():Boolean
 		{
-			return _cached
+			return _cached;
 		}
-		;
 
 		public function get modal():Boolean
 		{
-			return _modal
+			return _modal;
 		}
-		;
 
 	}
 

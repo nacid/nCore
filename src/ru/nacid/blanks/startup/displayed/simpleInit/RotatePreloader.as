@@ -59,7 +59,6 @@ package ru.nacid.blanks.startup.displayed.simpleInit
 
 		private function removeHandler(e:Event):void
 		{
-			removeEventListener(Event.REMOVED_FROM_STAGE, removeHandler);
 			destroy();
 		}
 
@@ -96,6 +95,8 @@ package ru.nacid.blanks.startup.displayed.simpleInit
 
 		public function destroy():void
 		{
+			removeEventListener(Event.REMOVED_FROM_STAGE, removeHandler);
+			
 			_timer.stop();
 			_timer.removeEventListener(TimerEvent.TIMER, onTimerHandler);
 		}

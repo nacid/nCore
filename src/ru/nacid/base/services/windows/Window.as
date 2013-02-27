@@ -78,9 +78,9 @@ package ru.nacid.base.services.windows
 			return windowParam.policy;
 		}
 
-		public function get render():Class
+		public function get renderer():Class
 		{
-			return windowParam.render;
+			return windowParam.renderer;
 		}
 
 		public function get cached():Boolean

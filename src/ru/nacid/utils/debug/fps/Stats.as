@@ -135,7 +135,6 @@ package ru.nacid.utils.debug.fps
 				xml.memMax = "MAX: " + mem_max;
 				
 				fps = 0;
-				
 			}
 			
 			fps++;

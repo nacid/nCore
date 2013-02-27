@@ -24,18 +24,16 @@ package ru.nacid.utils.debug.fps.mxml
 		}
 		
 		protected function createStats():IDisplayObject{
-			return new Stats
+			return new Stats;
 		}
 
 		override protected function execInternal():void
 		{
-
 			if (_stats == null)
 			{
 				_stats=_container.empty();
 				_stats.add(createStats());
 			}
-
 
 			if (!_enabled)
 			{

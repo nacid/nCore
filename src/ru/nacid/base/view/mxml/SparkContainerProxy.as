@@ -1,14 +1,16 @@
 package ru.nacid.base.view.mxml
 {
 	import flash.display.DisplayObjectContainer;
-
+	import flash.display.InteractiveObject;
+	import flash.display.Stage;
+	
 	import mx.core.IVisualElement;
 	import mx.core.IVisualElementContainer;
 	import mx.core.UIComponent;
-
+	
 	import ru.nacid.base.view.interfaces.IDisplayContainerProxy;
 	import ru.nacid.base.view.interfaces.IDisplayObject;
-
+	
 	import spark.components.SkinnableContainer;
 
 	/**
@@ -43,7 +45,7 @@ package ru.nacid.base.view.mxml
 			_main=compatibility($main) ? $main : new SkinnableContainer;
 		}
 
-		public function get main():DisplayObjectContainer
+		public function get main():*
 		{
 			return DisplayObjectContainer(_main);
 		}
@@ -92,6 +94,12 @@ package ru.nacid.base.view.mxml
 		public function compatibility($with:*):Boolean
 		{
 			return $with is IVisualElement;
+		}
+
+		public function setFocus($value:IDisplayObject = null):void{
+			if(_main.stage is Stage){
+				Stage(_main.stage).focus = $value as InteractiveObject || _main;
+			}
 		}
 	}
 }
