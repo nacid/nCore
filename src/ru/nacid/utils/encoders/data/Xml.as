@@ -52,12 +52,12 @@ package ru.nacid.utils.encoders.data
 
 			function objectFromXML(xml:XML):Object
 			{
-				var obj:Object={};
-
 				if (xml.hasSimpleContent())
 				{
 					return String(xml);
 				}
+				
+				var obj:Object={};
 
 				for each (var attr:XML in xml.@*)
 				{
