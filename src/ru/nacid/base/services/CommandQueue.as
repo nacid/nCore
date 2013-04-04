@@ -35,7 +35,11 @@ package ru.nacid.base.services
 		protected var step:uint=0;
 
 		private var stepProgress:Number;
-
+		
+		public function CommandQueue(){
+			
+		}
+		
 		public function addCommand(cmd:Command, autoPriority:Boolean=true):void
 		{
 			if (list.add(cmd))

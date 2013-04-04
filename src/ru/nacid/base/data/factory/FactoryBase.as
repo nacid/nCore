@@ -34,6 +34,10 @@ package ru.nacid.base.data.factory
 
 		protected var dict:Dictionary=new Dictionary(true);
 		protected var hash:Object={};
+		
+		public function FactoryBase(){
+			
+		}
 
 		protected function write($obj:IFactoryData, $dict:Boolean=true):IFactoryData
 		{

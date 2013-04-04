@@ -41,6 +41,10 @@ package ru.nacid.base.view
 		protected var _onStage:Boolean;
 
 		protected var showData:Object;
+		
+		public function ViewObject(){
+			
+		}
 
 		final public function applyId($id:String):void
 		{

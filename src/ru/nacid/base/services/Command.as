@@ -71,6 +71,11 @@ package ru.nacid.base.services
 		public var priority:Number=DEFAULT_PRIORITY;
 		public var terminateOnError:Boolean=true;
 
+		public function Command()
+		{
+
+		}
+
 		protected function msgExecute():void
 		{
 			Cc.infoch(CMD_CHANNEL, 'start execute for ', symbol, '|T =', _timeOut);
