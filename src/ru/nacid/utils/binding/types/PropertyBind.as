@@ -37,7 +37,7 @@ package ru.nacid.utils.binding.types
 				return null;
 			}
 
-			return _current=BindingUtils.bindProperty(_targetHost, _targetName, _name, _chain, _commitOnly, _useWeakRef);
+			return _current=BindingUtils.bindProperty(_targetHost, _targetName, _chain, _name,_commitOnly, _useWeakRef);
 		}
 	}
 }

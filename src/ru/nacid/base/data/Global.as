@@ -33,7 +33,13 @@ package ru.nacid.base.data
 		private static var _flashVars:Object = {};
 		
 		public static function attachFlashVars($data:Object):void{
-			_flashVars = $data || {};
+			if($data){
+				for (var field:String in $data){
+					_flashVars[field] = $data[field];
+				}
+			}else{
+				_flashVars = {};
+			}
 		}
 		
 		public static var language:String;

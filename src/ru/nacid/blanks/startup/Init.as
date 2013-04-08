@@ -1,7 +1,7 @@
 package ru.nacid.blanks.startup
 {
 	import com.junkbyte.console.Cc;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
@@ -9,7 +9,7 @@ package ru.nacid.blanks.startup
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.system.Capabilities;
-	
+
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.CommandQueue;
 	import ru.nacid.base.services.lan.LanCommand;
@@ -69,7 +69,8 @@ package ru.nacid.blanks.startup
 				error('main object must have stage!');
 				return onError();
 			}
-			if(appLayer.main.stage is Stage){
+			if (appLayer.main.stage is Stage)
+			{
 				appLayer.main.stage.scaleMode=StageScaleMode.NO_SCALE;
 				appLayer.main.stage.align=StageAlign.TOP_LEFT;
 			}
@@ -95,9 +96,16 @@ package ru.nacid.blanks.startup
 			collectQueue();
 			super.execInternal();
 		}
-		
-		protected function addFpsSlash():void{
-			Cc.addSlashCommand(Fps.COMMAND_LINE, (new Fps(sysLayer)).execute, 'show/hide stats frame');
+
+		protected function addFpsSlash():void
+		{
+			var callback:Function=(new Fps(sysLayer)).execute;
+			Cc.addSlashCommand(Fps.COMMAND_LINE, callback, 'show/hide stats frame');
+
+			if (Global.isDebug())
+			{
+				callback.call();
+			}
 		}
 
 		protected function readSettings($settings:*):Object
@@ -114,17 +122,19 @@ package ru.nacid.blanks.startup
 		{
 			Global.release=!$value;
 		}
-		
-		protected function fillGlobal():void{
+
+		protected function fillGlobal():void
+		{
 			Global.attachFlashVars(exeData);
 			Global.appName=data.appname;
 			Global.debugger=Capabilities.isDebugger;
 			Global.language=Capabilities.language;
-			Global.stage = appLayer.main.stage;
+			Global.stage=appLayer.main.stage;
 			Global.domain=new RequestVO(appLayer.main.stage.loaderInfo.url);
 		}
-		
-		protected function ccInit($data:Object):void{
+
+		protected function ccInit($data:Object):void
+		{
 			new CCInit(sysLayer).execute($data);
 		}
 

@@ -51,7 +51,7 @@ package ru.nacid.base.services
 				Cc.logch(CMD_CHANNEL, cmd.symbol, 'added to queue', symbol);
 			}
 			else
-				Cc.warnch(CMD_CHANNEL, 'unable to add command', cmd.symbol, 'to queue');
+				Cc.warnch(CMD_CHANNEL, cmd.symbol, 'not added to queue');
 		}
 
 		override protected function execInternal():void
