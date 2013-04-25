@@ -10,9 +10,9 @@ package ru.nacid.base.data
 
 		public function DispatcherValueObject($id:String=null, $data:Object=null)
 		{
-			super($id, $data);
-
 			_dispatcher=new EventDispatcher;
+			
+			super($id, $data);
 		}
 
 		public function addEventListener(type:String, listener:Function, useCapture:Boolean=false, priority:int=0, useWeakReference:Boolean=false):void
