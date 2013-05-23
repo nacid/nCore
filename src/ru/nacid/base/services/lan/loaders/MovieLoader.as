@@ -4,7 +4,9 @@ package ru.nacid.base.services.lan.loaders
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
-	
+	import flash.system.ApplicationDomain;
+	import flash.system.LoaderContext;
+
 	import ru.nacid.base.services.lan.LanCommand;
 
 	/**
@@ -57,7 +59,7 @@ package ru.nacid.base.services.lan.loaders
 				}
 			}
 
-			loader.load(urls.getUrl(url, data || { } ).urlRequest);
+			loader.load(urls.getUrl(url, data || {}).urlRequest, new LoaderContext(false, new ApplicationDomain));
 		}
 
 		override protected function responseHandler(e:Event):void

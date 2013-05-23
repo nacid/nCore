@@ -36,6 +36,10 @@ package ru.nacid.blanks.startup.displayed.simpleInit
 		private var progressIndicator:RotatePreloader;
 		private var matrix:Matrix
 
+		public function SimpleInit(){
+			
+		}
+		
 		override protected function init():void
 		{
 			super.init();

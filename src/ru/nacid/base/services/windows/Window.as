@@ -1,7 +1,7 @@
 package ru.nacid.base.services.windows
 {
 	import flash.events.Event;
-	
+
 	import ru.nacid.base.services.CommandEvent;
 	import ru.nacid.base.services.skins.Skin;
 	import ru.nacid.base.services.skins.Sm;
@@ -40,11 +40,16 @@ package ru.nacid.base.services.windows
 		protected var border:Skin;
 		protected var skinManager:Sm;
 
+		public function Window()
+		{
+			//nothing
+		}
+
 		protected function get param():WindowParam
 		{
 			return windowParam;
 		}
-		
+
 		final public function applyParam($param:WindowParam):void
 		{
 			windowParam=$param;

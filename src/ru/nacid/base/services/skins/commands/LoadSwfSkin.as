@@ -1,0 +1,63 @@
+package ru.nacid.base.services.skins.commands
+{
+	import flash.display.MovieClip;
+
+	import ru.nacid.base.services.lan.loaders.MovieLoader;
+	import ru.nacid.base.services.skins.Sm;
+	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
+
+	public class LoadSwfSkin extends MovieLoader implements ISkinLoader
+	{
+		public static const SIG:String='swf';
+
+		private var _embed:Boolean;
+		private var _mc:MovieClip;
+
+		public function LoadSwfSkin($id:String=null, $url:String=null, $embed:Boolean=false)
+		{
+			super($url);
+
+			symbol=$id;
+			_embed=$embed;
+		}
+
+		override protected function onResponse():void
+		{
+			_mc=responseData as MovieClip;
+
+			var classes:Vector.<String>=_mc.loaderInfo.applicationDomain.getQualifiedDefinitionNames();
+			var len:int=classes.length;
+
+			while (len)
+			{
+				var className:String=classes[--len]
+				if (Sm.instance.addDirectly(new LoadClassSkin(className, _mc.loaderInfo.applicationDomain.getDefinition(className) as Class)))
+				{
+					info('skin '.concat(className, ' added from ', url));
+				}
+				else
+				{
+					warning('error with adding class skin "'.concat(className, '" from ', url));
+				}
+			}
+
+			notifyComplete();
+		}
+
+		public function getInstance():*
+		{
+			warning('called getInstance method from LoadSwfSkin. Use internal classes with LoadClassSkin');
+			return _mc;
+		}
+
+		public function fromData($id:String, $url:String, $embed:Boolean):ISkinLoader
+		{
+			return new LoadSwfSkin($id, $url, $embed);
+		}
+
+		public function get embed():Boolean
+		{
+			return _embed;
+		}
+	}
+}

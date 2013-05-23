@@ -5,7 +5,8 @@ package ru.nacid.base.services.skins
 	import ru.nacid.base.data.managment.VOIterator;
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
-	import ru.nacid.base.services.skins.commands.LoadSkin;
+	import ru.nacid.base.services.skins.commands.LoadBitmapSkin;
+	import ru.nacid.base.services.skins.commands.LoadSwfSkin;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
 
 	/**
@@ -33,8 +34,6 @@ package ru.nacid.base.services.skins
 	 */
 	public class Sm implements IChannelParent
 	{
-		public static const BITMAP:String='BITMAP';
-		
 		private const MAN_CHANNEL:String='MAN';
 
 		private static var m_instance:Sm;
@@ -52,8 +51,11 @@ package ru.nacid.base.services.skins
 
 			types={};
 			list=new VOList();
-
-			addType(BITMAP, new LoadSkin);
+			
+			
+			//DEFAULT TYPES
+			addType(LoadBitmapSkin.SIG, new LoadBitmapSkin);
+			addType(LoadSwfSkin.SIG,new LoadSwfSkin);
 		}
 
 		/* instance
@@ -76,6 +78,10 @@ package ru.nacid.base.services.skins
 		private function getType($type:String):ISkinLoader
 		{
 			return types[$type];
+		}
+		
+		public function addDirectly($skinLoader:ISkinLoader):Boolean{
+			return list.add($skinLoader);
 		}
 
 		public function addSkin($type:String, $id:String, $url:String, $embed:Boolean):void
