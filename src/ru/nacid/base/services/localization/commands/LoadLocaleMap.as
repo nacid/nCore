@@ -52,6 +52,7 @@ package ru.nacid.base.services.localization.commands
 
 		protected function makeRequest($alias:UrlStorage):void
 		{
+			//direcer google.com loading
 			url=$alias.host;
 			data=$alias.data;
 			if ($alias.userData.hasOwnProperty(lang))

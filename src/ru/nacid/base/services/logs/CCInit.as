@@ -101,7 +101,7 @@ package ru.nacid.base.services.logs
 		override protected function msgComplete():void
 		{
 			Cc.info(new Date);
-			Cc.info('this is ', Global.isDebug() ? 'DEBUG' : 'RELEASE', ' build of ', Global.appName, ' (domain:', Global.domain.domain, ' lang: ', Global.language, ' )');
+			Cc.info('this is ', Global.isDebug() ? 'DEBUG' : 'RELEASE', ' launch for ', Global.appName, ' (domain:', Global.domain.domain, ' lang: ', Global.language, ' )');
 			Cc.info('-----------------------------------');
 		}
 

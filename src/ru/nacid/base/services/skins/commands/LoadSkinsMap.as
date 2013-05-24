@@ -42,15 +42,13 @@ package ru.nacid.base.services.skins.commands
 			return 'FALSE';
 		}
 
-		private var autoLoad:Boolean;
-		private var mapDir:String;
-		private var manager:Sm;
+		protected var mapDir:String;
+		protected var manager:Sm;
 
-		public function LoadSkinsMap($skinsDir:String, $mapFile:String, $autoLoad:Boolean=false)
+		public function LoadSkinsMap($skinsDir:String, $mapFile:String)
 		{
 			manager=Sm.instance;
 			priority=Command.HIGHER_PRIORITY;
-			autoLoad=$autoLoad;
 
 			symbol='LoadSkinsMap';
 			makeRequest(urls.readAlias($skinsDir), $mapFile);

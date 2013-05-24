@@ -17,7 +17,7 @@ package ru.nacid.utils.binding
 		private var _watchers:Vector.<ChangeWatcher>;
 		private var _paused:Boolean;
 
-		public function BindViewer($key:String)
+		public function BindViewer($key:String = null)
 		{
 			super('bindViewer::'.concat($key || HashUtils.getRandomSigCRC(16)));
 
