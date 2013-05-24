@@ -13,6 +13,9 @@ package ru.nacid.blanks.shapes
 		protected const DEFAULT_STROKE:Number=1;
 
 		protected const CMDS:Vector.<int>=Vector.<int>([1, 2, 2, 1, 2]);
+		
+		public function Arrow(){
+		}
 
 		private var _color:Number;
 		private var _pan:Number;

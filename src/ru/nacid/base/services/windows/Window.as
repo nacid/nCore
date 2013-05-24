@@ -39,6 +39,10 @@ package ru.nacid.base.services.windows
 
 		protected var border:Skin;
 		protected var skinManager:Sm;
+		
+		public function Window(){
+		
+		}
 
 		protected function get param():WindowParam
 		{
