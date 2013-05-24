@@ -1,7 +1,7 @@
 package ru.nacid.utils.encoders.data
 {
-	import ru.nacid.utils.encoders.interfaces.IEncoder;
 	import ru.nacid.utils.StringUtils;
+	import ru.nacid.utils.encoders.interfaces.IEncoder;
 
 	/**
 	 * Csv.as
@@ -56,6 +56,7 @@ package ru.nacid.utils.encoders.data
 				{
 					r[i]=s.concat(fielSeperator, r[i + 1]);
 					r.splice(i + 1, 1);
+					--i;
 				}
 				else
 				{
@@ -119,13 +120,19 @@ package ru.nacid.utils.encoders.data
 			var inPut:Vector.<String>=Vector.<String>(String($data).split(lineDel));
 			var fields:Vector.<String>=Vector.<String>(readLine(inPut.shift()));
 			var outPut:Array=[];
-
 			var i:int;
 			var j:int;
 			var temp:Array;
 
-			for (i; i < inPut.length; i++)
+			for (i=0; i < inPut.length; i++)
 			{
+				if (StringUtils.numOfSubstr(inPut[i], screen) % 2)
+				{
+					inPut[i]=inPut[i].concat(lineDel, inPut.splice(i + 1, 1));
+					--i;
+					continue;
+				}
+
 				var obj:Object={};
 				temp=readLine(inPut[i]);
 

@@ -26,6 +26,7 @@ package ru.nacid.base.services.localization
 	 */
 	public class LocaleMapSetting
 	{
+		private var _keyField:String;
 		private var _valueField:String;
 		private var _varBegin:String;
 		private var _screen:String;
@@ -34,8 +35,9 @@ package ru.nacid.base.services.localization
 
 		private var _screenEndBegin:String;
 
-		public function LocaleMapSetting($valueField:String='value', $varBegin:String='%', $screen:String='/', $undefinedValue:String='???', $varEnd:String=null)
+		public function LocaleMapSetting($keyField:String = 'key',$valueField:String='value', $varBegin:String='%', $screen:String='/', $undefinedValue:String='???', $varEnd:String=null)
 		{
+			_keyField = $keyField;
 			_valueField=$valueField;
 			_varBegin=$varBegin;
 			_screen=$screen;
@@ -43,6 +45,11 @@ package ru.nacid.base.services.localization
 			_varEnd=$varEnd || _varBegin;
 
 			_screenEndBegin=_screen.concat(_varBegin);
+		}
+
+		public function get keyField():String
+		{
+			return _keyField;
 		}
 
 		public function get valueField():String

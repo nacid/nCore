@@ -1,7 +1,7 @@
 package ru.nacid.base.services.localization
 {
 	import com.junkbyte.console.Cc;
-
+	
 	import ru.nacid.base.data.ValueObject;
 	import ru.nacid.utils.StringUtils;
 
@@ -45,7 +45,14 @@ package ru.nacid.base.services.localization
 
 		override protected function init():void
 		{
+			addParser(settings.keyField,parseKey);
 			addParser(settings.valueField, parseValue);
+		}
+		
+		protected function parseKey($input:String):void{
+			if(symbol == null){
+				symbol = $input;
+			}
 		}
 
 		protected function parseValue($input:String):void
