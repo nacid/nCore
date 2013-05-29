@@ -65,6 +65,10 @@ package ru.nacid.base.services.localization
 			Cc.warnch(VO_CHANNEL, 'locale', $key, 'not exist in', symbol);
 			return settings.undefinedValue;
 		}
+		
+		public function addString($string:LocaleString):Boolean{
+			return data.add($string);
+		}
 
 		public function dump():Object
 		{

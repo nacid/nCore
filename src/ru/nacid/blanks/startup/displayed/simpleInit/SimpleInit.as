@@ -40,10 +40,6 @@ package ru.nacid.blanks.startup.displayed.simpleInit
 		{
 			
 		}
-
-		public function SimpleInit(){
-			
-		}
 		
 		override protected function init():void
 		{

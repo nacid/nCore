@@ -1,6 +1,7 @@
 package ru.nacid.base.services.skins.commands
 {
 	import flash.display.MovieClip;
+	import flash.system.Capabilities;
 
 	import ru.nacid.base.services.lan.loaders.MovieLoader;
 	import ru.nacid.base.services.skins.Sm;
@@ -24,21 +25,28 @@ package ru.nacid.base.services.skins.commands
 		override protected function onResponse():void
 		{
 			_mc=responseData as MovieClip;
-
-			var classes:Vector.<String>=_mc.loaderInfo.applicationDomain.getQualifiedDefinitionNames();
-			var len:int=classes.length;
-
-			while (len)
+			
+			if (_mc.loaderInfo.applicationDomain.hasOwnProperty("getQualifiedDefinitionNames"))
 			{
-				var className:String=classes[--len]
-				if (Sm.instance.addDirectly(new LoadClassSkin(className, _mc.loaderInfo.applicationDomain.getDefinition(className) as Class)))
+				var classes:Vector.<String>=_mc.loaderInfo.applicationDomain["getQualifiedDefinitionNames"]();
+				var len:int=classes.length;
+
+				while (len)
 				{
-					info('skin '.concat(className, ' added from ', url));
+					var className:String=classes[--len]
+					if (Sm.instance.addDirectly(new LoadClassSkin(className, _mc.loaderInfo.applicationDomain.getDefinition(className) as Class)))
+					{
+						info('skin '.concat(className, ' added from ', url));
+					}
+					else
+					{
+						warning('error with adding class skin "'.concat(className, '" from ', url));
+					}
 				}
-				else
-				{
-					warning('error with adding class skin "'.concat(className, '" from ', url));
-				}
+			}
+			else
+			{
+				error("Could not read classes. For a class list, open this application in Flash Player 11.3 or higher. Your current Flash Player version is: " + Capabilities.version);
 			}
 
 			notifyComplete();

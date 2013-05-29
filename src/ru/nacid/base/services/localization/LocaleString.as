@@ -106,13 +106,15 @@ package ru.nacid.base.services.localization
 		{
 			var r:String=StringUtils.replaceAll(string, settings.varBegin, settings.screenEndBegin);
 			var params:Array=[];
-			var response:Object={symbol: symbol};
+			var response:Object={};
 
 			for (var i:int=0; i < vars.length; i++)
 			{
 				params[i]=settings.varBegin.concat(vars[i], settings.varEnd);
 			}
+			
 			response[settings.valueField]=StringUtils.replace(r, params);
+			response[settings.keyField]=symbol;
 
 			return response;
 		}

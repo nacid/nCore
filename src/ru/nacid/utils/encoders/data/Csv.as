@@ -102,7 +102,7 @@ package ru.nacid.utils.encoders.data
 
 		public function encodeString($data:String):Object
 		{
-			if ($data.search(lineDel) >= 0 || $data.search(screen) >= 0)
+			if ($data.search(lineDel) >= 0 || $data.search(screen) >= 0 || $data.search(fielSeperator) >= 0)
 			{
 				$data=screen.concat(StringUtils.replaceAll($data, screen, screen.concat(screen)), screen);
 			}

@@ -37,7 +37,6 @@ package ru.nacid.utils.encoders.data
 		public function encodeString($data:String):Object
 		{
 			return JSON.stringify($data);
-			;
 		}
 
 		public function encodeFloat($data:Number):Object
