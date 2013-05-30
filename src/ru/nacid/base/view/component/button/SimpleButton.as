@@ -4,6 +4,7 @@ package ru.nacid.base.view.component.button
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.filters.ColorMatrixFilter;
+	import flash.geom.Rectangle;
 
 	import ru.nacid.base.view.component.button.enum.ButtonState;
 
@@ -16,6 +17,8 @@ package ru.nacid.base.view.component.button
 		private var _stateHash:Object={};
 
 		private var _content:DisplayObject;
+		private var _baseW:Number;
+		private var _baseH:Number;
 
 		public function SimpleButton($skin:String)
 		{
@@ -25,18 +28,46 @@ package ru.nacid.base.view.component.button
 
 		override public function arrange():void
 		{
-			super.arrange();
-
 			if (_content)
 			{
 				_content.x=(currentWidth - _content.width) >> 1;
 				_content.y=(currentHeight - _content.height) >> 1;
 			}
+
+			var sX:Number=currentWidth / _baseW;
+			var sY:Number=currentHeight / _baseH;
+
+			if (skinMC.scaleX != sX || skinMC.scaleY != sY)
+			{
+				skinMC.scaleX=sX;
+				skinMC.scaleY=sY;
+
+				for (var i:int=0; i < skinMC.numChildren; i++)
+				{
+					var target:DisplayObject=skinMC.getChildAt(i);
+
+					if (target is MovieClip)
+					{
+						/*if (currentWidth)
+						{
+							target.scaleX=1 / sX;
+						}/
+						/*if (currentHeight)
+						{
+							target.scaleY=1 / sY;
+						}*/
+					}
+				}
+			}
+
+
+			trace(skinMC.currentFrame, currentWidth, _baseW);
 		}
 
 		protected function get contentContainer():DisplayObjectContainer
 		{
 			return skin;
+
 		}
 
 		public function set content(value:DisplayObject):void
@@ -87,6 +118,7 @@ package ru.nacid.base.view.component.button
 			{
 				skinMC.gotoAndStop(currentState);
 			}
+			arrange();
 		}
 
 		override protected function addListeners():void
@@ -119,6 +151,7 @@ package ru.nacid.base.view.component.button
 					if (skin.data is MovieClip)
 					{
 						_skinMC=skin.data;
+
 						var i:int=_skinMC.currentLabels.length;
 
 						while (i)
@@ -139,13 +172,16 @@ package ru.nacid.base.view.component.button
 						_skinMC.graphics.beginFill(0xCCCCCC);
 						_skinMC.graphics.drawRect(0, 0, 100, 50);
 					}
+
+					_baseW=skinMC.width;
+					_baseH=skinMC.height;
 				}
 				else
 				{
 					return null;
 				}
 			}
-			
+
 			return _skinMC;
 		}
 	}

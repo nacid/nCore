@@ -139,6 +139,14 @@ package ru.nacid.base.view.component.button
 			onSkinReady();
 			skin.mouseChildren=false;
 			addChild(skin);
+			
+			if(!currentWidth){
+			currentWidth=skin.data.width;
+			}
+			
+			if(!currentHeight){
+				currentHeight = skin.data.height;
+			}
 		}
 
 		protected function removeSkin():void
