@@ -83,7 +83,7 @@ package ru.nacid.utils.encoders.data
 		public function encodeString($data:String):Object
 		{
 			var response:ByteArray=createBytes();
-			response.writeUTF($data);
+			response.writeUTFBytes($data);
 			response.position = 0;
 			return response;
 		}

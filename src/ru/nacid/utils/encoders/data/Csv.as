@@ -49,7 +49,7 @@ package ru.nacid.utils.encoders.data
 		{
 			var r:Array=$input.split(fielSeperator);
 
-			for (var i:int=0; i < r.length; )
+			for (var i:int=0; i < r.length;i++ )
 			{
 				var s:String=r[i];
 				if (Boolean(StringUtils.numOfSubstr(s, screen) % 2))
@@ -61,7 +61,6 @@ package ru.nacid.utils.encoders.data
 				else
 				{
 					r[i]=decodeString(s);
-					i++;
 				}
 			}
 
