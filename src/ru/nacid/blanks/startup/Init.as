@@ -1,7 +1,7 @@
 package ru.nacid.blanks.startup
 {
 	import com.junkbyte.console.Cc;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
@@ -9,7 +9,7 @@ package ru.nacid.blanks.startup
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.system.Capabilities;
-
+	
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.services.CommandQueue;
 	import ru.nacid.base.services.lan.LanCommand;
@@ -130,6 +130,7 @@ package ru.nacid.blanks.startup
 			Global.debugger=Capabilities.isDebugger;
 			Global.language=Capabilities.language;
 			Global.stage=appLayer.main.stage;
+			Global.stageFPS = Stage(appLayer.main.stage).frameRate;
 			Global.domain=new RequestVO(appLayer.main.stage.loaderInfo.url);
 		}
 

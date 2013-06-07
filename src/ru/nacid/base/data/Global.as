@@ -51,6 +51,7 @@ package ru.nacid.base.data
 		public static var stageW:Number;
 		public static var stageH:Number;
 		public static var stage:IEventDispatcher;
+		public static var stageFPS:int;
 		
 		public static function isDebug():Boolean{
 			return _flashVars.debug;

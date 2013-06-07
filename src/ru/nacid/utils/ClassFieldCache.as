@@ -4,33 +4,35 @@ package ru.nacid.utils
 
 	public class ClassFieldCache
 	{
-		private static var smFieldInfoCache:Dictionary = new Dictionary(true);
-		
+		private static var smFieldInfoCache:Dictionary=new Dictionary(true);
+
 		public static function getFieldsOfClass(c:*):Dictionary
 		{
-			if(!(c is Class))
+			if (!(c is Class))
 			{
-				c = getDefinitionByName(getQualifiedClassName(c));
+				c=getDefinitionByName(getQualifiedClassName(c));
 			}
-			
-			if(smFieldInfoCache.hasOwnProperty(c))
+
+			if (smFieldInfoCache.hasOwnProperty(c))
 				return smFieldInfoCache[c];
-			
-			var typeXml:XML = describeType(c);
-			var typeDict:Dictionary = new Dictionary();
-			
+
+			var typeXml:XML=describeType(c);
+			var typeDict:Dictionary=new Dictionary();
+
 			for each (var variable:XML in typeXml.factory.variable)
-			typeDict[variable.@name.toString()] = variable.@type.toString();
-			
+			{
+				typeDict[variable.@name.toString()]=variable.@type.toString();
+			}
+
 			for each (var accessor:XML in typeXml.factory.accessor)
 			{
-				if(accessor.@access == "readonly")
+				if (accessor.@access == "readonly")
 					continue;
-				
-				typeDict[accessor.@name.toString()] = accessor.@type.toString();
+
+				typeDict[accessor.@name.toString()]=accessor.@type.toString();
 			}
-			
-			smFieldInfoCache[c] = typeDict;
+
+			smFieldInfoCache[c]=typeDict;
 			return typeDict;
 		}
 	}

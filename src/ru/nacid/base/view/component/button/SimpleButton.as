@@ -2,11 +2,14 @@ package ru.nacid.base.view.component.button
 {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.InteractiveObject;
 	import flash.display.MovieClip;
 	import flash.filters.ColorMatrixFilter;
+	import flash.geom.Matrix;
 	import flash.geom.Rectangle;
 
 	import ru.nacid.base.view.component.button.enum.ButtonState;
+	import ru.nacid.base.view.component.button.interfaces.IInteractiveContent;
 
 	public class SimpleButton extends BaseButton
 	{
@@ -17,8 +20,6 @@ package ru.nacid.base.view.component.button
 		private var _stateHash:Object={};
 
 		private var _content:DisplayObject;
-		private var _baseW:Number;
-		private var _baseH:Number;
 
 		public function SimpleButton($skin:String)
 		{
@@ -28,46 +29,26 @@ package ru.nacid.base.view.component.button
 
 		override public function arrange():void
 		{
+			if (currentWidth)
+			{
+				skinMC.width=currentWidth;
+
+			}
+			if (currentHeight)
+			{
+				skinMC.height=currentHeight;
+			}
+
 			if (_content)
 			{
 				_content.x=(currentWidth - _content.width) >> 1;
 				_content.y=(currentHeight - _content.height) >> 1;
 			}
-
-			var sX:Number=currentWidth / _baseW;
-			var sY:Number=currentHeight / _baseH;
-
-			if (skinMC.scaleX != sX || skinMC.scaleY != sY)
-			{
-				skinMC.scaleX=sX;
-				skinMC.scaleY=sY;
-
-				for (var i:int=0; i < skinMC.numChildren; i++)
-				{
-					var target:DisplayObject=skinMC.getChildAt(i);
-
-					if (target is MovieClip)
-					{
-						/*if (currentWidth)
-						{
-							target.scaleX=1 / sX;
-						}/
-						/*if (currentHeight)
-						{
-							target.scaleY=1 / sY;
-						}*/
-					}
-				}
-			}
-
-
-			trace(skinMC.currentFrame, currentWidth, _baseW);
 		}
 
 		protected function get contentContainer():DisplayObjectContainer
 		{
-			return skin;
-
+			return this;
 		}
 
 		public function set content(value:DisplayObject):void
@@ -75,10 +56,16 @@ package ru.nacid.base.view.component.button
 			if (_content && contentContainer.contains(_content))
 			{
 				contentContainer.removeChild(_content);
+			}
+			if (value)
+			{
+				_content=value;
+				if (_content is InteractiveObject)
+				{
+					InteractiveObject(_content).mouseEnabled=false;
+				}
 				contentContainer.addChild(_content);
 			}
-
-			contentContainer.addChild(_content=value);
 		}
 
 		public function get content():DisplayObject
@@ -119,6 +106,11 @@ package ru.nacid.base.view.component.button
 				skinMC.gotoAndStop(currentState);
 			}
 			arrange();
+
+			if (content is IInteractiveContent)
+			{
+				IInteractiveContent(content).changeState(currentState);
+			}
 		}
 
 		override protected function addListeners():void
@@ -134,7 +126,9 @@ package ru.nacid.base.view.component.button
 		override protected function init():void
 		{
 			super.init();
+
 			setStateFilters(ButtonState.DISABLED, DEFAULT_DISABLE_FILTERS);
+			updateSkinMC();
 		}
 
 		protected function skinHasLabel($label:String):Boolean
@@ -142,47 +136,55 @@ package ru.nacid.base.view.component.button
 			return _stateHash.hasOwnProperty($label);
 		}
 
+		protected function updateSkinMC():void
+		{
+			if (skin.loaded)
+			{
+				if (skin.data is MovieClip)
+				{
+					_skinMC=skin.data;
+
+					var i:int=_skinMC.currentLabels.length;
+
+					while (i)
+					{
+						--i;
+
+						if (_skinMC.currentLabels[i].name)
+						{
+							_stateHash[_skinMC.currentLabels[i].name]=_skinMC.currentLabels[i].frame;
+						}
+					}
+				}
+				else
+				{
+					error(skinName.concat(' is not a MovieClip'));
+
+					_skinMC=new MovieClip();
+					_skinMC.graphics.beginFill(0xCCCCCC);
+					_skinMC.graphics.drawRect(0, 0, currentWidth || 100, currentHeight || 50);
+				}
+			}
+		}
+
 		protected function get skinMC():MovieClip
 		{
 			if (_skinMC == null)
 			{
-				if (skin.loaded)
-				{
-					if (skin.data is MovieClip)
-					{
-						_skinMC=skin.data;
-
-						var i:int=_skinMC.currentLabels.length;
-
-						while (i)
-						{
-							--i;
-
-							if (_skinMC.currentLabels[i].name)
-							{
-								_stateHash[_skinMC.currentLabels[i].name]=_skinMC.currentLabels[i].frame;
-							}
-						}
-					}
-					else
-					{
-						error(skinName.concat(' is not a MovieClip'));
-
-						_skinMC=new MovieClip();
-						_skinMC.graphics.beginFill(0xCCCCCC);
-						_skinMC.graphics.drawRect(0, 0, 100, 50);
-					}
-
-					_baseW=skinMC.width;
-					_baseH=skinMC.height;
-				}
-				else
-				{
-					return null;
-				}
+				updateSkinMC();
 			}
 
 			return _skinMC;
+		}
+
+		override public function set width(value:Number):void
+		{
+			super.width=content && content.width > value ? content.width : value;
+		}
+
+		override public function set height(value:Number):void
+		{
+			super.height=content && content.height > value ? content.height : value;
 		}
 	}
 }

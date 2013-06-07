@@ -8,11 +8,13 @@ package ru.nacid.base.view.component.button
 	import ru.nacid.base.services.skins.Sm;
 	import ru.nacid.base.view.ViewObject;
 	import ru.nacid.base.view.component.button.enum.ButtonState;
+	import ru.nacid.utils.DelayedAction;
 	import ru.nacid.utils.HashUtils;
 
 	public class BaseButton extends ViewObject
 	{
 		protected var sm:Sm;
+		protected var delayed:DelayedAction;
 
 		protected var skinName:String;
 		protected var skin:Skin;
@@ -25,9 +27,16 @@ package ru.nacid.base.view.component.button
 
 		private var _statesFilters:Dictionary;
 
+		public var maxWidth:Number=Number.MAX_VALUE;
+		public var minWidth:Number=Number.MIN_VALUE;
+
+		public var maxHeight:Number=Number.MAX_VALUE;
+		public var minHeight:Number=Number.MIN_VALUE;
+
 		public function BaseButton($skin:String)
 		{
 			sm=Sm.instance;
+			delayed=new DelayedAction;
 			skinName=$skin;
 
 			applyId($skin.concat(HashUtils.getRandomSigCRC(16)));
@@ -97,11 +106,12 @@ package ru.nacid.base.view.component.button
 			{
 				if (currentWidth)
 				{
-					skin.width=currentWidth;
+					super.width=skin.width=currentWidth;
+
 				}
 				if (currentHeight)
 				{
-					skin.height=currentHeight;
+					super.height=skin.height=currentHeight;
 				}
 			}
 		}
@@ -138,14 +148,16 @@ package ru.nacid.base.view.component.button
 
 			onSkinReady();
 			skin.mouseChildren=false;
-			addChild(skin);
-			
-			if(!currentWidth){
-			currentWidth=skin.data.width;
+			addChildAt(skin, 0);
+
+			if (!currentWidth)
+			{
+				currentWidth=skin.data.width;
 			}
-			
-			if(!currentHeight){
-				currentHeight = skin.data.height;
+
+			if (!currentHeight)
+			{
+				currentHeight=skin.data.height;
 			}
 		}
 
@@ -209,27 +221,39 @@ package ru.nacid.base.view.component.button
 
 		override public function set width(value:Number):void
 		{
+			if (value > maxWidth || value < minWidth)
+			{
+				return;
+			}
+
 			currentWidth=value;
 			if (onStage && skin.loaded)
 			{
 				arrange();
 			}
 		}
-		
-		override public function get width():Number{
+
+		override public function get width():Number
+		{
 			return currentWidth;
 		}
 
 		override public function set height(value:Number):void
 		{
+			if (value > maxHeight || value < minHeight)
+			{
+				return;
+			}
+
 			currentHeight=value;
 			if (onStage && skin.loaded)
 			{
 				arrange();
 			}
 		}
-		
-		override public function get height():Number{
+
+		override public function get height():Number
+		{
 			return currentHeight;
 		}
 
