@@ -26,6 +26,6 @@ package ru.nacid.base.view.interfaces
 	 */
 	public interface IProgressRender
 	{
-		function setProgress($value:Number):void;
+		function setProgress(value:Number):void;
 	}
 }

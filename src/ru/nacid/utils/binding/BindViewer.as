@@ -45,11 +45,11 @@ package ru.nacid.utils.binding
 			return _paused;
 		}
 
-		public function set paused($value:Boolean):void
+		public function set paused(value:Boolean):void
 		{
-			if ($value != _paused)
+			if (value != _paused)
 			{
-				_paused=$value;
+				_paused=value;
 				updatePaused();
 			}
 		}

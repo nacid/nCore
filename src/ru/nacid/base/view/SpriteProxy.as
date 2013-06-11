@@ -93,9 +93,9 @@ package ru.nacid.base.view
 			return $with is DisplayObject;
 		}
 		
-		public function setFocus($value:IDisplayObject = null):void{
+		public function setFocus(value:IDisplayObject = null):void{
 			if(_main.stage is Stage){
-				Stage(_main.stage).focus = $value as InteractiveObject || _main;
+				Stage(_main.stage).focus = value as InteractiveObject || _main;
 			}
 		}
 	}

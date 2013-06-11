@@ -32,7 +32,6 @@ package ru.nacid.base.view.component.button
 			if (currentWidth)
 			{
 				skinMC.width=currentWidth;
-
 			}
 			if (currentHeight)
 			{
@@ -66,6 +65,8 @@ package ru.nacid.base.view.component.button
 				}
 				contentContainer.addChild(_content);
 			}
+
+			arrange();
 		}
 
 		public function get content():DisplayObject

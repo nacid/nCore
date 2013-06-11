@@ -35,10 +35,10 @@ package ru.nacid.base.services.localization
 
 		private var _screenEndBegin:String;
 
-		public function LocaleMapSetting($keyField:String = 'key',$valueField:String='value', $varBegin:String='%', $screen:String='/', $undefinedValue:String='???', $varEnd:String=null)
+		public function LocaleMapSetting($keyField:String = 'key',valueField:String='value', $varBegin:String='%', $screen:String='/', $undefinedValue:String='???', $varEnd:String=null)
 		{
 			_keyField = $keyField;
-			_valueField=$valueField;
+			_valueField=valueField;
 			_varBegin=$varBegin;
 			_screen=$screen;
 			_undefinedValue=$undefinedValue;

@@ -118,9 +118,9 @@ package ru.nacid.blanks.startup
 			//virtual
 		}
 
-		protected function setDebug($value:Boolean):void
+		protected function setDebug(value:Boolean):void
 		{
-			Global.release=!$value;
+			Global.release=!value;
 		}
 
 		protected function fillGlobal():void
