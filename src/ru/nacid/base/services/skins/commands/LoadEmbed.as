@@ -19,7 +19,12 @@ package ru.nacid.base.services.skins.commands
 			var iterator:VOIterator=Sm.instance.getEmbeds();
 			while (iterator.hasNext())
 			{
-				addCommand(iterator.next() as Command);
+				var loader:Command=iterator.next() as Command;
+
+				if (!loader.completed)
+				{
+					addCommand(loader);
+				}
 			}
 
 			super.execInternal();

@@ -1,9 +1,7 @@
 package ru.nacid.base.services
 {
-	import com.junkbyte.console.Cc;
-	
 	import flash.events.EventDispatcher;
-	
+
 	import ru.nacid.base.data.store.VOList;
 
 	/**
@@ -35,11 +33,12 @@ package ru.nacid.base.services
 		protected var step:uint=0;
 
 		private var stepProgress:Number;
-		
-		public function CommandQueue(){
-			
+
+		public function CommandQueue()
+		{
+
 		}
-		
+
 		public function addCommand(cmd:Command, autoPriority:Boolean=true):void
 		{
 			if (list.add(cmd))
@@ -48,10 +47,10 @@ package ru.nacid.base.services
 				{
 					cmd.priority=-list.size;
 				}
-				Cc.logch(CMD_CHANNEL, cmd.symbol, 'added to queue', symbol);
+				log(cmd.symbol.concat(' added to queue ', symbol));
 			}
 			else
-				Cc.warnch(CMD_CHANNEL, cmd.symbol, 'not added to queue');
+				log(cmd.symbol.concat('not added to queue'));
 		}
 
 		override protected function execInternal():void
@@ -120,8 +119,9 @@ package ru.nacid.base.services
 		{
 			return currentCommand.symbol;
 		}
-		
-		public function get size():int{
+
+		public function get size():int
+		{
 			return list.size;
 		}
 	}

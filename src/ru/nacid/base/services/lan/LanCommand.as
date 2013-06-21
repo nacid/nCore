@@ -48,9 +48,10 @@ package ru.nacid.base.services.lan
 
 		protected var responseLen:Number;
 		protected var responseCheckSum:String;
-		
-		public function LanCommand(){
-			
+
+		public function LanCommand()
+		{
+
 		}
 
 		protected function progressHandler(e:ProgressEvent):void
@@ -106,6 +107,11 @@ package ru.nacid.base.services.lan
 		public function get response():Object
 		{
 			return responseData;
+		}
+
+		public function getURL():String
+		{
+			return url;
 		}
 	}
 

@@ -1,7 +1,7 @@
 package ru.nacid.base.services.skins
 {
 	import com.junkbyte.console.Cc;
-	
+
 	import ru.nacid.base.data.managment.VOIterator;
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
@@ -51,11 +51,11 @@ package ru.nacid.base.services.skins
 
 			types={};
 			list=new VOList();
-			
-			
+
+
 			//DEFAULT TYPES
 			addType(LoadBitmapSkin.SIG, new LoadBitmapSkin);
-			addType(LoadSwfSkin.SIG,new LoadSwfSkin);
+			addType(LoadSwfSkin.SIG, new LoadSwfSkin);
 		}
 
 		/* instance
@@ -79,8 +79,9 @@ package ru.nacid.base.services.skins
 		{
 			return types[$type];
 		}
-		
-		public function addDirectly($skinLoader:ISkinLoader):Boolean{
+
+		public function addDirectly($skinLoader:ISkinLoader):Boolean
+		{
 			return list.add($skinLoader);
 		}
 
@@ -95,7 +96,7 @@ package ru.nacid.base.services.skins
 				}
 				else
 				{
-					error('error with add skin '.concat($id));
+					error('error with add skin '.concat($id, ' duplicated'));
 				}
 			}
 			else
@@ -107,7 +108,7 @@ package ru.nacid.base.services.skins
 		public function getEmbeds():VOIterator
 		{
 			var response:VOList=new VOList();
-			var iterator:VOIterator=list.createIterator();
+			var iterator:VOIterator=getIterator();
 
 			while (iterator.hasNext())
 			{
@@ -119,6 +120,11 @@ package ru.nacid.base.services.skins
 			}
 
 			return response.createIterator();
+		}
+
+		public function getIterator():VOIterator
+		{
+			return list.createIterator();
 		}
 
 		public function getSkin($id:String):Skin
