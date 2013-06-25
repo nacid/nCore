@@ -7,6 +7,7 @@ package ru.nacid.base.view.layouts
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.view.interfaces.ILayout;
 
+	//@TODO
 	public class GroupLayout// implements ILayout
 	{
 		private var _marginLeft:int;

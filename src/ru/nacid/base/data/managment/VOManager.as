@@ -1,9 +1,9 @@
 package ru.nacid.base.data.managment
 {
 	import com.junkbyte.console.Cc;
-	
+
 	import flash.events.EventDispatcher;
-	
+
 	import ru.nacid.base.data.managment.events.VOManagerEvent;
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
@@ -56,7 +56,7 @@ package ru.nacid.base.data.managment
 			return activeIndex($id) >= 0;
 		}
 
-		protected function activate($id:String):void
+		protected function activate($id:String):Boolean
 		{
 			if (list.containsId($id) && !isActive($id))
 			{
@@ -64,7 +64,11 @@ package ru.nacid.base.data.managment
 
 				if (dispatcherMode)
 					dispatchEvent(new VOManagerEvent(VOManagerEvent.ITEM_ACTIVATED, $id));
+
+				return true;
 			}
+
+			return false
 		}
 
 		protected function deactivate($id:String):void
@@ -78,14 +82,16 @@ package ru.nacid.base.data.managment
 					dispatchEvent(new VOManagerEvent(VOManagerEvent.ITEM_DEACTIVATED, $id));
 			}
 		}
-		
-		public function iterate($callback:Function,$startIndex:int = 0):void{
-			var iterator:VOIterator = list.createIteratorAt($startIndex);
-			
-			while(iterator.hasNext()){
-				$callback.call(null,iterator.next());
+
+		public function iterate($callback:Function, $startIndex:int=0):void
+		{
+			var iterator:VOIterator=list.createIteratorAt($startIndex);
+
+			while (iterator.hasNext())
+			{
+				$callback.call(null, iterator.next());
 			}
-			
+
 		}
 
 		/* INTERFACE ru.nacid.base.services.logs.interfaces.IChannelParent */

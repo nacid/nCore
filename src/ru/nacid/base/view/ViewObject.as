@@ -54,6 +54,7 @@ package ru.nacid.base.view
 			if (stage)
 			{
 				init();
+				_inited = true;
 				show();
 			}
 			else
@@ -65,8 +66,10 @@ package ru.nacid.base.view
 			addEventListener(Event.REMOVED_FROM_STAGE, stageOffHandler);
 			removeEventListener(Event.ADDED_TO_STAGE, stageOnHandler);
 
-			if (!_inited)
+			if (!_inited){
 				init();
+				_inited = true;
+			}
 			_onStage=true;
 
 			arrange();

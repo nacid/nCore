@@ -1,7 +1,7 @@
 package ru.nacid.base.services.localization
 {
 	import com.junkbyte.console.Cc;
-	
+
 	import ru.nacid.base.data.managment.VOManager;
 	import ru.nacid.base.data.managment.events.VOManagerEvent;
 	import ru.nacid.base.data.store.VOList;
@@ -126,7 +126,7 @@ package ru.nacid.base.services.localization
 			return 0;
 		}
 
-		override protected function activate($id:String):void
+		override protected function activate($id:String):Boolean
 		{
 			if (list.containsId($id) && !isActive($id))
 			{
@@ -134,8 +134,12 @@ package ru.nacid.base.services.localization
 
 				info('locale changed');
 				if (dispatcherMode)
+				{
 					dispatchEvent(new VOManagerEvent(VOManagerEvent.ITEM_ACTIVATED, $id));
+				}
+				return true;
 			}
+			return false;
 		}
 
 		override protected function deactivate($id:String):void
