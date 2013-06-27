@@ -5,6 +5,7 @@ package ru.nacid.base.services.skins.interfaces
 	public interface ISkinLoader extends ICommand
 	{
 		function getInstance():*;
+		function getEmpty():*;
 		function fromData($id:String, $url:String, $embed:Boolean):ISkinLoader;
 		function get embed():Boolean;
 	}

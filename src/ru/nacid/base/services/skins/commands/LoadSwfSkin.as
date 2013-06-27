@@ -1,8 +1,9 @@
 package ru.nacid.base.services.skins.commands
 {
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.system.Capabilities;
-
+	
 	import ru.nacid.base.services.lan.loaders.MovieLoader;
 	import ru.nacid.base.services.skins.Sm;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
@@ -57,6 +58,11 @@ package ru.nacid.base.services.skins.commands
 			warning('called getInstance method from LoadSwfSkin. Use internal classes with LoadClassSkin');
 			return _mc;
 		}
+		
+		public function getEmpty():*
+			{
+				return new Sprite();
+			}
 
 		public function fromData($id:String, $url:String, $embed:Boolean):ISkinLoader
 		{

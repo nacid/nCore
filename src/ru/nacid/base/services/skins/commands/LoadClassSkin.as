@@ -1,5 +1,7 @@
 package ru.nacid.base.services.skins.commands
 {
+	import flash.display.Bitmap;
+	
 	import ru.nacid.base.services.Command;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
 	
@@ -26,6 +28,11 @@ package ru.nacid.base.services.skins.commands
 		public function getInstance():*
 		{
 			return new _class;
+		}
+		
+		public function getEmpty():*
+		{
+			return new Bitmap();
 		}
 		
 		public function fromData($id:String, $url:String, $embed:Boolean):ISkinLoader

@@ -52,6 +52,11 @@ package ru.nacid.base.services.skins.commands
 		{
 			return new Bitmap(skinData.bitmapData.clone(), 'auto', true);
 		}
+		
+		public function getEmpty():*
+		{
+			return new Bitmap();
+		}
 
 		public function fromData($id:String, $url:String, $embed:Boolean):ISkinLoader
 		{

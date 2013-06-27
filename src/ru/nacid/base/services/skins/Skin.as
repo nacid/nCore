@@ -1,7 +1,7 @@
 package ru.nacid.base.services.skins
 {
 	import flash.display.DisplayObject;
-	
+
 	import ru.nacid.base.services.CommandEvent;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
 	import ru.nacid.base.view.ViewObject;
@@ -39,7 +39,8 @@ package ru.nacid.base.services.skins
 
 		public var embed:Boolean;
 
-		private var cont:*
+		private var cont:*;
+		private var empty:*;
 
 		public function Skin($loader:ISkinLoader)
 		{
@@ -67,11 +68,23 @@ package ru.nacid.base.services.skins
 				if (loaded)
 				{
 					_data=_loader.getInstance()
+
+					if (empty && contains(empty))
+					{
+						removeChild(empty);
+					}
+
 					if (_data is DisplayObject)
 						addChild(_data);
 				}
 				else
 				{
+					empty=_loader.getEmpty();
+					if (empty is DisplayObject)
+					{
+						addChild(empty);
+					}
+
 					_loader.addEventListener(CommandEvent.COMPLETE, loaderHandler);
 					if (!loading)
 					{
@@ -84,6 +97,10 @@ package ru.nacid.base.services.skins
 		private function loaderHandler(e:CommandEvent):void
 		{
 			_loader.removeEventListener(CommandEvent.COMPLETE, loaderHandler);
+			if (empty && contains(empty))
+			{
+				removeChild(empty);
+			}
 			addChild(_data=_loader.getInstance());
 			e.preventDefault();
 		}
@@ -107,8 +124,9 @@ package ru.nacid.base.services.skins
 		{
 			return _data;
 		}
-		
-		public function get isVoid():Boolean{
+
+		public function get isVoid():Boolean
+		{
 			return _void;
 		}
 	}
