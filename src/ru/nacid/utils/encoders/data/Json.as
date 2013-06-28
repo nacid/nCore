@@ -1,7 +1,7 @@
 package ru.nacid.utils.encoders.data
 {
 	import ru.nacid.utils.encoders.interfaces.IEncoder;
-
+	import by.blooddy.crypto.serialization.JSON;
 	/**
 	 * Json.as
 	 * Created On: 5.8 20:22
@@ -31,32 +31,32 @@ package ru.nacid.utils.encoders.data
 
 		public function encodeObject($data:Object):Object
 		{
-			return JSON.stringify($data);
+			return JSON.encode($data);
 		}
 
 		public function encodeString($data:String):Object
 		{
-			return JSON.stringify($data);
+			return JSON.encode($data);
 		}
 
 		public function encodeFloat($data:Number):Object
 		{
-			return JSON.stringify($data);
+			return JSON.encode($data);
 		}
 
 		public function decodeObject($data:Object):Object
 		{
-			return JSON.parse(String($data));
+			return JSON.decode(String($data));
 		}
 
 		public function decodeString($data:Object):String
 		{
-			return String(JSON.parse(String($data)));
+			return String(JSON.decode(String($data)));
 		}
 
 		public function decodeFloat($data:Object):Number
 		{
-			return parseFloat(String(JSON.parse(String($data))));
+			return parseFloat(String(JSON.decode(String($data))));
 		}
 
 	}
