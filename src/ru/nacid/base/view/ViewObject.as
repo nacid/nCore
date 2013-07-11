@@ -1,10 +1,11 @@
 package ru.nacid.base.view
 {
 	import com.junkbyte.console.Cc;
+	
 	import flash.events.Event;
+	
 	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
-	import ru.nacid.base.services.windows.WindowParam;
 	import ru.nacid.utils.StringUtils;
 
 	/**

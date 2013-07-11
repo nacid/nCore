@@ -40,7 +40,7 @@ package ru.nacid.base.services.skins
 		public var embed:Boolean;
 
 		private var cont:*;
-		private var empty:*;
+		private var empt:*;
 
 		public function Skin($loader:ISkinLoader)
 		{
@@ -69,9 +69,9 @@ package ru.nacid.base.services.skins
 				{
 					_data=_loader.getInstance()
 
-					if (empty && contains(empty))
+					if (empt && contains(empt))
 					{
-						removeChild(empty);
+						removeChild(empt);
 					}
 
 					if (_data is DisplayObject)
@@ -79,10 +79,10 @@ package ru.nacid.base.services.skins
 				}
 				else
 				{
-					empty=_loader.getEmpty();
-					if (empty is DisplayObject)
+					empt=_loader.getEmpty();
+					if (empt is DisplayObject)
 					{
-						addChild(empty);
+						addChild(empt);
 					}
 
 					_loader.addEventListener(CommandEvent.COMPLETE, loaderHandler);
@@ -97,9 +97,9 @@ package ru.nacid.base.services.skins
 		private function loaderHandler(e:CommandEvent):void
 		{
 			_loader.removeEventListener(CommandEvent.COMPLETE, loaderHandler);
-			if (empty && contains(empty))
+			if (empt && contains(empt))
 			{
-				removeChild(empty);
+				removeChild(empt);
 			}
 			addChild(_data=_loader.getInstance());
 			e.preventDefault();
