@@ -8,6 +8,8 @@ package ru.nacid.base.services.skins
 	import ru.nacid.base.services.skins.commands.LoadBitmapSkin;
 	import ru.nacid.base.services.skins.commands.LoadSwfSkin;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
+	import ru.nacid.base.services.skins.utils.SkinIterator;
+	import ru.nacid.base.services.skins.utils.SkinList;
 
 	/**
 	 * Sm.as
@@ -39,7 +41,7 @@ package ru.nacid.base.services.skins
 		private static var m_instance:Sm;
 
 		private var types:Object;
-		private var list:VOList
+		private var list:SkinList;
 
 		/* Sm
 		 * Use Sm.instance
@@ -50,7 +52,7 @@ package ru.nacid.base.services.skins
 				throw new Error("Sm is a singleton class.  Access via ''Sm.instance''.");
 
 			types={};
-			list=new VOList();
+			list=new SkinList();
 
 
 			//DEFAULT TYPES
@@ -92,7 +94,7 @@ package ru.nacid.base.services.skins
 			{
 				if (list.add(loader.fromData($id, $url, $embed)))
 				{
-					info('skin '.concat($id, ' added'));
+					//info('skin '.concat($id, ' added'));
 				}
 				else
 				{
@@ -108,11 +110,11 @@ package ru.nacid.base.services.skins
 		public function getEmbeds():VOIterator
 		{
 			var response:VOList=new VOList();
-			var iterator:VOIterator=getIterator();
+			var iterator:SkinIterator=getIterator();
 
 			while (iterator.hasNext())
 			{
-				var n:ISkinLoader=iterator.next() as ISkinLoader;
+				var n:ISkinLoader=iterator.next();
 				if (n.embed)
 				{
 					response.add(n);
@@ -122,14 +124,19 @@ package ru.nacid.base.services.skins
 			return response.createIterator();
 		}
 
-		public function getIterator():VOIterator
+		public function getIterator():SkinIterator
 		{
 			return list.createIterator();
 		}
 
 		public function getSkin($id:String):Skin
 		{
-			return new Skin(list.atId($id) as ISkinLoader);
+			return new Skin(list.atId($id));
+		}
+
+		public function isLoaded($id:String):Boolean
+		{
+			return list.atId($id).loaded;
 		}
 
 		public function loadSkin($id:String):void

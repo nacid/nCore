@@ -44,5 +44,13 @@ package ru.nacid.base.services.skins.commands
 		{
 			return false;
 		}
+		
+		public function get loaded():Boolean{
+			return completed;
+		}
+		
+		public function load():void{
+			execute();
+		}
 	}
 }

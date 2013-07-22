@@ -1,6 +1,7 @@
 package ru.nacid.base.data.managment
 {
 	import ru.nacid.base.data.interfaces.IData;
+	import ru.nacid.base.data.interfaces.IIterator;
 
 	/**
 	 * VOIterator.as
@@ -25,7 +26,7 @@ package ru.nacid.base.data.managment
 	 *	limitations under the License.
 	 *
 	 */
-	public class VOIterator
+	public class VOIterator implements IIterator
 	{
 		private var list:Vector.<IData>;
 		private var index:int;

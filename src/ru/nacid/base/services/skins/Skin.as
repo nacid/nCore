@@ -1,10 +1,11 @@
 package ru.nacid.base.services.skins
 {
 	import flash.display.DisplayObject;
-
+	
 	import ru.nacid.base.services.CommandEvent;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
 	import ru.nacid.base.view.ViewObject;
+	import ru.nacid.utils.interfaces.ILoader;
 
 	/**
 	 * Skin.as
@@ -29,7 +30,7 @@ package ru.nacid.base.services.skins
 	 *	limitations under the License.
 	 *
 	 */
-	public class Skin extends ViewObject
+	public class Skin extends ViewObject implements ILoader
 	{
 		private var _loader:ISkinLoader;
 		private var _loaded:Boolean;
@@ -41,6 +42,9 @@ package ru.nacid.base.services.skins
 
 		private var cont:*;
 		private var empt:*;
+		
+		private var _flipX:Boolean;
+		private var _flipY:Boolean;
 
 		public function Skin($loader:ISkinLoader)
 		{
@@ -60,6 +64,19 @@ package ru.nacid.base.services.skins
 				loader.execute();
 			}
 		}
+		
+		public function flipContent($x:Boolean = false,$y:Boolean = false):void{
+			_flipX = $x;
+			_flipY = $y;
+			
+			if(_data is DisplayObject){
+				_data.scaleX = _flipX ? -1 : 1;
+				_data.x = _flipX ? _data.width : 0;
+				
+				_data.scaleY = _flipY ? -1 : 1;
+				_data.y = _flipY ? _data.height : 0;
+			}
+		}
 
 		override protected function show():void
 		{
@@ -69,7 +86,7 @@ package ru.nacid.base.services.skins
 				{
 					_data=_loader.getInstance()
 
-					if (empt && contains(empt))
+					if (empt && empt is DisplayObject && contains(empt))
 					{
 						removeChild(empt);
 					}
@@ -91,18 +108,21 @@ package ru.nacid.base.services.skins
 						_loader.execute();
 					}
 				}
+				
+				flipContent(_flipX,_flipY);
 			}
 		}
 
 		private function loaderHandler(e:CommandEvent):void
 		{
 			_loader.removeEventListener(CommandEvent.COMPLETE, loaderHandler);
-			if (empt && contains(empt))
+			if (empt && empt is DisplayObject && contains(empt))
 			{
 				removeChild(empt);
 			}
 			addChild(_data=_loader.getInstance());
 			e.preventDefault();
+			flipContent(_flipX,_flipY);
 		}
 
 		public function get loaded():Boolean
