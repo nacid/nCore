@@ -136,7 +136,7 @@ package ru.nacid.base.services.skins
 
 		public function isLoaded($id:String):Boolean
 		{
-			return list.atId($id).loaded;
+			return list.containsId($id) && list.atId($id).loaded;
 		}
 
 		public function loadSkin($id:String):void

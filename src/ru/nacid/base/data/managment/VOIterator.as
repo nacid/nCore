@@ -2,6 +2,7 @@ package ru.nacid.base.data.managment
 {
 	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.data.interfaces.IIterator;
+	import ru.nacid.base.data.store.VOList;
 
 	/**
 	 * VOIterator.as
@@ -28,12 +29,12 @@ package ru.nacid.base.data.managment
 	 */
 	public class VOIterator implements IIterator
 	{
-		private var list:Vector.<IData>;
+		private var list:VOList;
 		private var index:int;
 
 		private var nullIndex:int;
 
-		public function VOIterator(aList:Vector.<IData>, $nullIndex:int=0)
+		public function VOIterator(aList:VOList, $nullIndex:int=0)
 		{
 			list=aList;
 			nullIndex=$nullIndex;
@@ -45,17 +46,17 @@ package ru.nacid.base.data.managment
 		{
 			index=nullIndex - 1;
 		}
-
+		
 		public function next():IData
 		{
-			return list[++index];
+			return list.at(++index);
 		}
-
+		
 		public function hasNext():Boolean
 		{
-			return (index < (list.length - 1) && list[index + 1] != null);
+			return index < (list.size - 1) && list.at(index + 1) != null;
 		}
-
+		
 		public function get step():int
 		{
 			return index;

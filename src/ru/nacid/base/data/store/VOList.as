@@ -136,7 +136,7 @@ package ru.nacid.base.data.store
 
 		public function createIteratorAt($startIndex:int):VOIterator
 		{
-			return new VOIterator(_list, $startIndex);
+			return new VOIterator(this, $startIndex);
 		}
 
 		public function containsId($id:String):Boolean
@@ -259,7 +259,7 @@ package ru.nacid.base.data.store
 
 		public function createIterator():VOIterator
 		{
-			return new VOIterator(_list);
+			return new VOIterator(this);
 		}
 
 		public function at($index:uint):IData

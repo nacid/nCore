@@ -1,8 +1,8 @@
 package ru.nacid.utils
 {
-	import by.blooddy.crypto.CRC32;
 	import flash.utils.ByteArray;
-	import ru.nacid.base.data.interfaces.IData;
+	
+	import by.blooddy.crypto.CRC32;
 
 	/**
 	 * StringUtils.as
@@ -44,24 +44,24 @@ package ru.nacid.utils
 
 		public static function replace($input:String, ... rest):String
 		{
-				var len:uint = rest.length;
-				var args:Array;
-				if (len == 1 && rest[0] is Array)
-				{
-					args = rest[0] as Array;
-					len = args.length;
-				}
-				else
-				{
-					args = rest;
-				}
-				
-				for (var i:int = 0; i < len; i++)
-				{
-					$input = $input.replace(new RegExp("\\{"+i+"\\}", "g"), args[i]);
-				}
-				
-				return $input;
+			var len:uint=rest.length;
+			var args:Array;
+			if (len == 1 && rest[0] is Array)
+			{
+				args=rest[0] as Array;
+				len=args.length;
+			}
+			else
+			{
+				args=rest;
+			}
+
+			for (var i:int=0; i < len; i++)
+			{
+				$input=$input.replace(new RegExp("\\{" + i + "\\}", "g"), args[i]);
+			}
+
+			return $input;
 		}
 
 		public static function numOfSubstr($input:String, $sub:*):int
@@ -80,6 +80,103 @@ package ru.nacid.utils
 			}
 
 			return $input;
+		}
+
+		public static function unescapeString(input:String):String
+		{
+			var result:String="";
+			var backslashIndex:int=0;
+			var nextSubstringStartPosition:int=0;
+			var len:int=input.length;
+
+			do
+			{
+				backslashIndex=input.indexOf('\\', nextSubstringStartPosition);
+
+				if (backslashIndex >= 0)
+				{
+					result+=input.substr(nextSubstringStartPosition, backslashIndex - nextSubstringStartPosition);
+					nextSubstringStartPosition=backslashIndex + 2;
+
+					var escapedChar:String=input.charAt(backslashIndex + 1);
+					switch (escapedChar)
+					{
+						case '"':
+							result+=escapedChar;
+							break;
+						case '\\':
+							result+=escapedChar;
+							break;
+						case 'n':
+							result+='\n';
+							break;
+						case 'r':
+							result+='\r';
+							break;
+						case 't':
+							result+='\t';
+							break;
+						case 'u':
+							var hexValue:String="";
+							var unicodeEndPosition:int=nextSubstringStartPosition + 4;
+
+							if (unicodeEndPosition > len)
+							{
+								parseError("Unexpected end of input.  Expecting 4 hex digits after \\u.");
+							}
+
+							for (var i:int=nextSubstringStartPosition; i < unicodeEndPosition; i++)
+							{
+								var possibleHexChar:String=input.charAt(i);
+								if (!isHexDigit(possibleHexChar))
+								{
+									parseError("Excepted a hex digit, but found: " + possibleHexChar);
+								}
+								hexValue+=possibleHexChar;
+							}
+
+							result+=String.fromCharCode(parseInt(hexValue, 16));
+							nextSubstringStartPosition=unicodeEndPosition;
+							break;
+
+						case 'f':
+							result+='\f';
+							break;
+						case '/':
+							result+='/';
+							break;
+						case 'b':
+							result+='\b';
+							break;
+						default:
+							result+='\\' + escapedChar;
+					}
+				}
+				else
+				{
+					result+=input.substr(nextSubstringStartPosition);
+					break;
+				}
+
+			} while (nextSubstringStartPosition < len);
+
+			return result;
+		}
+
+		private static function isDigit(ch:String):Boolean
+		{
+			return (ch >= '0' && ch <= '9');
+		}
+
+		private static function isHexDigit(ch:String):Boolean
+		{
+			return (isDigit(ch) || (ch >= 'A' && ch <= 'F') || (ch >= 'a' && ch <= 'f'));
+		}
+
+
+		private static function parseError(message:String):void
+		{
+			throw new Error(message);
 		}
 
 		private static function split():Boolean
