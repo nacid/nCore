@@ -2,6 +2,8 @@ package ru.nacid.base.services.skins
 {
 	import com.junkbyte.console.Cc;
 
+	import mx.core.Singleton;
+
 	import ru.nacid.base.data.managment.VOIterator;
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
@@ -48,9 +50,18 @@ package ru.nacid.base.services.skins
 		 * @param singleton DO NOT USE THIS - Use Sm.instance */
 		public function Sm(singleton:Singleton)
 		{
-			if (singleton == null)
+			if (singleton is Sm || singleton is Singleton)
+			{
+				init();
+			}
+			else
+			{
 				throw new Error("Sm is a singleton class.  Access via ''Sm.instance''.");
+			}
+		}
 
+		protected function init():void
+		{
 			types={};
 			list=new SkinList();
 

@@ -2,6 +2,8 @@ package ru.nacid.base.services.localization
 {
 	import com.junkbyte.console.Cc;
 
+	import mx.core.Singleton;
+
 	import ru.nacid.base.data.managment.VOManager;
 	import ru.nacid.base.data.managment.events.VOManagerEvent;
 	import ru.nacid.base.data.store.VOList;
@@ -41,9 +43,18 @@ package ru.nacid.base.services.localization
 		 * @param singleton DO NOT USE THIS - Use Lm.instance */
 		public function Lm(singleton:Singleton)
 		{
-			if (singleton == null)
+			if (singleton is Lm || singleton is Singleton)
+			{
+				init();
+			}
+			else
+			{
 				throw new Error("Lm is a singleton class.  Access via ''Lm.instance''.");
+			}
+		}
 
+		protected function init():void
+		{
 			activeList=new Vector.<String>(1, true);
 			list=new VOList();
 			dispatcherMode=true;
