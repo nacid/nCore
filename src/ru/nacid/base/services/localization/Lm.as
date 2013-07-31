@@ -41,7 +41,7 @@ package ru.nacid.base.services.localization
 		/* Lm
 		 * Use Lm.instance
 		 * @param singleton DO NOT USE THIS - Use Lm.instance */
-		public function Lm(singleton:Singleton)
+		public function Lm(singleton:*)
 		{
 			if (singleton is Lm || singleton is Singleton)
 			{

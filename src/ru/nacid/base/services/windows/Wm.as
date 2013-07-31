@@ -57,7 +57,7 @@ package ru.nacid.base.services.windows
 		/* Wm
 		 * Use Wm.instance
 		 * @param singleton DO NOT USE THIS - Use Wm.instance */
-		public function Wm(singleton:Singleton)
+		public function Wm(singleton:*)
 		{
 			if (singleton is Wm || singleton is Singleton){
 				super();

@@ -48,7 +48,7 @@ package ru.nacid.base.services.skins
 		/* Sm
 		 * Use Sm.instance
 		 * @param singleton DO NOT USE THIS - Use Sm.instance */
-		public function Sm(singleton:Singleton)
+		public function Sm(singleton:*)
 		{
 			if (singleton is Sm || singleton is Singleton)
 			{
