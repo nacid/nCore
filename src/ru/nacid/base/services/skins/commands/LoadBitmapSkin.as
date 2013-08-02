@@ -50,7 +50,7 @@ package ru.nacid.base.services.skins.commands
 
 		public function getInstance():*
 		{
-			return new Bitmap(skinData.bitmapData.clone(), 'auto', true);
+			return new Bitmap(skinData.bitmapData, 'auto', true);
 		}
 		
 		public function getEmpty():*

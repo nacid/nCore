@@ -6,7 +6,7 @@ package ru.nacid.base.data
 	
 	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
-	import ru.nacid.utils.StringUtils;
+	import ru.nacid.utils.HashUtils;
 
 	/**
 	 * ValueObject.as
@@ -107,7 +107,7 @@ package ru.nacid.base.data
 		public function set symbol(value:String):void
 		{
 			_id=value;
-			_numericId=StringUtils.toCRC(value);
+			_numericId=HashUtils.CRC(value);
 		}
 
 		public function get inited():Boolean

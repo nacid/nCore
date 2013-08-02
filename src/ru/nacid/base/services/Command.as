@@ -1,16 +1,17 @@
 package ru.nacid.base.services
 {
 	import com.junkbyte.console.Cc;
-
+	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-
+	
 	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.services.interfaces.ICommand;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
+	import ru.nacid.utils.HashUtils;
 	import ru.nacid.utils.StringUtils;
 
 	/**
@@ -262,7 +263,7 @@ package ru.nacid.base.services
 		public function set symbol(value:String):void
 		{
 			_id=value;
-			_numericId=StringUtils.toCRC(_id);
+			_numericId=HashUtils.CRC(_id);
 		}
 
 		public function valueOf():Number

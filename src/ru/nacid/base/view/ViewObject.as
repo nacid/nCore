@@ -6,7 +6,7 @@ package ru.nacid.base.view
 	
 	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
-	import ru.nacid.utils.StringUtils;
+	import ru.nacid.utils.HashUtils;
 
 	/**
 	 * ViewObject.as
@@ -50,7 +50,7 @@ package ru.nacid.base.view
 		final public function applyId($id:String):void
 		{
 			_id=$id;
-			_numericId=StringUtils.toCRC(_id);
+			_numericId=HashUtils.CRC(_id);
 
 			if (stage)
 			{

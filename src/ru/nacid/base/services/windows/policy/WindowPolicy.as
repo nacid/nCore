@@ -1,10 +1,12 @@
 package ru.nacid.base.services.windows.policy
 {
 	import com.junkbyte.console.Cc;
+	
 	import flash.events.EventDispatcher;
+	
 	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.services.windows.events.WindowPolicyEvent;
-	import ru.nacid.utils.StringUtils;
+	import ru.nacid.utils.HashUtils;
 
 	/**
 	 * WindowPolicy.as
@@ -38,7 +40,7 @@ package ru.nacid.base.services.windows.policy
 		public function WindowPolicy($id:String, $locks:Array=null)
 		{
 			_id=$id;
-			_numericId=StringUtils.toCRC($id);
+			_numericId=HashUtils.CRC($id);
 
 			if ($locks)
 			{

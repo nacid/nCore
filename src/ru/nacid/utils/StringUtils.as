@@ -1,8 +1,5 @@
 package ru.nacid.utils
 {
-	import flash.utils.ByteArray;
-	
-	import by.blooddy.crypto.CRC32;
 
 	/**
 	 * StringUtils.as
@@ -29,19 +26,6 @@ package ru.nacid.utils
 	 */
 	public class StringUtils
 	{
-		private static const bytes:ByteArray=new ByteArray();
-
-		public static function toCRC($str:String):uint
-		{
-			if ($str == null || split())
-				return 0;
-
-			bytes.writeUTF($str);
-			bytes.position=0;
-
-			return CRC32.hash(bytes);
-		}
-
 		public static function replace($input:String, ... rest):String
 		{
 			var len:uint=rest.length;
@@ -178,16 +162,5 @@ package ru.nacid.utils
 		{
 			throw new Error(message);
 		}
-
-		private static function split():Boolean
-		{
-			if (bytes != null)
-			{
-				bytes.clear();
-				return false;
-			}
-			return true;
-		}
 	}
-
 }
