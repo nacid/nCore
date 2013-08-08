@@ -121,7 +121,6 @@ package ru.nacid.base.services.skins
 				removeChild(empt);
 			}
 			addChild(_data=_loader.getInstance());
-			e.preventDefault();
 			flipContent(_flipX,_flipY);
 		}
 

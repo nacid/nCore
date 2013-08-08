@@ -4,15 +4,11 @@ package ru.nacid.base.services
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
-	import flash.events.ProgressEvent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.services.interfaces.ICommand;
-	import ru.nacid.base.services.logs.interfaces.IChannelParent;
 	import ru.nacid.utils.HashUtils;
-	import ru.nacid.utils.StringUtils;
 
 	/**
 	 * Command.as
@@ -175,8 +171,8 @@ package ru.nacid.base.services
 
 			if (timer.running)
 				resetTimout();
-
-			Cc.infoch(CMD_CHANNEL, symbol, 'terminated. Current cache size:', cache.length);
+			if(msgEnabled)
+				Cc.infoch(CMD_CHANNEL, symbol, 'terminated. Current cache size:', cache.length);
 		}
 
 		protected function onTimeout(event:Event):void

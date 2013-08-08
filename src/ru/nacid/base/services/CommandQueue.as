@@ -3,6 +3,7 @@ package ru.nacid.base.services
 	import flash.events.EventDispatcher;
 
 	import ru.nacid.base.data.store.VOList;
+	import ru.nacid.utils.DelayedAction;
 
 	/**
 	 * CommandQueue.as
@@ -31,12 +32,15 @@ package ru.nacid.base.services
 	{
 		protected var list:VOList=new VOList();
 		protected var step:uint=0;
+		protected var interrupt:int=0;
+		protected var interruptFrame:int=60;
 
 		private var stepProgress:Number;
+		private var currentInterrupt:int;
+		private var delayed:DelayedAction;
 
 		public function CommandQueue()
 		{
-
 		}
 
 		public function addCommand(cmd:Command, autoPriority:Boolean=true):void
@@ -47,14 +51,21 @@ package ru.nacid.base.services
 				{
 					cmd.priority=-list.size;
 				}
-				log(cmd.symbol.concat(' added to queue ', symbol));
+				if(msgEnabled){
+					log(cmd.symbol.concat(' added to queue ', symbol));
+				}
 			}
-			else
+			else if(msgEnabled)
 				log(cmd.symbol.concat('not added to queue'));
 		}
 
 		override protected function execInternal():void
 		{
+			if (interrupt)
+			{
+				delayed=new DelayedAction(interruptFrame);
+				currentInterrupt=interrupt;
+			}
 			stepProgress=1 / list.size;
 			list.sort(prioritySorter);
 			makeStep();
@@ -71,7 +82,19 @@ package ru.nacid.base.services
 			if (step < list.size)
 			{
 				processListeners(currentCommand, true);
-				currentCommand.execute();
+				if (delayed && interrupt)
+				{
+					if(--currentInterrupt){
+						currentCommand.execute();
+					}else{
+						currentInterrupt = interrupt;
+						delayed.addAction(currentCommand.execute);
+					}
+				}
+				else
+				{
+					currentCommand.execute();
+				}
 			}
 			else
 			{

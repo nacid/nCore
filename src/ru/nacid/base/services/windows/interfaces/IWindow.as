@@ -1,6 +1,5 @@
 package ru.nacid.base.services.windows.interfaces
 {
-	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
 	import ru.nacid.base.services.windows.WindowParam;
 	import ru.nacid.base.view.interfaces.IDisplayObject;

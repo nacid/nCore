@@ -1,16 +1,16 @@
 package ru.nacid.base.services.windows
 {
 	import com.junkbyte.console.Cc;
-	
+
 	import flash.display.DisplayObjectContainer;
 	import flash.display.InteractiveObject;
 	import flash.events.Event;
 	import flash.events.FocusEvent;
 	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
-	
+
 	import mx.core.Singleton;
-	
+
 	import ru.nacid.base.data.Global;
 	import ru.nacid.base.data.managment.VOIterator;
 	import ru.nacid.base.data.managment.VOManager;
@@ -59,15 +59,18 @@ package ru.nacid.base.services.windows
 		 * @param singleton DO NOT USE THIS - Use Wm.instance */
 		public function Wm(singleton:*)
 		{
-			if (singleton is Wm || singleton is Singleton){
+			if (singleton is Wm || singleton is Singleton)
+			{
 				super();
 				init();
-			}else{
+			}
+			else
+			{
 				throw new Error("Wm is a singleton class.  Access via ''Wm.instance''.");
 			}
-				
+
 		}
-		
+
 		protected function init():void
 		{
 			//virtual
@@ -232,6 +235,16 @@ package ru.nacid.base.services.windows
 			{
 				error('container already created');
 			}
+		}
+
+		public function getWindow($id:String):IWindow
+		{
+			if (!isActive($id))
+			{
+				warning('window::'.concat($id, ' is not active'));
+			}
+			
+			return windows.atId($id) as IWindow;
 		}
 
 		private function resizeHandler(e:*):void
