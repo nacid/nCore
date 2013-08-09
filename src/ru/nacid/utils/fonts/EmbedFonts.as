@@ -32,12 +32,12 @@ package ru.nacid.utils.fonts
 		override protected function execInternal():void
 		{
 			addToList(exeData);
-
+/*
 			var len:int=list.length;
 			while (len)
 			{
 				registerFont(list[--len]);
-			}
+			}*/
 			
 			info(list.length.toString().concat(' fonts has been added:',Font.enumerateFonts().toString()));
 			var s:Array = Font.enumerateFonts()

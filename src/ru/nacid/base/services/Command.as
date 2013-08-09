@@ -172,7 +172,7 @@ package ru.nacid.base.services
 			if (timer.running)
 				resetTimout();
 			if(msgEnabled)
-				Cc.infoch(CMD_CHANNEL, symbol, 'terminated. Current cache size:', cache.length);
+				Cc.infoch(CMD_CHANNEL, symbol, 'terminated. Current cache size:', getCacheSize());
 		}
 
 		protected function onTimeout(event:Event):void
@@ -201,6 +201,11 @@ package ru.nacid.base.services
 		protected function execInternal():void
 		{
 			// virtual
+		}
+		
+		final protected function getCacheSize():int
+		{
+			return cache.length;
 		}
 
 		public function get completed():Boolean
