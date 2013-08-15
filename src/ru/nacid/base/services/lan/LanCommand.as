@@ -1,11 +1,11 @@
 package ru.nacid.base.services.lan
 {
 	import com.junkbyte.console.Cc;
-	
+
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
 	import flash.net.URLRequest;
-	
+
 	import ru.nacid.base.services.Command;
 	import ru.nacid.utils.HashUtils;
 
@@ -113,14 +113,15 @@ package ru.nacid.base.services.lan
 		{
 			return url;
 		}
-		
-		public function get loaded():Boolean{
+
+		public function get loaded():Boolean
+		{
 			return completed;
 		}
-		
-		public function load():void{
+
+		public function load():void
+		{
 			execute();
 		}
 	}
-
 }

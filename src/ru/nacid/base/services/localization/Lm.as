@@ -2,8 +2,6 @@ package ru.nacid.base.services.localization
 {
 	import com.junkbyte.console.Cc;
 
-	import mx.core.Singleton;
-
 	import ru.nacid.base.data.managment.VOManager;
 	import ru.nacid.base.data.managment.events.VOManagerEvent;
 	import ru.nacid.base.data.store.VOList;

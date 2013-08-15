@@ -49,7 +49,7 @@ package ru.nacid.utils.encoders.data
 		{
 			var r:Array=$input.split(fielSeperator);
 
-			for (var i:int=0; i < r.length;i++ )
+			for (var i:int=0; i < r.length; i++)
 			{
 				var s:String=r[i];
 				if (Boolean(StringUtils.numOfSubstr(s, screen) % 2))
@@ -128,10 +128,14 @@ package ru.nacid.utils.encoders.data
 				if (StringUtils.numOfSubstr(inPut[i], screen) % 2)
 				{
 					inPut[i]=inPut[i].concat(lineDel, inPut.splice(i + 1, 1));
-					--i;
-					continue;
-				}
 
+					if ((inPut.length - i) > 1)
+					{
+						--i;
+						continue;
+					}
+					break;
+				}
 				var obj:Object={};
 				temp=readLine(inPut[i]);
 
@@ -141,6 +145,7 @@ package ru.nacid.utils.encoders.data
 					++j;
 				}
 				j=0;
+
 				outPut[i]=obj;
 			}
 			return outPut;
