@@ -33,6 +33,7 @@ package ru.nacid.base.services
 		protected var list:VOList=new VOList();
 		protected var step:uint=0;
 		protected var interrupt:int=0;
+		protected var skipedCount:int=0;
 		protected var interruptFrame:int=60;
 
 		private var stepProgress:Number;
@@ -43,7 +44,7 @@ package ru.nacid.base.services
 		{
 		}
 
-		public function addCommand(cmd:Command, autoPriority:Boolean=true):void
+		public function addCommand(cmd:Command, $skipProgress:Boolean=false, autoPriority:Boolean=true):void
 		{
 			if (list.add(cmd))
 			{
@@ -51,11 +52,19 @@ package ru.nacid.base.services
 				{
 					cmd.priority=-list.size;
 				}
-				if(msgEnabled){
+
+				if ($skipProgress)
+				{
+					cmd.useProgress=false;
+					++skipedCount;
+				}
+
+				if (msgEnabled)
+				{
 					log(cmd.symbol.concat(' added to queue ', symbol));
 				}
 			}
-			else if(msgEnabled)
+			else if (msgEnabled)
 				log(cmd.symbol.concat('not added to queue'));
 		}
 
@@ -66,7 +75,9 @@ package ru.nacid.base.services
 				delayed=new DelayedAction(interruptFrame);
 				currentInterrupt=interrupt;
 			}
-			stepProgress=1 / list.size;
+
+			stepProgress=1 / (list.size - skipedCount);
+			skipedCount=0;
 			list.sort(prioritySorter);
 			makeStep();
 		}
@@ -76,18 +87,27 @@ package ru.nacid.base.services
 			if (e)
 			{
 				processListeners(currentCommand, false);
+				
+				
+				if (currentCommand.useProgress)
+				{
+					++skipedCount;
+				}
 				++step;
 			}
-
+			
 			if (step < list.size)
 			{
 				processListeners(currentCommand, true);
 				if (delayed && interrupt)
 				{
-					if(--currentInterrupt){
+					if (--currentInterrupt)
+					{
 						currentCommand.execute();
-					}else{
-						currentInterrupt = interrupt;
+					}
+					else
+					{
+						currentInterrupt=interrupt;
 						delayed.addAction(currentCommand.execute);
 					}
 				}
@@ -109,7 +129,7 @@ package ru.nacid.base.services
 
 		protected function progressHandler(e:CommandEvent):void
 		{
-			commitProgress((step + e.progress) * stepProgress);
+			commitProgress((skipedCount + e.progress) * stepProgress);
 		}
 
 		private function prioritySorter(x:Command, y:Command):Number

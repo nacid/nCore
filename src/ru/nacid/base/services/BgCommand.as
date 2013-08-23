@@ -13,7 +13,7 @@ package ru.nacid.base.services
 		private var swap:VOList=new VOList;
 		private var timer:Timer;
 
-		override public function addCommand(cmd:Command, autoPriority:Boolean=true):void
+		override public function addCommand(cmd:Command, $skipProgress:Boolean=false, autoPriority:Boolean=true):void
 		{
 			if (executing)
 			{
@@ -26,12 +26,13 @@ package ru.nacid.base.services
 				}
 				else if (msgEnabled)
 				{
-					warning('cmd::'.concat(cmd.symbol, 'not added to BgCommand::', symbol, ' (duplicate id?)'));
+					warning('cmd::'.concat(cmd.symbol, ' not added to BgCommand::', symbol, ' (duplicate id?)'));
 				}
 			}
 			else
 			{
-				super.addCommand(cmd, autoPriority);
+				super.addCommand(cmd, autoPriority, $skipProgress);
+				startInterval();
 			}
 		}
 
@@ -111,7 +112,7 @@ package ru.nacid.base.services
 
 		private function intervalHandler(e:TimerEvent):void
 		{
-			if (!executing && getCacheSize() == 0 && list.size)
+			if (!executing && getCacheSize() <= 1 && list.size)
 			{
 				execute();
 				stopInterval();

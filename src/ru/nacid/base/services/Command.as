@@ -1,12 +1,12 @@
 package ru.nacid.base.services
 {
 	import com.junkbyte.console.Cc;
-	
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-	
+
 	import ru.nacid.base.services.interfaces.ICommand;
 	import ru.nacid.utils.HashUtils;
 
@@ -67,6 +67,7 @@ package ru.nacid.base.services
 
 		public var priority:Number=DEFAULT_PRIORITY;
 		public var terminateOnError:Boolean=true;
+		public var useProgress:Boolean=true;
 
 		public function Command()
 		{
@@ -124,7 +125,11 @@ package ru.nacid.base.services
 		protected function commitProgress($progress:Number):void
 		{
 			progress=PROGRESS_EVENT.progress=$progress;
-			dispatchEvent(PROGRESS_EVENT);
+
+			if (useProgress)
+			{
+				dispatchEvent(PROGRESS_EVENT);
+			}
 		}
 
 		protected function startTimout():void
@@ -160,6 +165,7 @@ package ru.nacid.base.services
 			_completed=true;
 
 			terminate();
+			commitProgress(1);
 			dispatchEvent(COMPLETE_EVENT);
 		}
 
@@ -171,7 +177,7 @@ package ru.nacid.base.services
 
 			if (timer.running)
 				resetTimout();
-			if(msgEnabled)
+			if (msgEnabled)
 				Cc.infoch(CMD_CHANNEL, symbol, 'terminated. Current cache size:', getCacheSize());
 		}
 
@@ -202,7 +208,7 @@ package ru.nacid.base.services
 		{
 			// virtual
 		}
-		
+
 		final protected function getCacheSize():int
 		{
 			return cache.length;
@@ -232,17 +238,20 @@ package ru.nacid.base.services
 
 		public function log($string:String):void
 		{
-			Cc.logch(CMD_CHANNEL, $string);
+			if(msgEnabled)
+				Cc.logch(CMD_CHANNEL, $string);
 		}
 
 		public function warning($string:String):void
 		{
-			Cc.warnch(CMD_CHANNEL, $string);
+			if(msgEnabled)
+				Cc.warnch(CMD_CHANNEL, $string);
 		}
 
 		public function info($string:String):void
 		{
-			Cc.infoch(CMD_CHANNEL, $string);
+			if(msgEnabled)
+				Cc.infoch(CMD_CHANNEL, $string);
 		}
 
 		public function error($string:String):void
