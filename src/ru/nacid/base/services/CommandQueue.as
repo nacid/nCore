@@ -3,6 +3,7 @@ package ru.nacid.base.services
 	import flash.events.EventDispatcher;
 
 	import ru.nacid.base.data.store.VOList;
+	import ru.nacid.base.services.interfaces.IPreventCommand;
 	import ru.nacid.utils.DelayedAction;
 
 	/**
@@ -28,13 +29,14 @@ package ru.nacid.base.services
 	 *	limitations under the License.
 	 *
 	 */
-	public class CommandQueue extends Command
+	public class CommandQueue extends Command implements IPreventCommand
 	{
 		protected var list:VOList=new VOList();
 		protected var step:uint=0;
 		protected var interrupt:int=0;
 		protected var skipedCount:int=0;
-		protected var interruptFrame:int=60;
+		protected var interruptFrame:int = 60;
+		protected var delayFrame:int = 1;
 
 		private var stepProgress:Number;
 		private var currentInterrupt:int;
@@ -42,6 +44,32 @@ package ru.nacid.base.services
 
 		public function CommandQueue()
 		{
+		}
+
+		public function prevent($complete:Boolean=true):void
+		{
+			if (executing)
+			{
+				
+				if (currentCommand is IPreventCommand)
+				{
+					//IPreventCommand(currentCommand).prevent(true);
+				}
+				
+				step=list.size-1;
+				reset();
+			}
+			else
+			{
+				if ($complete)
+				{
+					notifyComplete();
+				}
+				else
+				{
+					reset();
+				}
+			}
 		}
 
 		public function addCommand(cmd:Command, $skipProgress:Boolean=false, autoPriority:Boolean=true):void
@@ -87,15 +115,15 @@ package ru.nacid.base.services
 			if (e)
 			{
 				processListeners(currentCommand, false);
-				
-				
+
+
 				if (currentCommand.useProgress)
 				{
 					++skipedCount;
 				}
 				++step;
 			}
-			
+
 			if (step < list.size)
 			{
 				processListeners(currentCommand, true);
@@ -108,7 +136,7 @@ package ru.nacid.base.services
 					else
 					{
 						currentInterrupt=interrupt;
-						delayed.addAction(currentCommand.execute);
+						delayed.addAction(currentCommand.execute, delayFrame);
 					}
 				}
 				else

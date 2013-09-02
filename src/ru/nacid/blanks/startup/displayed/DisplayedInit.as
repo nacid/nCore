@@ -1,8 +1,5 @@
 package ru.nacid.blanks.startup.displayed
 {
-	import flash.display.DisplayObject;
-	import flash.display.Sprite;
-
 	import ru.nacid.base.services.Command;
 	import ru.nacid.base.services.windows.WindowParam;
 	import ru.nacid.base.services.windows.Wm;

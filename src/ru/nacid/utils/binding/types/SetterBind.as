@@ -10,14 +10,14 @@ package ru.nacid.utils.binding.types
 	public class SetterBind extends SimpleValueObject implements IBind
 	{
 		private var _setter:Function;
-		private var _name:String;
+		private var _name:Object;
 		private var _chain:Object;
 		private var _commitOnly:Boolean;
 		private var _useWeakRef:Boolean;
 
 		private var _current:ChangeWatcher;
 
-		public function SetterBind($setter:Function, $name:String, $chain:Object, $commitOnly:Boolean=false, $useWeakRef:Boolean=false)
+		public function SetterBind($setter:Function, $name:Object, $chain:Object, $commitOnly:Boolean=false, $useWeakRef:Boolean=false)
 		{
 			_setter=$setter;
 			_name=$name;
@@ -25,7 +25,8 @@ package ru.nacid.utils.binding.types
 			_commitOnly=$commitOnly;
 			_useWeakRef=$useWeakRef;
 
-			super(HashUtils.SHA([_setter, _name, _chain, _commitOnly, _useWeakRef]));
+			//super(HashUtils.SHA([_setter, _name, _chain, _commitOnly, _useWeakRef]));
+			super(HashUtils.getRandomSigSHA())
 		}
 
 		public function createWatcher($safe:Boolean=true):ChangeWatcher

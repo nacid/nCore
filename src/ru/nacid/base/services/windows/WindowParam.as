@@ -3,6 +3,7 @@ package ru.nacid.base.services.windows
 	import ru.nacid.base.data.ValueObject;
 	import ru.nacid.base.services.windows.interfaces.IWindowStorage;
 	import ru.nacid.base.services.windows.policy.WindowPolicy;
+	import ru.nacid.utils.HashUtils;
 
 	/**
 	 * WindowParam.as
@@ -45,6 +46,7 @@ package ru.nacid.base.services.windows
 			_render=$render;
 			_cached=$cached;
 			_modal=$modal;
+			HashUtils
 		}
 
 		public function get useSkin():Boolean

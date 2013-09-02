@@ -1,7 +1,5 @@
-package ru.nacid.utils
+package ru.nacid.utils.geom
 {
-	import flash.geom.Point;
-
 	public class GeomUtils
 	{
 		//PI/180

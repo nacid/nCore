@@ -102,6 +102,7 @@ package ru.nacid.base.services.localization
 			}
 
 			Cc.errorch(MANAGER_CHANNEL, 'locale map', $key, 'not found');
+			
 			return null;
 		}
 

@@ -25,12 +25,12 @@ package ru.nacid.utils.binding
 			_watchers=Vector.<ChangeWatcher>([]);
 		}
 
-		public function addSetterBind($setter:Function, $name:String, $chain:Object, $commitOnly:Boolean=false, $useWeakRef:Boolean=false):void
+		public function addSetterBind($setter:Function, $name:Object, $chain:Object, $commitOnly:Boolean=false, $useWeakRef:Boolean=false):void
 		{
 			addBind(new SetterBind($setter, $name, $chain, $commitOnly, $useWeakRef));
 		}
 
-		public function addPropertyBind($targetHost:Object, $targetName:String, $name:String, $chain:Object, $commitOnly:Boolean=false, $useWeakRef:Boolean=false):void
+		public function addPropertyBind($targetHost:Object, $targetName:String, $name:Object, $chain:Object, $commitOnly:Boolean=false, $useWeakRef:Boolean=false):void
 		{
 			addBind(new PropertyBind($targetHost, $targetName, $name, $chain, $commitOnly, $useWeakRef));
 		}

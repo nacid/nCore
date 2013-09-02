@@ -37,9 +37,9 @@ package ru.nacid.base.view.component.button
 		{
 			sm=Sm.instance;
 			delayed=new DelayedAction;
-			skinName=$skin;
+			skinName=$skin||'none';
 
-			applyId($skin.concat(HashUtils.getRandomSigCRC(16)));
+			applyId(skinName.concat(HashUtils.getRandomSigCRC(16)));
 		}
 
 		override protected function init():void
@@ -150,14 +150,18 @@ package ru.nacid.base.view.component.button
 			skin.mouseChildren=false;
 			addChildAt(skin, 0);
 
-			if (!currentWidth)
+			if (!currentWidth && skin.data)
 			{
 				currentWidth=skin.data.width;
+			}else{
+				currentWidth = 1;
 			}
 
-			if (!currentHeight)
+			if (!currentHeight && skin.data)
 			{
 				currentHeight=skin.data.height;
+			}else{
+				currentHeight = 1;
 			}
 		}
 

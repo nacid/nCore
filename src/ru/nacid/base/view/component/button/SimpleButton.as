@@ -5,9 +5,7 @@ package ru.nacid.base.view.component.button
 	import flash.display.InteractiveObject;
 	import flash.display.MovieClip;
 	import flash.filters.ColorMatrixFilter;
-	import flash.geom.Matrix;
-	import flash.geom.Rectangle;
-
+	
 	import ru.nacid.base.view.component.button.enum.ButtonState;
 	import ru.nacid.base.view.component.button.interfaces.IInteractiveContent;
 
@@ -29,11 +27,11 @@ package ru.nacid.base.view.component.button
 
 		override public function arrange():void
 		{
-			if (currentWidth)
+			if (currentWidth && skinMC)
 			{
 				skinMC.width=currentWidth;
 			}
-			if (currentHeight)
+			if (currentHeight && skinMC)
 			{
 				skinMC.height=currentHeight;
 			}
@@ -139,7 +137,7 @@ package ru.nacid.base.view.component.button
 
 		protected function updateSkinMC():void
 		{
-			if (skin.loaded)
+			if (skin && skin.loaded)
 			{
 				if (skin.data is MovieClip)
 				{

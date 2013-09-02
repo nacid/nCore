@@ -1,8 +1,8 @@
 package ru.nacid.utils
 {
-	import by.blooddy.crypto.MD5;
-	
 	import flash.utils.ByteArray;
+	
+	import by.blooddy.crypto.MD5;
 
 	/**
 	 * HashUtils.as

@@ -102,6 +102,11 @@ package ru.nacid.base.services.windows
 		{
 			showData=$data;
 		}
+		
+		public function getData():Object
+		{
+			return showData;
+		}
 
 		public function onFocus():void
 		{

@@ -140,7 +140,7 @@ package ru.nacid.base.services.skins
 			return list.createIterator();
 		}
 
-		public function getSkin($id:String):Skin
+		public function getSkin ($id:String):Skin
 		{
 			return new Skin(list.atId($id));
 		}

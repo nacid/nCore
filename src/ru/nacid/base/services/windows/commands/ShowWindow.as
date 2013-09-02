@@ -26,14 +26,18 @@ package ru.nacid.base.services.windows.commands
 	 */
 	public class ShowWindow extends WindowCommand
 	{
-
-		public function ShowWindow($id:String)
+		private var params:Object;
+		
+		public function ShowWindow($id:String, params:Object=null)
 		{
+			this.params = params;
 			super('openWindow', $id);
 		}
 
 		override protected function execInternal():void
 		{
+			if (params)
+				exeData = params;
 			navigator.showWindow(windowId, exeData);
 			notifyComplete();
 		}

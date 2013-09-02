@@ -11,14 +11,14 @@ package ru.nacid.utils.binding.types
 	{
 		private var _targetHost:Object;
 		private var _targetName:String;
-		private var _name:String;
+		private var _name:Object;
 		private var _chain:Object;
 		private var _commitOnly:Boolean;
 		private var _useWeakRef:Boolean;
 
 		private var _current:ChangeWatcher;
 
-		public function PropertyBind($targetHost:Object, $targetName:String, $name:String, $chain:Object, $commitOnly:Boolean=false, $useWeakRef:Boolean=false)
+		public function PropertyBind($targetHost:Object, $targetName:String, $name:Object, $chain:Object, $commitOnly:Boolean=false, $useWeakRef:Boolean=false)
 		{
 			_targetHost=$targetHost;
 			_targetName=$targetName;

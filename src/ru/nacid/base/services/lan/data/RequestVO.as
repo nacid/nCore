@@ -70,6 +70,14 @@ package ru.nacid.base.services.lan.data
 			_urlRequest.data=new URLVariables();
 			for (var field:String in $data)
 			{
+				if(field == 'method')
+				{
+					if($data[field] == URLRequestMethod.GET || $data[field] == URLRequestMethod.POST)
+					{
+						_urlRequest.method = $data[field];
+						continue;
+					}
+				}
 				_urlRequest.data[field]=$data[field];
 			}
 

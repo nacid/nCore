@@ -109,9 +109,16 @@ package ru.nacid.base.services
 				startInterval();
 			}
 		}
+		
+		protected function internalInterval():void
+		{
+			//virtual
+		}
 
 		private function intervalHandler(e:TimerEvent):void
 		{
+			internalInterval();
+			
 			if (!executing && getCacheSize() <= 1 && list.size)
 			{
 				execute();
@@ -120,6 +127,7 @@ package ru.nacid.base.services
 		}
 	}
 }
+
 import ru.nacid.base.data.interfaces.IData;
 import ru.nacid.base.services.Command;
 

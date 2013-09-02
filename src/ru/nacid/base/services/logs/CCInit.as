@@ -6,6 +6,7 @@ package ru.nacid.base.services.logs
 	import ru.nacid.base.services.Command;
 	import ru.nacid.base.view.interfaces.IDisplayContainerProxy;
 	import ru.nacid.base.view.interfaces.IDisplayObject;
+	import ru.nacid.utils.HashUtils;
 
 	/**
 	 * CCInit.as
@@ -89,7 +90,7 @@ package ru.nacid.base.services.logs
 			
 			screen = cont.empty(true);
 			cont.add(screen);
-			Cc.start(screen.main, data.keystrokePassword);
+			Cc.start(screen.main, data.keystrokePassword.length ? data.keystrokePassword : HashUtils.getRandomSigSHA());
 
 			Cc.commandLine=data.commandLine
 			Cc.width=cont.main.stage.stageWidth * data.wFactor;

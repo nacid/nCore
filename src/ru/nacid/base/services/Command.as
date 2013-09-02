@@ -1,12 +1,12 @@
 package ru.nacid.base.services
 {
 	import com.junkbyte.console.Cc;
-
+	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-
+	
 	import ru.nacid.base.services.interfaces.ICommand;
 	import ru.nacid.utils.HashUtils;
 
@@ -63,7 +63,7 @@ package ru.nacid.base.services
 		private var _executing:Boolean;
 		private var _timeOut:uint;
 
-		private var timer:Timer=new Timer(NO_TIMEOUT, 0);
+		private var timer:Timer=new Timer(NO_TIMEOUT, 1);
 
 		public var priority:Number=DEFAULT_PRIORITY;
 		public var terminateOnError:Boolean=true;
@@ -110,16 +110,16 @@ package ru.nacid.base.services
 
 			dispatchEvent(START_EVENT);
 
-			try
-			{
+			/*try
+			{*/
 				if (msgEnabled)
 					msgExecute();
 				execInternal();
-			}
+			/*}
 			catch (error:*)
 			{
 				onError(error);
-			}
+			}*/
 		}
 
 		protected function commitProgress($progress:Number):void
@@ -211,6 +211,7 @@ package ru.nacid.base.services
 
 		final protected function getCacheSize():int
 		{
+			var cc:* = cache;
 			return cache.length;
 		}
 

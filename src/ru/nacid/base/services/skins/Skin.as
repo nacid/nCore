@@ -1,7 +1,7 @@
 package ru.nacid.base.services.skins
 {
 	import flash.display.DisplayObject;
-	
+
 	import ru.nacid.base.services.CommandEvent;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
 	import ru.nacid.base.view.ViewObject;
@@ -42,7 +42,7 @@ package ru.nacid.base.services.skins
 
 		private var cont:*;
 		private var empt:*;
-		
+
 		private var _flipX:Boolean;
 		private var _flipY:Boolean;
 
@@ -64,17 +64,24 @@ package ru.nacid.base.services.skins
 				loader.execute();
 			}
 		}
-		
-		public function flipContent($x:Boolean = false,$y:Boolean = false):void{
-			_flipX = $x;
-			_flipY = $y;
-			
-			if(_data is DisplayObject){
-				_data.scaleX = _flipX ? -1 : 1;
-				_data.x = _flipX ? _data.width : 0;
-				
-				_data.scaleY = _flipY ? -1 : 1;
-				_data.y = _flipY ? _data.height : 0;
+
+		public function create():void
+		{
+			show();
+		}
+
+		public function flipContent($x:Boolean=false, $y:Boolean=false):void
+		{
+			_flipX=$x;
+			_flipY=$y;
+
+			if (_data is DisplayObject)
+			{
+				_data.scaleX=_flipX ? -1 : 1;
+				_data.x=_flipX ? _data.width : 0;
+
+				_data.scaleY=_flipY ? -1 : 1;
+				_data.y=_flipY ? _data.height : 0;
 			}
 		}
 
@@ -108,8 +115,8 @@ package ru.nacid.base.services.skins
 						_loader.execute();
 					}
 				}
-				
-				flipContent(_flipX,_flipY);
+
+				flipContent(_flipX, _flipY);
 			}
 		}
 
@@ -121,7 +128,7 @@ package ru.nacid.base.services.skins
 				removeChild(empt);
 			}
 			addChild(_data=_loader.getInstance());
-			flipContent(_flipX,_flipY);
+			flipContent(_flipX, _flipY);
 		}
 
 		public function get loaded():Boolean

@@ -3,7 +3,7 @@ package ru.nacid.blanks.shapes
 	import flash.display.Shape;
 	import flash.geom.Point;
 
-	import ru.nacid.utils.GeomUtils;
+	import ru.nacid.utils.geom.GeomUtils;
 
 	public class Arrow extends Shape
 	{

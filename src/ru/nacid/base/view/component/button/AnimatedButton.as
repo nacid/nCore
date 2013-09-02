@@ -1,6 +1,5 @@
 package ru.nacid.base.view.component.button
 {
-	import flash.display.FrameLabel;
 	import flash.events.Event;
 
 	public class AnimatedButton extends SimpleButton
