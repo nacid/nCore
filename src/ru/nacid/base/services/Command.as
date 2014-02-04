@@ -195,7 +195,7 @@ package ru.nacid.base.services
 		{
 			if (msgEnabled)
 			{
-				error(err.toString());
+				error(err);
 				msgError();
 			}
 			dispatchEvent(new CommandEvent(CommandEvent.ERROR, 1));

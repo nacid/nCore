@@ -33,6 +33,7 @@ package ru.nacid.base.services.windows.policy
 		protected var closeds:Array;
 		
 		protected var active:Vector.<String> = new Vector.<String>([]);
+		
 		private var indexes:Array;
 
 		public function VariablePolicy($closeOther:Boolean=false, $closeds:Array=null, $locks:Array=null)
@@ -40,6 +41,8 @@ package ru.nacid.base.services.windows.policy
 			super('variableWindowPolicy', $locks);
 			closeds = $closeds;
 			closeOther = $closeOther;
+			
+			indexes = [];
 		}
 
 		override public function applyOpen(activeList:Vector.<String>, targetId:String, data:Object):void
