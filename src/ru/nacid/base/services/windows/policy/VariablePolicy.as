@@ -1,8 +1,8 @@
 package ru.nacid.base.services.windows.policy
 {
-	import ru.nacid.base.services.windows.events.WindowPolicyEvent;
 	import ru.nacid.base.services.windows.Window;
 	import ru.nacid.base.services.windows.Wm;
+	import ru.nacid.base.services.windows.events.WindowPolicyEvent;
 
 	/**
 	 * VariablePolicy.as
@@ -31,52 +31,69 @@ package ru.nacid.base.services.windows.policy
 	{
 		protected var closeOther:Boolean;
 		protected var closeds:Array;
-		
-		protected var active:Vector.<String> = new Vector.<String>([]);
-		
-		private var indexes:Array;
 
-		public function VariablePolicy($closeOther:Boolean=false, $closeds:Array=null, $locks:Array=null)
+		protected var active:Vector.<String>=new Vector.<String>([]);
+		protected var topLevel:Vector.<String>;
+
+		private var indexes:Array;
+		private var index:int;
+
+		public function VariablePolicy($closeOther:Boolean=false, $closeds:Array=null, $locks:Array=null, $top:Array=null)
 		{
 			super('variableWindowPolicy', $locks);
-			closeds = $closeds;
-			closeOther = $closeOther;
-			
-			indexes = [];
+			closeds=$closeds;
+			closeOther=$closeOther;
+			topLevel = Vector.<String>($top || []);
+
+			indexes=[];
 		}
 
 		override public function applyOpen(activeList:Vector.<String>, targetId:String, data:Object):void
 		{
-			active = activeList;
+			active=activeList;
+			index = activeList.length;
+			
 			if (closeOther)
 			{
-				for (var i:int = 0; i < closeds.length; i++ )
+				for (var i:int=0; i < closeds.length; i++)
 				{
-					var index:int = activeList.indexOf(closeds[i]);
-					if (index >= 0)
+					var ind:int=activeList.indexOf(closeds[i]);
+					if (ind >= 0)
 					{
-						var window:Window = Wm.instance.getWindow(closeds[i]) as Window;
-						indexes[i] = { targetId: closeds[i], showData: window.getData() };
-						dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.CLOSE_WINDOW, closeds[i]));						
-					}					
+						var window:Window=Wm.instance.getWindow(closeds[i]) as Window;
+						indexes[i]={targetId: closeds[i], showData: window.getData()};
+						dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.CLOSE_WINDOW, closeds[i]));
+					}
 				}
 			}
-			dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.OPEN_WINDOW, targetId, data, getWindowIndex()));
 			
+			for (var j:int = 0; j<activeList.length;j++)
+			{
+				var t:int = topLevel.indexOf(activeList[j])
+				
+				if(t>=0)
+				{
+					index = Math.min(t,index);
+				}
+			}
+			
+			dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.OPEN_WINDOW, targetId, data, getWindowIndex()));
 		}
+
 		protected function getWindowIndex():int
 		{
-			return active.length;
+			return index;
 		}
-		override public function applyClose(activeList:Vector.<String>, targetId:String, $force:Boolean = false):void 
+
+		override public function applyClose(activeList:Vector.<String>, targetId:String, $force:Boolean=false):void
 		{
 			super.applyClose(activeList, targetId, $force);
-			
-			for each(var wndObj:Object in indexes)
+
+			for each (var wndObj:Object in indexes)
 			{
 				dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.OPEN_WINDOW, wndObj.targetId, wndObj.showData, activeList.length));
 			}
-			indexes = [];
+			indexes=[];
 		}
 
 	}
