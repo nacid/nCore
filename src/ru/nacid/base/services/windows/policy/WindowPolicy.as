@@ -1,9 +1,9 @@
 package ru.nacid.base.services.windows.policy
 {
 	import com.junkbyte.console.Cc;
-	
+
 	import flash.events.EventDispatcher;
-	
+
 	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.services.windows.events.WindowPolicyEvent;
 	import ru.nacid.utils.HashUtils;
@@ -35,12 +35,17 @@ package ru.nacid.base.services.windows.policy
 	{
 		private var _id:String;
 		private var _numericId:Number;
+		private var _top:Vector.<String>;
+		private var _close:Vector.<String>;
+
 		protected var locks:Vector.<String>
 
-		public function WindowPolicy($id:String, $locks:Array=null)
+		public function WindowPolicy($id:String, $locks:Array=null, $close:Array=null, $top:Array=null)
 		{
 			_id=$id;
 			_numericId=HashUtils.CRC($id);
+			_top=Vector.<String>($top || []);
+			_close=Vector.<String>($close || []);
 
 			if ($locks)
 			{
@@ -51,7 +56,15 @@ package ru.nacid.base.services.windows.policy
 
 		public function applyOpen(activeList:Vector.<String>, targetId:String, data:Object):void
 		{
-			//virtual
+			for (var i:int=0; i < activeList.length; i++)
+			{
+				var target:String=activeList[i];
+
+				if (_close.indexOf(target) >= 0)
+				{
+					dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.CLOSE_WINDOW, target, null))
+				}
+			}
 		}
 
 		public function applyClose(activeList:Vector.<String>, targetId:String, $force:Boolean=false):void
@@ -65,7 +78,23 @@ package ru.nacid.base.services.windows.policy
 				}
 			}
 
-			dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.CLOSE_WINDOW, targetId));
+			dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.CLOSE_WINDOW, targetId, null));
+		}
+
+		protected function getWindowIndex(activeList:Vector.<String>):int
+		{
+			var response:int=activeList.length;
+
+			for (var i:int=0; i < activeList.length; i++)
+			{
+				var temp:int=_top.indexOf(activeList[i]);
+
+				if (temp >= 0)
+				{
+					response=Math.min(response, temp);
+				}
+			}
+			return response;
 		}
 
 		/* INTERFACE ru.nacid.base.data.interfaces.IData */

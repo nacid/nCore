@@ -1,6 +1,7 @@
 package ru.nacid.base.services.windows.policy
 {
 	import com.junkbyte.console.Cc;
+
 	import ru.nacid.base.services.windows.events.WindowPolicyEvent;
 
 	/**
@@ -30,9 +31,9 @@ package ru.nacid.base.services.windows.policy
 	{
 		protected var parents:Vector.<String>
 
-		public function ChildPolicy($parents:Array, $locks:Array=null)
+		public function ChildPolicy($parents:Array, $locks:Array=null, $close:Array=null, $top:Array=null)
 		{
-			super('childPolicy', $locks);
+			super('childPolicy', $locks, $close, $top);
 
 			if ($parents)
 			{
@@ -43,13 +44,15 @@ package ru.nacid.base.services.windows.policy
 
 		override public function applyOpen(activeList:Vector.<String>, targetId:String, data:Object):void
 		{
+			super.applyOpen(activeList, targetId, data);
+
 			if (parents && parents.length)
 			{
 				for (var i:int=0; i < parents.length; i++)
 				{
 					if (activeList.indexOf(parents[i]) >= 0)
 					{
-						dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.OPEN_WINDOW, targetId, data, activeList.length));
+						dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.OPEN_WINDOW, targetId, data, getWindowIndex(activeList)));
 						return
 					}
 				}

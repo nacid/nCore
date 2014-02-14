@@ -33,26 +33,23 @@ package ru.nacid.base.services.windows.policy
 		protected var closeds:Array;
 
 		protected var active:Vector.<String>=new Vector.<String>([]);
-		protected var topLevel:Vector.<String>;
 
 		private var indexes:Array;
-		private var index:int;
 
-		public function VariablePolicy($closeOther:Boolean=false, $closeds:Array=null, $locks:Array=null, $top:Array=null)
+		public function VariablePolicy($closeOther:Boolean=false, $locks:Array=null, $closeds:Array=null, $top:Array=null)
 		{
-			super('variableWindowPolicy', $locks);
-			closeds=$closeds;
+			super('variableWindowPolicy', $locks, null, $top);
+			closeds=$closeds || [];
 			closeOther=$closeOther;
-			topLevel = Vector.<String>($top || []);
 
 			indexes=[];
 		}
 
 		override public function applyOpen(activeList:Vector.<String>, targetId:String, data:Object):void
 		{
+			super.applyOpen(activeList,targetId,data);
 			active=activeList;
-			index = activeList.length;
-			
+
 			if (closeOther)
 			{
 				for (var i:int=0; i < closeds.length; i++)
@@ -66,23 +63,8 @@ package ru.nacid.base.services.windows.policy
 					}
 				}
 			}
-			
-			for (var j:int = 0; j<activeList.length;j++)
-			{
-				var t:int = topLevel.indexOf(activeList[j])
-				
-				if(t>=0)
-				{
-					index = Math.min(t,index);
-				}
-			}
-			
-			dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.OPEN_WINDOW, targetId, data, getWindowIndex()));
-		}
 
-		protected function getWindowIndex():int
-		{
-			return index;
+			dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.OPEN_WINDOW, targetId, data, getWindowIndex(activeList)));
 		}
 
 		override public function applyClose(activeList:Vector.<String>, targetId:String, $force:Boolean=false):void

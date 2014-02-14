@@ -29,14 +29,16 @@ package ru.nacid.base.services.windows.policy
 	{
 		protected var closeOther:Boolean;
 
-		public function SinglePolicy($closeOther:Boolean=false, $locks:Array=null)
+		public function SinglePolicy($closeOther:Boolean=false, $locks:Array=null, $close:Array=null, $top:Array=null)
 		{
-			super('singleWindowPolicy', $locks);
+			super('singleWindowPolicy', $locks, $close, $top);
 			closeOther=$closeOther;
 		}
 
 		override public function applyOpen(activeList:Vector.<String>, targetId:String, data:Object):void
 		{
+			super.applyOpen(activeList,targetId,data);
+			
 			if (closeOther)
 			{
 				var inc:int=0;
@@ -56,7 +58,7 @@ package ru.nacid.base.services.windows.policy
 				}
 			}
 
-			dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.OPEN_WINDOW, targetId, data, activeList.length));
+			dispatchEvent(new WindowPolicyEvent(WindowPolicyEvent.OPEN_WINDOW, targetId, data, getWindowIndex(activeList)));
 		}
 
 	}

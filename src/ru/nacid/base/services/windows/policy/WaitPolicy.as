@@ -1,8 +1,8 @@
-package ru.nacid.base.services.windows.policy 
+package ru.nacid.base.services.windows.policy
 {
-	import ru.nacid.base.services.windows.events.WindowPolicyEvent;
 	import ru.nacid.base.services.windows.Window;
 	import ru.nacid.base.services.windows.Wm;
+
 	/**
 	 * ...
 	 * @author n.avdeenko
@@ -10,39 +10,39 @@ package ru.nacid.base.services.windows.policy
 	public class WaitPolicy extends SinglePolicy
 	{
 		protected var windows:Array;
-		
-		public function WaitPolicy($closeOther:Boolean=false, $windows:Array=null, $locks:Array=null) 
+
+		public function WaitPolicy($closeOther:Boolean=false, $windows:Array=null, $locks:Array=null, $close:Array=null, $top:Array=null)
 		{
-			super($closeOther, $locks);
-			windows = $windows;
+			super($closeOther, $locks, $close, $top);
+			windows=$windows;
 		}
-		
-		override public function applyOpen(activeList:Vector.<String>, targetId:String, data:Object):void 
+
+		override public function applyOpen(activeList:Vector.<String>, targetId:String, data:Object):void
 		{
 			if (windows && windows.length)
 			{
-				for each(var id:String in activeList)
+				for each (var id:String in activeList)
 				{
 					if (windows.indexOf(id) >= 0)
 					{
-						var wnd:Window = Wm.instance.getWindow(id) as Window;
-						wnd.visible = false;
+						var wnd:Window=Wm.instance.getWindow(id) as Window;
+						wnd.visible=false;
 					}
 				}
 			}
 			super.applyOpen(activeList, targetId, data);
 		}
-		
-		override public function applyClose(activeList:Vector.<String>, targetId:String, $force:Boolean = false):void 
+
+		override public function applyClose(activeList:Vector.<String>, targetId:String, $force:Boolean=false):void
 		{
 			if (windows && windows.length)
 			{
-				for each(var id:String in activeList)
+				for each (var id:String in activeList)
 				{
 					if (windows.indexOf(id) >= 0)
 					{
-						var wnd:Window = Wm.instance.getWindow(id) as Window;
-						wnd.visible = true;
+						var wnd:Window=Wm.instance.getWindow(id) as Window;
+						wnd.visible=true;
 					}
 				}
 			}
