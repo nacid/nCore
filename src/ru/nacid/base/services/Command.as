@@ -110,16 +110,16 @@ package ru.nacid.base.services
 
 			dispatchEvent(START_EVENT);
 
-			/*try
-			{*/
+			try
+			{
 				if (msgEnabled)
 					msgExecute();
 				execInternal();
-			/*}
+			}
 			catch (error:*)
 			{
 				onError(error);
-			}*/
+			}
 		}
 
 		protected function commitProgress($progress:Number):void
@@ -211,7 +211,6 @@ package ru.nacid.base.services
 
 		final protected function getCacheSize():int
 		{
-			var cc:* = cache;
 			return cache.length;
 		}
 

@@ -1,9 +1,9 @@
 package ru.nacid.base.services.skins
 {
 	import com.junkbyte.console.Cc;
-
+	
 	import mx.core.Singleton;
-
+	
 	import ru.nacid.base.data.managment.VOIterator;
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
@@ -98,14 +98,16 @@ package ru.nacid.base.services.skins
 			return list.add($skinLoader);
 		}
 
-		public function addSkin($type:String, $id:String, $url:String, $embed:Boolean):void
+		public function addSkin($type:String, $id:String, $url:String, $embed:Boolean):Boolean
 		{
 			var loader:ISkinLoader=getType($type);
+			var result:Boolean;
 			if (loader)
 			{
 				if (list.add(loader.fromData($id, $url, $embed)))
 				{
 					info('skin '.concat($id, ' added'));
+					result = true;
 				}
 				else
 				{
@@ -116,6 +118,8 @@ package ru.nacid.base.services.skins
 			{
 				error('unknown skin type:'.concat($type));
 			}
+			
+			return result;
 		}
 
 		public function getEmbeds():VOIterator
