@@ -105,7 +105,7 @@ package ru.nacid.base.services.skins
 			{
 				if (list.add(loader.fromData($id, $url, $embed)))
 				{
-					//info('skin '.concat($id, ' added'));
+					info('skin '.concat($id, ' added'));
 				}
 				else
 				{
