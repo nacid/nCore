@@ -28,5 +28,10 @@ package ru.nacid.utils.geom
 		{
 			return radToGrad(radBetweenPoints($x1, $x2, $y1, $y2), $accurate);
 		}
+		
+		public static function roundTo(value:Number, base:Number): Number
+		{
+			return Math.floor((value + base / 2) / base) * base;
+		}
 	}
 }
