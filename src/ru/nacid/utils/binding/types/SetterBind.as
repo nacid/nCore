@@ -13,7 +13,6 @@ package ru.nacid.utils.binding.types
 		private var _name:Object;
 		private var _chain:Object;
 		private var _commitOnly:Boolean;
-		private var _useWeakRef:Boolean;
 
 		private var _current:ChangeWatcher;
 
@@ -23,7 +22,6 @@ package ru.nacid.utils.binding.types
 			_name=$name;
 			_chain=$chain;
 			_commitOnly=$commitOnly;
-			_useWeakRef=$useWeakRef;
 
 			//super(HashUtils.SHA([_setter, _name, _chain, _commitOnly, _useWeakRef]));
 			super(HashUtils.getRandomSigSHA())
@@ -36,7 +34,7 @@ package ru.nacid.utils.binding.types
 				return null;
 			}
 
-			return _current=BindingUtils.bindSetter(_setter, _chain, _name, _commitOnly, _useWeakRef);
+			return _current=BindingUtils.bindSetter(_setter, _chain, _name, _commitOnly);
 		}
 	}
 }
