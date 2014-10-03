@@ -1,7 +1,9 @@
 package ru.nacid.base.services.skins
 {
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
-
+	
 	import ru.nacid.base.services.CommandEvent;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
 	import ru.nacid.base.view.ViewObject;
@@ -87,11 +89,17 @@ package ru.nacid.base.services.skins
 
 		override protected function show():void
 		{
+			if(_data)
+				return;
+			
 			if (_void == false)
 			{
 				if (loaded)
 				{
-					_data=_loader.getInstance()
+					_data=_loader.getInstance();
+					
+					if(_data is BitmapData)
+						_data = new Bitmap(_data);
 
 					if (empt && empt is DisplayObject && contains(empt))
 					{

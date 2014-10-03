@@ -1,9 +1,9 @@
 package ru.nacid.base.data.managment
 {
 	import com.junkbyte.console.Cc;
-
+	
 	import flash.events.EventDispatcher;
-
+	
 	import ru.nacid.base.data.managment.events.VOManagerEvent;
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
@@ -55,10 +55,15 @@ package ru.nacid.base.data.managment
 		{
 			return activeIndex($id) >= 0;
 		}
+		
+		public function contains($id:String):Boolean
+		{
+			return list.containsId($id);
+		}
 
 		protected function activate($id:String):Boolean
 		{
-			if (list.containsId($id) && !isActive($id))
+			if (contains($id) && !isActive($id))
 			{
 				activeList.push($id);
 
