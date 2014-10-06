@@ -1,9 +1,7 @@
 package ru.nacid.base.services.skins
 {
 	import com.junkbyte.console.Cc;
-	
-	import mx.core.Singleton;
-	
+
 	import ru.nacid.base.data.managment.VOIterator;
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
