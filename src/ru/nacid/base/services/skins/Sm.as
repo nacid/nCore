@@ -160,6 +160,11 @@ package ru.nacid.base.services.skins
 			}
 		}
 
+		public function contains($key:String):Boolean
+		{
+			return list.containsId($key);
+		}
+
 		/* INTERFACE ru.nacid.base.services.logs.interfaces.IChannelParent */
 
 		public function log($string:String):void

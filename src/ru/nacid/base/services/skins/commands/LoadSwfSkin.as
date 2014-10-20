@@ -34,8 +34,10 @@ package ru.nacid.base.services.skins.commands
 
 				while (len)
 				{
-					var className:String=classes[--len]
-					if (Sm.instance.addDirectly(new LoadClassSkin(className, _mc.loaderInfo.applicationDomain.getDefinition(className) as Class)))
+					var className:String=classes[--len];
+					var instance:ISkinLoader=new LoadClassSkin(className, _mc.loaderInfo.applicationDomain.getDefinition(className) as Class);
+
+					if (addSkin(instance))
 					{
 						info('skin '.concat(className, ' added from ', url));
 					}
@@ -51,6 +53,11 @@ package ru.nacid.base.services.skins.commands
 			}
 
 			notifyComplete();
+		}
+
+		protected function addSkin($instance:ISkinLoader):Boolean
+		{
+			return Sm.instance.addDirectly($instance);
 		}
 
 		public function getInstance():*
