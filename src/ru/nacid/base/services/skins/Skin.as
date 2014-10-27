@@ -3,8 +3,10 @@ package ru.nacid.base.services.skins
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
-	
-	import ru.nacid.base.services.CommandEvent;
+import flash.display.IBitmapDrawable;
+import flash.geom.Rectangle;
+
+import ru.nacid.base.services.CommandEvent;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
 	import ru.nacid.base.view.ViewObject;
 	import ru.nacid.utils.interfaces.ILoader;
@@ -163,6 +165,32 @@ package ru.nacid.base.services.skins
 		{
 			return _void;
 		}
+
+        public function makeSnapshot($safe:Boolean = false):BitmapData
+        {
+            if(!_data)
+                create();
+
+            var response:BitmapData;
+
+            if(_data is Bitmap)
+                response = Bitmap(_data).bitmapData.clone();
+            else if (_data is BitmapData)
+                response =  BitmapData(_data).clone();
+            else
+            {
+                var rect:Rectangle = getRect(this);
+
+                if(rect.width && rect.height)
+                {
+                    response = new BitmapData(rect.width,rect.height,true,0x000000);
+                    response.draw(this);
+                }else if($safe)
+                    response = new BitmapData(1,1,true,0x000000)
+            }
+
+            return response;
+        }
 	}
 
 }

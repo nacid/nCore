@@ -96,7 +96,15 @@ package ru.nacid.base.data.managment
 			{
 				$callback.call(null, iterator.next());
 			}
+		}
 
+		public function getActive():Vector.<String>
+		{
+			var response:Vector.<String> = new Vector.<String>(activeList.length,true);
+			for(var i:int = 0;i<response.length;i++)
+				response[i] = activeList[i];
+
+			return response;
 		}
 
 		/* INTERFACE ru.nacid.base.services.logs.interfaces.IChannelParent */

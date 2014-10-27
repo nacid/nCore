@@ -53,7 +53,7 @@ package ru.nacid.base.view.component.button
 
 		protected function isReverseFrame($frame:int):Boolean
 		{
-			return $frame > skinMC.totalFrames || _reverseStateHash.hasOwnProperty($frame);
+			return $frame > skinMC.totalFrames || _reverseStateHash[$frame];
 		}
 
 		private function enterFrameHandler(e:Event):void

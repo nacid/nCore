@@ -1,15 +1,15 @@
 package ru.nacid.base.view.component.button
 {
-	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
-	import flash.display.InteractiveObject;
-	import flash.display.MovieClip;
-	import flash.filters.ColorMatrixFilter;
-	
-	import ru.nacid.base.view.component.button.enum.ButtonState;
-	import ru.nacid.base.view.component.button.interfaces.IInteractiveContent;
+import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
+import flash.display.InteractiveObject;
+import flash.display.MovieClip;
+import flash.filters.ColorMatrixFilter;
 
-	public class SimpleButton extends BaseButton
+import ru.nacid.base.view.component.button.enum.ButtonState;
+import ru.nacid.base.view.component.button.interfaces.IInteractiveContent;
+
+public class SimpleButton extends BaseButton
 	{
 		protected const DEFAULT_DISABLE_FILTERS:Array=[new ColorMatrixFilter([0.5, 0.5, 0.5, 0, 0, 0.5, 0.5, 0.5, 0, 0, 0.5, 0.5, 0.5, 0, 0, 0, 0, 0, 1, 0])];
 
@@ -154,16 +154,24 @@ package ru.nacid.base.view.component.button
 							_stateHash[_skinMC.currentLabels[i].name]=_skinMC.currentLabels[i].frame;
 						}
 					}
+
+                    return;
 				}
 				else
 				{
 					error(skinName.concat(' is not a MovieClip'));
 
-					_skinMC=new MovieClip();
-					_skinMC.graphics.beginFill(0xCCCCCC);
-					_skinMC.graphics.drawRect(0, 0, currentWidth || 100, currentHeight || 50);
+					drawDefault();
 				}
 			}
+
+            drawDefault();
+
+            function drawDefault():void{
+                _skinMC=new MovieClip();
+                _skinMC.graphics.beginFill(0xCCCCCC);
+                _skinMC.graphics.drawRect(0, 0, currentWidth || 100, currentHeight || 50);
+            }
 		}
 
 		protected function get skinMC():MovieClip
