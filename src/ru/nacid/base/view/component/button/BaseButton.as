@@ -183,10 +183,7 @@ package ru.nacid.base.view.component.button
 				onStateChanged();
 			}
 
-			if (_statesFilters.hasOwnProperty(_currentState))
-			{
-				this.filters=getStateFilters(_currentState);
-			}
+			this.filters= _statesFilters.hasOwnProperty(_currentState) ? getStateFilters(_currentState) : []
 		}
 
 		private function mouseOverHandler(e:MouseEvent):void

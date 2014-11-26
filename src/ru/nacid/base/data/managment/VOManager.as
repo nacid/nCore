@@ -67,8 +67,10 @@ package ru.nacid.base.data.managment
 			{
 				activeList.push($id);
 
-				if (dispatcherMode)
+				if (dispatcherMode) {
 					dispatchEvent(new VOManagerEvent(VOManagerEvent.ITEM_ACTIVATED, $id));
+					dispatchEvent(new VOManagerEvent(VOManagerEvent.ACTIVE_CHANGED, $id));
+				}
 
 				return true;
 			}
@@ -83,8 +85,10 @@ package ru.nacid.base.data.managment
 			{
 				activeList.splice(index, 1);
 
-				if (dispatcherMode)
+				if (dispatcherMode) {
 					dispatchEvent(new VOManagerEvent(VOManagerEvent.ITEM_DEACTIVATED, $id));
+					dispatchEvent(new VOManagerEvent(VOManagerEvent.ACTIVE_CHANGED, $id));
+				}
 			}
 		}
 

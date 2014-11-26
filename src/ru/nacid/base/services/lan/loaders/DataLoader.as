@@ -39,7 +39,6 @@ package ru.nacid.base.services.lan.loaders
 
 		public function DataLoader($url:String=null, $data:Object=null, $dataFormat:String=null)
 		{
-			timeOut=DEFAULT_TIMEOUT;
 			data=$data || {};
 			url=$url;
 			encoder=createEncoder();

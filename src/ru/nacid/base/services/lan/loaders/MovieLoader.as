@@ -38,7 +38,6 @@ package ru.nacid.base.services.lan.loaders
 
 		public function MovieLoader($url:String=null, $data:Object=null)
 		{
-			timeOut=DEFAULT_TIMEOUT;
 			data=$data;
 			url=$url;
 
