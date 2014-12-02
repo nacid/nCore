@@ -103,14 +103,10 @@ package ru.nacid.base.services.skins
 			if (loader)
 			{
 				if (list.add(loader.fromData($id, $url, $embed)))
-				{
-					channelInfo('skin '.concat($id, ' added'));
 					result = true;
-				}
+
 				else
-				{
 					channelError('error with add skin '.concat($id, ' duplicated'));
-				}
 			}
 			else
 			{

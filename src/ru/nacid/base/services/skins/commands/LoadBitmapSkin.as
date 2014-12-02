@@ -1,6 +1,7 @@
 package ru.nacid.base.services.skins.commands
 {
 	import flash.display.Bitmap;
+	import flash.system.Security;
 
 	import ru.nacid.base.services.lan.loaders.MovieLoader;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
@@ -32,6 +33,8 @@ package ru.nacid.base.services.skins.commands
 	{
 		public static const SIG:String='bitmap';
 
+		private static const __loadedPolices:Object = {}
+
 		private var skinData:Bitmap;
 		private var _embed:Boolean;
 
@@ -40,6 +43,18 @@ package ru.nacid.base.services.skins.commands
 			super($url);
 			symbol=$id;
 			_embed=$embed;
+
+			if($url)
+			{
+				var domain:String = $url.split('/',3).join('/');
+
+				if(!__loadedPolices[domain])
+				{
+					Security.loadPolicyFile(domain.concat("/crossdomain.xml"));
+
+					__loadedPolices[domain] = true
+				}
+			}
 		}
 
 		override protected function onResponse():void

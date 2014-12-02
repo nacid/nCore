@@ -6,7 +6,9 @@ package ru.nacid.base.services
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-	
+
+	import ru.nacid.base.data.Global;
+
 	import ru.nacid.base.services.interfaces.ICommand;
 	import ru.nacid.utils.HashUtils;
 
@@ -110,15 +112,24 @@ package ru.nacid.base.services
 
 			dispatchEvent(START_EVENT);
 
-			try
+
+			if(Global.isRelease())
+			{
+				try
+				{
+					if (msgEnabled)
+						msgExecute();
+					execInternal();
+				}
+				catch (error:*)
+				{
+					onError(error);
+				}
+			}else
 			{
 				if (msgEnabled)
 					msgExecute();
 				execInternal();
-			}
-			catch (error:*)
-			{
-				onError(error);
 			}
 		}
 

@@ -1,7 +1,7 @@
 package ru.nacid.base.data.store
 {
 	import flash.events.EventDispatcher;
-	
+
 	import ru.nacid.base.data.interfaces.IData;
 	import ru.nacid.base.data.managment.VOIterator;
 
@@ -51,6 +51,16 @@ package ru.nacid.base.data.store
 			{
 				response[iterator.next().symbol]=iterator.step;
 			}
+			return response;
+		}
+
+		public function getKeys():Vector.<String>
+		{
+			var response:Vector.<String> = new Vector.<String>(size,true);
+
+			for(var i:int = 0;i<size;i++)
+				response[i] = _list[i].symbol;
+
 			return response;
 		}
 
