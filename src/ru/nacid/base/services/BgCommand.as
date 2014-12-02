@@ -21,12 +21,12 @@ package ru.nacid.base.services
 				{
 					if (msgEnabled)
 					{
-						info('cmd::'.concat(cmd.symbol, ' added to BgCommand::', symbol));
+						channelInfo('cmd::'.concat(cmd.symbol, ' added to BgCommand::', symbol));
 					}
 				}
 				else if (msgEnabled)
 				{
-					warning('cmd::'.concat(cmd.symbol, ' not added to BgCommand::', symbol, ' (duplicate id?)'));
+					channelWarning('cmd::'.concat(cmd.symbol, ' not added to BgCommand::', symbol, ' (duplicate id?)'));
 				}
 			}
 			else
@@ -65,7 +65,7 @@ package ru.nacid.base.services
 		{
 			if (executing)
 			{
-				warning('unable drop '.concat(symbol, ' - executing right now'));
+				channelWarning('unable drop '.concat(symbol, ' - executing right now'));
 				return;
 			}
 

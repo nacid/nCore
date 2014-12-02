@@ -89,11 +89,11 @@ package ru.nacid.base.services
 
 				if (msgEnabled)
 				{
-					log(cmd.symbol.concat(' added to queue ', symbol));
+					channelLog(cmd.symbol.concat(' added to queue ', symbol));
 				}
 			}
 			else if (msgEnabled)
-				log(cmd.symbol.concat('not added to queue'));
+				channelLog(cmd.symbol.concat('not added to queue'));
 		}
 
 		override protected function execInternal():void
@@ -165,7 +165,7 @@ package ru.nacid.base.services
 			return x.priority > y.priority ? -1 : 1;
 		}
 
-		private function processListeners($target:Command, $add:Boolean):void
+		protected function processListeners($target:Command, $add:Boolean):void
 		{
 			if ($add)
 			{
@@ -181,7 +181,7 @@ package ru.nacid.base.services
 			}
 		}
 
-		private function get currentCommand():Command
+		protected function get currentCommand():Command
 		{
 			return list.at(step) as Command;
 		}

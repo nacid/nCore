@@ -71,7 +71,7 @@ package ru.nacid.base.services
 
 		public function Command()
 		{
-
+			symbol = HashUtils.getRandomSigCRC();
 		}
 
 		protected function msgExecute():void
@@ -157,7 +157,7 @@ package ru.nacid.base.services
 			exeData=null;
 		}
 
-		final protected function notifyComplete():void
+		protected function notifyComplete():void
 		{
 			if (msgEnabled)
 				msgComplete();
@@ -195,7 +195,7 @@ package ru.nacid.base.services
 		{
 			if (msgEnabled)
 			{
-				error(err);
+				channelError(err);
 				msgError();
 			}
 			dispatchEvent(new CommandEvent(CommandEvent.ERROR, 1));
@@ -236,31 +236,31 @@ package ru.nacid.base.services
 
 		/* INTERFACE ru.nacid.base.services.logs.interfaces.IChannelParent */
 
-		public function log($string:String):void
+		public function channelLog($string:String):void
 		{
 			if(msgEnabled)
 				Cc.logch(CMD_CHANNEL, $string);
 		}
 
-		public function warning($string:String):void
+		public function channelWarning($string:String):void
 		{
 			if(msgEnabled)
 				Cc.warnch(CMD_CHANNEL, $string);
 		}
 
-		public function info($string:String):void
+		public function channelInfo($string:String):void
 		{
 			if(msgEnabled)
 				Cc.infoch(CMD_CHANNEL, $string);
 		}
 
-		public function error($string:String):void
+		public function channelError($string:String):void
 		{
 			Cc.errorch(CMD_CHANNEL, $string);
 			Cc.stackch(CMD_CHANNEL, 'getStack(-1):', 15);
 		}
 
-		public function critical($string:String):void
+		public function channelCrit($string:String):void
 		{
 			Cc.fatalch(CMD_CHANNEL, $string);
 		}

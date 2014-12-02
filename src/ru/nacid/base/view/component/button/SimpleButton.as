@@ -159,7 +159,7 @@ public class SimpleButton extends BaseButton
 				}
 				else
 				{
-					error(skinName.concat(' is not a MovieClip'));
+					channelError(skinName.concat(' is not a MovieClip'));
 
 					drawDefault();
 				}

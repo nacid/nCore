@@ -26,11 +26,11 @@ package ru.nacid.base.services.logs.interfaces
 	 */
 	public interface IChannelParent
 	{
-		function log($string:String):void;
-		function warning($string:String):void;
-		function info($string:String):void;
-		function error($string:String):void;
-		function critical($string:String):void;
+		function channelLog($string:String):void;
+		function channelWarning($string:String):void;
+		function channelInfo($string:String):void;
+		function channelError($string:String):void;
+		function channelCrit($string:String):void;
 	}
 
 }

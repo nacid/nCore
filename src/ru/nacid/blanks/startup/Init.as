@@ -66,7 +66,7 @@ package ru.nacid.blanks.startup
 		{
 			if (appLayer.main.stage == null)
 			{
-				error('main object must have stage!');
+				channelError('main object must have stage!');
 				return onError();
 			}
 			if (appLayer.main.stage is Stage)

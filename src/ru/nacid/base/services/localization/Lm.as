@@ -58,7 +58,7 @@ package ru.nacid.base.services.localization
 			dispatcherMode=true;
 
 			Cc.addSlashCommand('localeDump', dumpHandler, 'create formated localization map dump');
-			log('locale manager created');
+			channelLog('locale manager created');
 		}
 
 		/* instance
@@ -142,7 +142,7 @@ package ru.nacid.base.services.localization
 			{
 				activeList[0]=$id;
 
-				info('locale changed');
+				channelInfo('locale changed');
 				if (dispatcherMode)
 				{
 					dispatchEvent(new VOManagerEvent(VOManagerEvent.ITEM_ACTIVATED, $id));

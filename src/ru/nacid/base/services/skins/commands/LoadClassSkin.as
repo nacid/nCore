@@ -17,7 +17,7 @@ package ru.nacid.base.services.skins.commands
 				_class = $class;
 				notifyComplete();
 			}else{
-				warning('class '.concat(symbol,' not found. Using Sprite...'));
+				channelWarning('class '.concat(symbol,' not found. Using Sprite...'));
 			}
 		}
 		

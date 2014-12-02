@@ -39,17 +39,17 @@ package ru.nacid.base.services.skins.commands
 
 					if (addSkin(instance))
 					{
-						info('skin '.concat(className, ' added from ', url));
+						channelInfo('skin '.concat(className, ' added from ', url));
 					}
 					else
 					{
-						warning('error with adding class skin "'.concat(className, '" from ', url));
+						channelWarning('error with adding class skin "'.concat(className, '" from ', url));
 					}
 				}
 			}
 			else
 			{
-				error("Could not read classes. For a class list, open this application in Flash Player 11.3 or higher. Your current Flash Player version is: " + Capabilities.version);
+				channelError("Could not read classes. For a class list, open this application in Flash Player 11.3 or higher. Your current Flash Player version is: " + Capabilities.version);
 			}
 
 			notifyComplete();
@@ -62,7 +62,7 @@ package ru.nacid.base.services.skins.commands
 
 		public function getInstance():*
 		{
-			warning('called getInstance method from LoadSwfSkin. Use internal classes with LoadClassSkin');
+			channelWarning('called getInstance method from LoadSwfSkin. Use internal classes with LoadClassSkin');
 			return _mc;
 		}
 		

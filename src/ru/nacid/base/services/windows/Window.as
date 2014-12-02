@@ -65,7 +65,7 @@ package ru.nacid.base.services.windows
 
 			applyId($param.symbol);
 
-			info(symbol.concat(' created'));
+			channelInfo(symbol.concat(' created'));
 		}
 
 		private function skinLoadedHandler(e:Event):void

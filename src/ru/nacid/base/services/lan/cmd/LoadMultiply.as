@@ -33,7 +33,7 @@ package ru.nacid.base.services.lan.cmd
 			if(ready && started){
 				super.execute($data);
 			}else{
-				info(symbol.concat(' will be launched after the internal readiness'));
+				channelInfo(symbol.concat(' will be launched after the internal readiness'));
 			}
 		}
 		

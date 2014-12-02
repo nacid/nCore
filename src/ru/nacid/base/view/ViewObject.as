@@ -132,27 +132,27 @@ package ru.nacid.base.view
 
 		/* INTERFACE ru.nacid.base.services.logs.interfaces.IChannelParent */
 
-		public function log($string:String):void
+		public function channelLog($string:String):void
 		{
 			Cc.logch(VIEW_CHANNEL, $string);
 		}
 
-		public function warning($string:String):void
+		public function channelWarning($string:String):void
 		{
 			Cc.warnch(VIEW_CHANNEL, $string);
 		}
 
-		public function info($string:String):void
+		public function channelInfo($string:String):void
 		{
 			Cc.infoch(VIEW_CHANNEL, $string);
 		}
 
-		public function error($string:String):void
+		public function channelError($string:String):void
 		{
 			Cc.errorch(VIEW_CHANNEL, $string);
 		}
 
-		public function critical($string:String):void
+		public function channelCrit($string:String):void
 		{
 			Cc.fatalch(VIEW_CHANNEL, $string);
 		}

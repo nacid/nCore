@@ -139,7 +139,7 @@ package ru.nacid.base.services.windows
 		{
 			if (!inited)
 			{
-				return error('window manager not inited');
+				return channelError('window manager not inited');
 			}
 
 			var param:IWindowStorage=list.atId($id) as IWindowStorage;
@@ -156,7 +156,7 @@ package ru.nacid.base.services.windows
 		{
 			if (!inited)
 			{
-				return error('window manager not inited');
+				return channelError('window manager not inited');
 			}
 
 			if (isActive($id))
@@ -229,7 +229,7 @@ package ru.nacid.base.services.windows
 			}
 			else
 			{
-				error('container already created');
+				channelError('container already created');
 			}
 		}
 
@@ -237,7 +237,7 @@ package ru.nacid.base.services.windows
 		{
 			if (!isActive($id))
 			{
-				warning('window::'.concat($id, ' is not active'));
+				channelWarning('window::'.concat($id, ' is not active'));
 			}
 			
 			return windows.atId($id) as IWindow;

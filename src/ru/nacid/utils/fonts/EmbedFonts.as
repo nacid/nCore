@@ -39,7 +39,7 @@ package ru.nacid.utils.fonts
 				registerFont(list[--len]);
 			}*/
 			
-			info(list.length.toString().concat(' fonts has been added:',Font.enumerateFonts().toString()));
+			channelInfo(list.length.toString().concat(' fonts has been added:',Font.enumerateFonts().toString()));
 			var s:Array = Font.enumerateFonts()
 
 			notifyComplete();

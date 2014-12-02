@@ -104,17 +104,17 @@ package ru.nacid.base.services.skins
 			{
 				if (list.add(loader.fromData($id, $url, $embed)))
 				{
-					info('skin '.concat($id, ' added'));
+					channelInfo('skin '.concat($id, ' added'));
 					result = true;
 				}
 				else
 				{
-					error('error with add skin '.concat($id, ' duplicated'));
+					channelError('error with add skin '.concat($id, ' duplicated'));
 				}
 			}
 			else
 			{
-				error('unknown skin type:'.concat($type));
+				channelError('unknown skin type:'.concat($type));
 			}
 			
 			return result;
@@ -167,27 +167,27 @@ package ru.nacid.base.services.skins
 
 		/* INTERFACE ru.nacid.base.services.logs.interfaces.IChannelParent */
 
-		public function log($string:String):void
+		public function channelLog($string:String):void
 		{
 			Cc.logch(MAN_CHANNEL, $string);
 		}
 
-		public function warning($string:String):void
+		public function channelWarning($string:String):void
 		{
 			Cc.warnch(MAN_CHANNEL, $string);
 		}
 
-		public function info($string:String):void
+		public function channelInfo($string:String):void
 		{
 			Cc.infoch(MAN_CHANNEL, $string);
 		}
 
-		public function error($string:String):void
+		public function channelError($string:String):void
 		{
 			Cc.errorch(MAN_CHANNEL, $string);
 		}
 
-		public function critical($string:String):void
+		public function channelCrit($string:String):void
 		{
 			Cc.fatalch(MAN_CHANNEL, $string);
 		}

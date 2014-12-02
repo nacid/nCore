@@ -53,7 +53,7 @@ package ru.nacid.base.view.component.button
 
 			if (skin.isVoid)
 			{
-				warning('unknown skin '.concat(skinName, ' use empty one'));
+				channelWarning('unknown skin '.concat(skinName, ' use empty one'));
 
 				skin.graphics.beginFill(0xCCCCCC);
 				skin.graphics.drawRect(0, 0, 100, 50);
@@ -142,7 +142,7 @@ package ru.nacid.base.view.component.button
 		{
 			if (contains(skin))
 			{
-				warning('duplicate addSkin() call. Skin already added');
+				channelWarning('duplicate addSkin() call. Skin already added');
 				return;
 			}
 
