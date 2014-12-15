@@ -58,7 +58,12 @@ package ru.nacid.base.services.lan.loaders
 				}
 			}
 
-			loader.load(urls.getUrl(url, data || {}).urlRequest, new LoaderContext(false, new ApplicationDomain));
+			loader.load(urls.getUrl(url, data || {}).urlRequest, createContext());
+		}
+
+		protected function createContext():LoaderContext
+		{
+			return new LoaderContext(false,new ApplicationDomain(ApplicationDomain.currentDomain));
 		}
 
 		override protected function responseHandler(e:Event):void
@@ -67,8 +72,13 @@ package ru.nacid.base.services.lan.loaders
 			loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, onError);
 			loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, progressHandler);
 
-			responseData=loader.content;
-			responseLen=loader.contentLoaderInfo.bytesTotal;
+			try{
+				responseData=loader.content;
+				responseLen=loader.contentLoaderInfo.bytesTotal;
+			}catch (err:*)
+			{
+				channelWarning(err);
+			}
 
 			super.responseHandler(e);
 		}

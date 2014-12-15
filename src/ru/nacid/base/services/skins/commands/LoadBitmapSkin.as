@@ -1,7 +1,12 @@
 package ru.nacid.base.services.skins.commands
 {
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.geom.Rectangle;
+	import flash.system.ApplicationDomain;
+	import flash.system.LoaderContext;
 	import flash.system.Security;
+	import flash.system.SecurityDomain;
 
 	import ru.nacid.base.services.lan.loaders.MovieLoader;
 	import ru.nacid.base.services.skins.interfaces.ISkinLoader;
@@ -34,6 +39,7 @@ package ru.nacid.base.services.skins.commands
 		public static const SIG:String='bitmap';
 
 		private static const __loadedPolices:Object = {}
+		private static var 	 __emptyBD:BitmapData;
 
 		private var skinData:Bitmap;
 		private var _embed:Boolean;
@@ -43,10 +49,12 @@ package ru.nacid.base.services.skins.commands
 			super($url);
 			symbol=$id;
 			_embed=$embed;
+		}
 
-			if($url)
+		override protected function execInternal():void {
+			if(url)
 			{
-				var domain:String = $url.split('/',3).join('/');
+				var domain:String = url.split('/',3).join('/');
 
 				if(!__loadedPolices[domain])
 				{
@@ -55,6 +63,12 @@ package ru.nacid.base.services.skins.commands
 					__loadedPolices[domain] = true
 				}
 			}
+
+			super.execInternal();
+		}
+
+		override protected function createContext():LoaderContext {
+			return new LoaderContext(true,ApplicationDomain.currentDomain,SecurityDomain.currentDomain);
 		}
 
 		override protected function onResponse():void
@@ -70,7 +84,14 @@ package ru.nacid.base.services.skins.commands
 		
 		public function getEmpty():*
 		{
-			return new Bitmap();
+			if(!__emptyBD)
+			{
+				__emptyBD = new BitmapData(64,64,false,0xFFFFF);
+				__emptyBD.fillRect(new Rectangle(0,0,32,32),0x339900);
+				__emptyBD.fillRect(new Rectangle(32,32,64,64),0x339900);
+			}
+
+			return new Bitmap(__emptyBD);
 		}
 
 		public function fromData($id:String, $url:String, $embed:Boolean):ISkinLoader

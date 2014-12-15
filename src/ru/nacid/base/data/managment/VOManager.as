@@ -61,6 +61,11 @@ package ru.nacid.base.data.managment
 			return list.containsId($id);
 		}
 
+		public function getIdList():Vector.<String>
+		{
+			return list.getKeys();
+		}
+
 		protected function activate($id:String):Boolean
 		{
 			if (contains($id) && !isActive($id))
