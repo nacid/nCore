@@ -38,7 +38,7 @@ package ru.nacid.utils.encoders
 	{
 		private static const DEFAULT_DATA:Class=Json;
 
-		private static var __cache:Vector.<IEncoder>=new Vector.<IEncoder>([new Json, new Xml, new Amf, new Csv]);
+		private static var __cache:Array=[(new Json()), (new Xml()), (new Amf()), (new Csv())];
 
 		public static function data($format:String):IEncoder
 		{

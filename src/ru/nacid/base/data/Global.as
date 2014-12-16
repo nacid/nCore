@@ -58,7 +58,7 @@ package ru.nacid.base.data
 		}
 		
 		public static function isRelease():Boolean{
-			return !isDebug();
+			return !isDebug;
 		}
 	}
 

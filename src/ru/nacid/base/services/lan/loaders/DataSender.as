@@ -1,31 +1,33 @@
 package ru.nacid.base.services.lan.loaders
 {
-	import flash.events.Event;
-	import flash.events.IOErrorEvent;
-	import flash.events.ProgressEvent;
-	import flash.net.FileReference;
-	import flash.net.URLRequest;
-	
-	import ru.nacid.base.services.lan.LanCommand;
-	
-	public class DataSender extends LanCommand
+	import ru.nacid.base.services.lan.loaders.types.UploadType;
+	import ru.nacid.utils.Multipart;
+
+	public class DataSender extends DataLoader
 	{
-		protected var reference:FileReference;
-		protected var request:URLRequest;
-		
-		protected var fname:String;
-		
-		public function DataSender()
+		protected var files:Vector.<UploadType>;
+
+		private var _multipart:Multipart;
+
+		public function DataSender($url:String=null, $data:Object=null, $dataFormat:String=null)
 		{
-			reference = new FileReference();
-			
-			reference.addEventListener(ProgressEvent.PROGRESS,progressHandler);
-			reference.addEventListener(Event.COMPLETE, responseHandler);
-			reference.addEventListener(IOErrorEvent.IO_ERROR, onError);
+			super($url,$data,$dataFormat);
+
+			files = Vector.<UploadType>([])
 		}
-		
-		override protected function execInternal():void{
-			request = urls.getUrl(url).urlRequest;
+
+		override protected function execInternal():void {
+			_multipart = new Multipart(url);
+			_multipart.addFields(data);
+			while (files.length)
+				addFile(files.pop());
+
+			loader.load(req = _multipart.request);
+		}
+
+		private function addFile($type:UploadType):void {
+			if ($type)
+				_multipart.addFile($type.name, $type.makeRaw(), $type.mimeType, $type.symbol)
 		}
 	}
 }
