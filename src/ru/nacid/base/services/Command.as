@@ -245,6 +245,11 @@ package ru.nacid.base.services
 			return _timeOut;
 		}
 
+		public function get description():String
+		{
+			return symbol;
+		}
+
 		/* INTERFACE ru.nacid.base.services.logs.interfaces.IChannelParent */
 
 		public function channelLog($string:String):void

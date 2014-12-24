@@ -30,6 +30,10 @@ package ru.nacid.base.services.skins.commands
 			super.execInternal();
 		}
 
+
+		override public function get description():String {
+			return 'loading interface skins';
+		}
 	}
 
 }

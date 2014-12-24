@@ -42,6 +42,9 @@ package ru.nacid.base.services.windows.commands
 			notifyComplete();
 		}
 
+		override public function get description():String {
+			return 'opening window '.concat(windowId);
+		}
 	}
 
 }
