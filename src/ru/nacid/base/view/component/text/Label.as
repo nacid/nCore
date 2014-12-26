@@ -11,6 +11,7 @@ package ru.nacid.base.view.component.text
 		protected const DEFAULT_FORMAT:LabelFormat=new LabelFormat('defaultLabelFormat', false, 'Arial', 16, 0xFFFFFF);
 
 		private var _format:LabelFormat;
+		private var _originText:String;
 
 		public function Label($format:LabelFormat=null, $autoSize:String=TextFieldAutoSize.LEFT)
 		{
@@ -35,6 +36,20 @@ package ru.nacid.base.view.component.text
 				filters=_format.filters;
 				setTextFormat(defaultTextFormat=_format);
 			}
+		}
+
+		public function cutToWidth($w:int):void
+		{
+			var tmp:String = text = _originText;
+
+			while(width > $w && text.length > 3)
+				text = text.substring(0,text.length - 4).concat('...');
+
+			_originText = tmp;
+		}
+
+		override public function set text(value:String):void {
+			super.text = _originText = value || '';
 		}
 	}
 }

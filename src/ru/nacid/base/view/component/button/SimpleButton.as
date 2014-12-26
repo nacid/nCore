@@ -5,8 +5,9 @@ import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
 import flash.display.MovieClip;
 import flash.filters.ColorMatrixFilter;
+	import flash.geom.Point;
 
-import ru.nacid.base.view.component.button.enum.ButtonState;
+	import ru.nacid.base.view.component.button.enum.ButtonState;
 import ru.nacid.base.view.component.button.interfaces.IInteractiveContent;
 
 public class SimpleButton extends BaseButton
@@ -18,6 +19,8 @@ public class SimpleButton extends BaseButton
 		private var _stateHash:Object={};
 
 		private var _content:DisplayObject;
+
+		public var contentDelta:Point;
 
 		public function SimpleButton($skin:String)
 		{
@@ -40,6 +43,12 @@ public class SimpleButton extends BaseButton
 			{
 				_content.x=(currentWidth - _content.width) >> 1;
 				_content.y=(currentHeight - _content.height) >> 1;
+
+				if(contentDelta)
+				{
+					_content.x += contentDelta.x;
+					_content.y += contentDelta.y;
+				}
 			}
 		}
 
