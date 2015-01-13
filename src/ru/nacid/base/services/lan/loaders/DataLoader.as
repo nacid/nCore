@@ -72,15 +72,19 @@ package ru.nacid.base.services.lan.loaders
 
 		override protected function responseHandler(e:Event):void
 		{
-			loader.removeEventListener(Event.COMPLETE, responseHandler);
-			loader.removeEventListener(IOErrorEvent.IO_ERROR, onError);
-			loader.removeEventListener(ProgressEvent.PROGRESS, progressHandler);
-
 			responseData=loader.data;
 			responseLen=loader.bytesTotal;
 
 			super.responseHandler(e);
 		}
-	}
 
+
+		override public function terminate():void {
+			loader.removeEventListener(Event.COMPLETE, responseHandler);
+			loader.removeEventListener(IOErrorEvent.IO_ERROR, onError);
+			loader.removeEventListener(ProgressEvent.PROGRESS, progressHandler);
+
+			super.terminate();
+		}
+	}
 }

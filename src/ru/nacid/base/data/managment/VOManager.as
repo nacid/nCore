@@ -40,10 +40,10 @@ package ru.nacid.base.data.managment
 
 		protected var dispatcherMode:Boolean;
 
-		public function VOManager()
+		public function VOManager($list:Object = null,$activeList:Array = null)
 		{
-			activeList=Vector.<String>([]);
-			list=new VOList();
+			activeList=Vector.<String>($activeList || []);
+			list=new VOList($list);
 		}
 
 		protected function activeIndex($id:String):int
