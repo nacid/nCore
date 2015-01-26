@@ -33,5 +33,10 @@ package ru.nacid.utils.geom
 		{
 			return Math.floor((value + base / 2) / base) * base;
 		}
+
+		public static function ceilTo(value:Number, base:Number): Number
+		{
+			return Math.ceil((value + base / 2) / base) * base;
+		}
 	}
 }
