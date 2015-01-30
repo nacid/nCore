@@ -2,6 +2,8 @@ package ru.nacid.base.services.skins
 {
 	import com.junkbyte.console.Cc;
 
+	import ru.nacid.base.data.Global;
+
 	import ru.nacid.base.data.managment.VOIterator;
 	import ru.nacid.base.data.store.VOList;
 	import ru.nacid.base.services.logs.interfaces.IChannelParent;
@@ -105,7 +107,7 @@ package ru.nacid.base.services.skins
 				if (list.add(loader.fromData($id, $url, $embed)))
 					result = true;
 
-				else
+				else if(Global.isDebug())
 					channelError('error with add skin '.concat($id, ' duplicated'));
 			}
 			else
