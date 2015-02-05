@@ -1,6 +1,8 @@
 package ru.nacid.base.services.windows.commands
 {
 
+	import ru.nacid.base.data.ValueObject;
+
 	/**
 	 * ShowWindow.as
 	 * Created On: 5.8 20:22
@@ -28,18 +30,31 @@ package ru.nacid.base.services.windows.commands
 	{
 		private var params:Object;
 		
-		public function ShowWindow($id:String, params:Object=null)
+		public function ShowWindow($id:String, $params:Object=null)
 		{
-			this.params = params;
+			params = $params || {};
+
 			super('openWindow', $id);
 		}
 
 		override protected function execInternal():void
 		{
-			if (params)
-				exeData = params;
-			navigator.showWindow(windowId, exeData);
+			var combined:Object = {};
+
+			copyFields(params,combined);
+			copyFields(exeData,combined);
+
+			navigator.showWindow(windowId, combined);
 			notifyComplete();
+
+			function copyFields($from:Object,$to:Object):void
+			{
+				if($from)
+				{
+					for(var key:String in $from)
+						$to[key] = $from[key];
+				}
+			}
 		}
 
 		override public function get description():String {
