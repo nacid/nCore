@@ -67,16 +67,18 @@ package ru.nacid.base.services.lan
 		{
 			commitProgress(1);
 
-			if (responseData is String)
+			if(msgEnabled)
 			{
-				var len:uint=Math.min(STRING_MAX_LEN, responseData.length - 1);
-				var small:String=String(responseData).substr(0, len).concat(len == STRING_MAX_LEN ? '...' : '');
-				Cc.infoch(CMD_CHANNEL, symbol, 'received: \n', small, ' (', responseLen, ' bytes. MD5:', HashUtils.MD5String(String(responseData)), ' )');
+				if (responseData is String)
+				{
+					var len:uint=Math.min(STRING_MAX_LEN, responseData.length - 1);
+					var small:String=String(responseData).substr(0, len).concat(len == STRING_MAX_LEN ? '...' : '');
+					Cc.infoch(CMD_CHANNEL, symbol, 'received: \n', small, ' (', responseLen, ' bytes. MD5:', HashUtils.MD5String(String(responseData)), ' )');
+				}
+				else
+					Cc.infoch(CMD_CHANNEL, symbol, 'received: \n', responseData, ' (', responseLen, ' bytes. MD5:', HashUtils.MD5(responseData), ' )');
 			}
-			else
-			{
-				Cc.infoch(CMD_CHANNEL, symbol, 'received: \n', responseData, ' (', responseLen, ' bytes. MD5:', HashUtils.MD5(responseData), ' )');
-			}
+
 
 			try
 			{

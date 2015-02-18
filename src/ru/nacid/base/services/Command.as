@@ -1,5 +1,8 @@
 package ru.nacid.base.services
 {
+
+	import by.blooddy.crypto.serialization.JSON;
+
 	import com.junkbyte.console.Cc;
 	
 	import flash.events.Event;
