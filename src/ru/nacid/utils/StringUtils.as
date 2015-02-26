@@ -66,6 +66,29 @@ package ru.nacid.utils
 			return $input;
 		}
 
+		public static function casedNumeric($value:Number,$kTrim:String = ' ',$dTrim:String = '.'):String
+		{
+			var dec:Number = $value % 1;
+			var kec:Number = $value - dec;
+			var response:String = '';
+
+			var str:String = kec.toString();
+			var i:int = 0;
+			while(i <= str.length)
+			{
+				var char:String = str.charAt(str.length - i);
+
+
+				response = char.concat(response);
+				if(i && i%3 == 0)
+					response = $kTrim.concat(response);
+
+				i++;
+			}
+
+			return dec ? response.concat($dTrim,dec.toString()) : response;
+		}
+
 		public static function unescapeString(input:String):String
 		{
 			var result:String="";
