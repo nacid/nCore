@@ -76,7 +76,8 @@ package ru.nacid.base.view.component.button
 		override protected function show():void
 		{
 			addListeners();
-			setState(ButtonState.UP);
+			if(!currentState)
+				setState(ButtonState.UP);
 		}
 
 		override protected function hide():void
