@@ -79,7 +79,7 @@ package ru.nacid.blanks.startup
 
 			if (data.remote is Array)
 			{
-				for (var i:int; i < data.remote.length; i++)
+				for (var i:int = 0; i < data.remote.length; i++)
 				{
 					LanCommand.urls.writeAlias(data.remote[i].key, data.remote[i]);
 				}

@@ -54,8 +54,8 @@ public class SimpleButton extends BaseButton
 
 
 		override protected function hide():void {
-			super.hide();
-			setState(ButtonState.UP);
+			if(currentState != ButtonState.DISABLED)
+				setState(ButtonState.UP);
 		}
 
 		protected function get contentContainer():DisplayObjectContainer
