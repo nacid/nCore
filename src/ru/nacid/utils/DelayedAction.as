@@ -23,10 +23,8 @@ package ru.nacid.utils
 
 		public function addAction($callback:Function, $delayFrame:uint=1, $scope:*=null):void
 		{
-			if (_actionsHash.hasOwnProperty($callback))
-			{
+			if (_actionsHash[$callback])
 				return;
-			}
 
 			_actionsHash[$callback]=_actions.push(new InternalAction($callback, _fps * $delayFrame, $scope));
 

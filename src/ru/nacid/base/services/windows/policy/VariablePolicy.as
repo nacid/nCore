@@ -32,7 +32,7 @@ package ru.nacid.base.services.windows.policy
 		protected var closeOther:Boolean;
 		protected var closeds:Array;
 
-		protected var active:Vector.<String>=new Vector.<String>([]);
+		protected var active:Vector.<String>=Vector.<String>([]);
 
 		private var indexes:Array;
 
