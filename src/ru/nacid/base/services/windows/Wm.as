@@ -55,6 +55,8 @@ package ru.nacid.base.services.windows
 		 * @param singleton DO NOT USE THIS - Use Wm.instance */
 		public function Wm(singleton:*)
 		{
+			dispatcherMode = true;
+
 			if (singleton is Wm || singleton is Singleton)
 			{
 				super();
@@ -64,7 +66,6 @@ package ru.nacid.base.services.windows
 			{
 				throw new Error("Wm is a singleton class.  Access via ''Wm.instance''.");
 			}
-
 		}
 
 		protected function init():void
@@ -105,7 +106,7 @@ package ru.nacid.base.services.windows
 			window.setData(e.openData);
 			windows.add(window);
 
-			activeList.push(e.targetWindow);
+			activate(e.targetWindow)
 			container.addAt(window, e.displayIndex);
 
 			if (window is IEventDispatcher)
