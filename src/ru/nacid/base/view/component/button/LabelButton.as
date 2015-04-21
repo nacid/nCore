@@ -16,9 +16,14 @@ package ru.nacid.base.view.component.button
 			defaultContent($format);
 
 			if ($text)
-			{
 				text=$text;
-			}
+		}
+
+		override public function arrange():void {
+			content.width = currentWidth;
+			content.height = currentHeight;
+
+			super.arrange();
 		}
 
 		override public function set content(value:DisplayObject):void
@@ -54,6 +59,7 @@ package ru.nacid.base.view.component.button
 		public function set text(value:String):void
 		{
 			_label.text=value;
+			arrange();
 		}
 
 		public function get text():String
