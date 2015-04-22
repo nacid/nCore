@@ -1,6 +1,5 @@
 package ru.nacid.base.view.interfaces
 {
-	import flash.display.DisplayObjectContainer;
 
 	public interface IDisplayContainerProxy extends IDisplayObject
 	{
