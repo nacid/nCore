@@ -53,7 +53,7 @@ package ru.nacid.base.services
 				
 				if (currentCommand is IPreventCommand)
 				{
-					//IPreventCommand(currentCommand).prevent(true);
+					IPreventCommand(currentCommand).prevent(true);
 				}
 				
 				step=list.size-1;
