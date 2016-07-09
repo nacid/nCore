@@ -188,7 +188,7 @@ package ru.nacid.base.services
 
 		public function getCurrentID():String
 		{
-			return currentCommand.symbol;
+			return currentCommand ? currentCommand.symbol : null;
 		}
 
 		public function get size():int

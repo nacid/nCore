@@ -92,7 +92,7 @@ package ru.nacid.base.services.logs
 			cont.add(screen);
 			Cc.start(screen.main, data.keystrokePassword.length ? data.keystrokePassword : HashUtils.getRandomSigSHA());
 
-			Cc.commandLine=data.commandLine
+			Cc.commandLine=data.commandLine;
 			Cc.width=cont.main.stage.stageWidth * data.wFactor;
 			Cc.height=cont.main.stage.stageHeight * data.hFactor;
 

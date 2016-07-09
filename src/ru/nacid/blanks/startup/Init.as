@@ -52,14 +52,25 @@ package ru.nacid.blanks.startup
 		protected var progressIndicator:DisplayObject;
 		protected var data:Object;
 
-		public function Init($mainObject:IDisplayContainerProxy, $settings:*)
+		public function Init($mainObject:IDisplayContainerProxy, 
+		                     $settings:*,
+		                     $appLayer:IDisplayContainerProxy = null,
+		                     $sysLayer:IDisplayContainerProxy = null)
 		{
 			symbol="initialization";
 
 			data=readSettings($settings);
-
-			$mainObject.add(appLayer=$mainObject.empty());
-			$mainObject.add(sysLayer=$mainObject.empty());
+			
+			
+			if($appLayer)
+					appLayer = $appLayer;
+			else 
+					$mainObject.add(appLayer = $mainObject.empty());
+			
+			if($sysLayer)
+					sysLayer = $sysLayer;
+			else 
+					$mainObject.add(sysLayer = $mainObject.empty());
 		}
 
 		override protected function execInternal():void
@@ -91,7 +102,7 @@ package ru.nacid.blanks.startup
 			}
 
 			Wm.instance.setContainer(appLayer);
-			addFpsSlash()
+			addFpsSlash();
 
 			collectQueue();
 			super.execInternal();
@@ -110,7 +121,7 @@ package ru.nacid.blanks.startup
 
 		protected function readSettings($settings:*):Object
 		{
-			return new Json().decodeObject($settings);
+			return $settings is String ? new Json().decodeObject($settings) : $settings;
 		}
 
 		protected function collectQueue():void
