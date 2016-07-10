@@ -209,7 +209,8 @@ package ru.nacid.base.services
 		{
 			if (msgEnabled)
 			{
-				channelError(err);
+				if(err)
+					channelError(err);
 				msgError();
 			}
 			dispatchEvent(new CommandEvent(CommandEvent.ERROR, 1));
