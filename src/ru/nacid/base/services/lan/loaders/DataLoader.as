@@ -58,6 +58,14 @@ package ru.nacid.base.services.lan.loaders
 
 		override protected function execInternal():void
 		{
+			prepareData();
+			req = urls.getUrl(url, data).urlRequest;
+			
+			loader.load(req);
+		}
+
+		protected function prepareData():void
+		{
 			if (exeData)
 			{
 				for (var field:String in exeData)
@@ -65,9 +73,6 @@ package ru.nacid.base.services.lan.loaders
 					data[field]=exeData[field];
 				}
 			}
-			req = urls.getUrl(url, data).urlRequest;
-			
-			loader.load(req);
 		}
 
 		override protected function responseHandler(e:Event):void
