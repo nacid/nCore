@@ -96,6 +96,12 @@ package ru.nacid.base.data.managment
 				}
 			}
 		}
+		
+		protected function deactivateAll():void
+		{
+			while(activeList.length)
+				deactivate(activeList[0]);
+		}
 
 		public function iterate($callback:Function, $startIndex:int=0):void
 		{
