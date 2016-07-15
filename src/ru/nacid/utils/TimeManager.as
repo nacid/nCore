@@ -27,5 +27,18 @@ package ru.nacid.utils {
 		{
 			return _lastAbs + (getTimer() - _lastRel)/1000;
 		}
+		
+		public static function timeToString($sec:int):String
+		{
+			var sec:int = $sec;
+			var min:int = int(sec / 60);
+			
+			return zeroCheck(min) + ':' + zeroCheck(sec - min * 60);
+			
+			function zeroCheck($time:int):String
+			{
+				return $time < 10 ? '0'.concat($time) : String($time);
+			}
+		}
 	}
 }

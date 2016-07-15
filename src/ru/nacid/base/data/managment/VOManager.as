@@ -121,6 +121,11 @@ package ru.nacid.base.data.managment
 
 			return response;
 		}
+		
+		public function get lastActive():String
+		{
+			return activeList.length ? activeList[activeList.length - 1] : null;
+		}
 
 		/* INTERFACE ru.nacid.base.services.logs.interfaces.IChannelParent */
 
