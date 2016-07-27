@@ -49,7 +49,7 @@ package ru.nacid.blanks.startup
 		protected var appLayer:IDisplayContainerProxy;
 		protected var sysLayer:IDisplayContainerProxy;
 
-		protected var progressIndicator:DisplayObject;
+		protected var autoStats:Boolean = true;
 		protected var data:Object;
 
 		public function Init($mainObject:IDisplayContainerProxy, 
@@ -113,10 +113,8 @@ package ru.nacid.blanks.startup
 			var callback:Function=(new Fps(sysLayer)).execute;
 			Cc.addSlashCommand(Fps.COMMAND_LINE, callback, 'show/hide stats frame');
 
-			if (Global.isDebug())
-			{
+			if (Global.isDebug() && autoStats)
 				callback.call();
-			}
 		}
 
 		protected function readSettings($settings:*):Object
