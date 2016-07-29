@@ -1,17 +1,14 @@
 package ru.nacid.base.services
 {
 
-	import by.blooddy.crypto.serialization.JSON;
-
 	import com.junkbyte.console.Cc;
-	
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 
 	import ru.nacid.base.data.Global;
-
 	import ru.nacid.base.services.interfaces.ICommand;
 	import ru.nacid.utils.HashUtils;
 
@@ -56,7 +53,7 @@ package ru.nacid.base.services
 		protected const PROGRESS_EVENT:CommandEvent=new CommandEvent(CommandEvent.PROGRESS, 0);
 		protected const COMPLETE_EVENT:CommandEvent=new CommandEvent(CommandEvent.COMPLETE, 1);
 
-
+		protected var errorStack:int = 0;
 		protected var exeData:Object;
 		protected var msgEnabled:Boolean=true;
 		protected var progress:Number=0;
@@ -277,7 +274,9 @@ package ru.nacid.base.services
 		public function channelError($string:String):void
 		{
 			Cc.errorch(CMD_CHANNEL, $string);
-			Cc.stackch(CMD_CHANNEL, 'getStack(-1):', 15);
+
+			if(errorStack)
+				Cc.stackch(CMD_CHANNEL, 'stacktrace:', errorStack);
 		}
 
 		public function channelCrit($string:String):void
