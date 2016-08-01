@@ -34,7 +34,7 @@ package ru.nacid.base.services
 		protected var list:VOList=new VOList();
 		protected var step:uint=0;
 		protected var interrupt:int=0;
-		protected var skipedCount:int=0;
+		protected var skippedCount:int =0;
 		protected var interruptFrame:int = 60;
 		protected var delayFrame:int = 1;
 
@@ -84,7 +84,7 @@ package ru.nacid.base.services
 				if ($skipProgress)
 				{
 					cmd.useProgress=false;
-					++skipedCount;
+					++skippedCount;
 				}
 
 				if (msgEnabled)
@@ -104,8 +104,8 @@ package ru.nacid.base.services
 				currentInterrupt=interrupt;
 			}
 
-			stepProgress=1 / (list.size - skipedCount);
-			skipedCount=0;
+			stepProgress=1 / (list.size - skippedCount);
+			skippedCount =0;
 			list.sort(prioritySorter);
 			makeStep();
 		}
@@ -119,7 +119,7 @@ package ru.nacid.base.services
 
 				if (currentCommand.useProgress)
 				{
-					++skipedCount;
+					++skippedCount;
 				}
 				++step;
 			}
@@ -157,7 +157,7 @@ package ru.nacid.base.services
 
 		protected function progressHandler(e:CommandEvent):void
 		{
-			commitProgress((skipedCount + e.progress) * stepProgress);
+			commitProgress((skippedCount + e.progress) * stepProgress);
 		}
 
 		private function prioritySorter(x:Command, y:Command):Number
