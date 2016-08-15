@@ -3,6 +3,7 @@ package ru.nacid.base.services.lan.loaders
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
+	import flash.events.SecurityErrorEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	
@@ -48,6 +49,7 @@ package ru.nacid.base.services.lan.loaders
 
 			loader.addEventListener(Event.COMPLETE, responseHandler);
 			loader.addEventListener(IOErrorEvent.IO_ERROR, onError);
+			loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onError);
 			loader.addEventListener(ProgressEvent.PROGRESS, progressHandler);
 		}
 
@@ -82,10 +84,10 @@ package ru.nacid.base.services.lan.loaders
 
 			super.responseHandler(e);
 		}
-
-
+		
 		override public function terminate():void {
 			loader.removeEventListener(Event.COMPLETE, responseHandler);
+			loader.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onError);
 			loader.removeEventListener(IOErrorEvent.IO_ERROR, onError);
 			loader.removeEventListener(ProgressEvent.PROGRESS, progressHandler);
 
